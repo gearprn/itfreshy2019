@@ -10,7 +10,17 @@ module.exports = {
             let userRef = firestore.collection('users').doc();
             let saveUser = await userRef.set(JSON.parse(JSON.stringify(user)));
             if (saveUser) {
-                res.send("BOOM!");
+                res.send({
+                    statusCode: 201,
+                    status: true,
+                    message: "User Created",
+                });
+            } else {
+                res.send({
+                    statusCode: 400,
+                    status: false,
+                    message: "Something went wrong when you try to register"
+                });
             }
 
         } catch(e) {
