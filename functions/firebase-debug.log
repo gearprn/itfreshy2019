@@ -1,0 +1,152 @@
+[debug] [2019-08-07T10:39:54.369Z] ----------------------------------------------------------------------
+[debug] [2019-08-07T10:39:54.371Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jobja\Desktop\Project\itfreshy2019\functions\node_modules\firebase-tools\lib\bin\firebase.js serve --only functions
+[debug] [2019-08-07T10:39:54.371Z] CLI Version:   7.2.2
+[debug] [2019-08-07T10:39:54.371Z] Platform:      win32
+[debug] [2019-08-07T10:39:54.371Z] Node Version:  v12.4.0
+[debug] [2019-08-07T10:39:54.372Z] Time:          Wed Aug 07 2019 17:39:54 GMT+0700 (Indochina Time)
+[debug] [2019-08-07T10:39:54.372Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-08-07T10:39:54.378Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-08-07T10:39:54.379Z] > authorizing via signed-in user
+[debug] [2019-08-07T10:39:54.379Z] [iam] checking project itfreshy2019 for permissions ["firebase.projects.get"]
+[debug] [2019-08-07T10:39:54.380Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/itfreshy2019:testIamPermissions  
+
+[debug] [2019-08-07T10:39:55.634Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-07T10:39:55.636Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/itfreshy2019  
+ 
+[debug] [2019-08-07T10:39:56.011Z] <<< HTTP RESPONSE 200
+[warn] !  Your requested "node" version "8" doesn't match your global version "12"
+[debug] [2019-08-07T10:39:56.023Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/itfreshy2019/adminSdkConfig  
+ 
+[debug] [2019-08-07T10:39:56.371Z] <<< HTTP RESPONSE 200
+[info] +  functions: Emulator started at http://localhost:5000
+[info] i  functions: Watching "C:\Users\jobja\Desktop\Project\itfreshy2019\functions" for Cloud Functions...
+[debug] [2019-08-07T10:39:56.919Z] [runtime-status] Functions runtime initialized. {"cwd":"C:\\Users\\jobja\\Desktop\\Project\\itfreshy2019\\functions","node_version":"12.4.0"}
+[debug] [2019-08-07T10:39:56.920Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-08-07T10:39:56.920Z] [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.3.0","resolution":"C:\\Users\\jobja\\Desktop\\Project\\itfreshy2019\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2019-08-07T10:39:56.922Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"C:\\Users\\jobja\\Desktop\\Project\\itfreshy2019\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2019-08-07T10:39:56.922Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"C:\\Users\\jobja\\Desktop\\Project\\itfreshy2019\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[warn] !  TypeError: Router.use() requires a middleware function but got a undefined
+    at Function.use (C:\Users\jobja\Desktop\Project\itfreshy2019\functions\node_modules\express\lib\router\index.js:458:13)
+    at Object.<anonymous> (C:\Users\jobja\Desktop\Project\itfreshy2019\functions\src\routes\index.js:9:8)
+    at Module._compile (internal/modules/cjs/loader.js:774:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:785:10)
+    at Module.load (internal/modules/cjs/loader.js:641:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:556:12)
+    at Module.require (internal/modules/cjs/loader.js:681:19)
+    at require (internal/modules/cjs/helpers.js:16:16)
+    at Object.<anonymous> (C:\Users\jobja\Desktop\Project\itfreshy2019\functions\index.js:4:41)
+    at Module._compile (internal/modules/cjs/loader.js:774:30)
+[warn] !  We were unable to load your functions code. (see above)
+[debug] [2019-08-07T10:41:25.995Z] File C:\Users\jobja\Desktop\Project\itfreshy2019\functions\src\routes\index.js changed, reloading triggers
+[debug] [2019-08-07T10:41:27.283Z] [runtime-status] Functions runtime initialized. {"cwd":"C:\\Users\\jobja\\Desktop\\Project\\itfreshy2019\\functions","node_version":"12.4.0"}
+[debug] [2019-08-07T10:41:27.283Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-08-07T10:41:27.285Z] [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.3.0","resolution":"C:\\Users\\jobja\\Desktop\\Project\\itfreshy2019\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2019-08-07T10:41:27.287Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"C:\\Users\\jobja\\Desktop\\Project\\itfreshy2019\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2019-08-07T10:41:27.287Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"C:\\Users\\jobja\\Desktop\\Project\\itfreshy2019\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[warn] !  TypeError: Router.use() requires a middleware function but got a undefined
+    at Function.use (C:\Users\jobja\Desktop\Project\itfreshy2019\functions\node_modules\express\lib\router\index.js:458:13)
+    at Object.<anonymous> (C:\Users\jobja\Desktop\Project\itfreshy2019\functions\src\routes\index.js:9:8)
+    at Module._compile (internal/modules/cjs/loader.js:774:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:785:10)
+    at Module.load (internal/modules/cjs/loader.js:641:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:556:12)
+    at Module.require (internal/modules/cjs/loader.js:681:19)
+    at require (internal/modules/cjs/helpers.js:16:16)
+    at Object.<anonymous> (C:\Users\jobja\Desktop\Project\itfreshy2019\functions\index.js:4:41)
+    at Module._compile (internal/modules/cjs/loader.js:774:30)
+[warn] !  We were unable to load your functions code. (see above)
+[debug] [2019-08-07T10:43:04.676Z] File C:\Users\jobja\Desktop\Project\itfreshy2019\functions\src\controller\userController.js changed, reloading triggers
+[debug] [2019-08-07T10:43:05.972Z] [runtime-status] Functions runtime initialized. {"cwd":"C:\\Users\\jobja\\Desktop\\Project\\itfreshy2019\\functions","node_version":"12.4.0"}
+[debug] [2019-08-07T10:43:05.972Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-08-07T10:43:05.974Z] [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.3.0","resolution":"C:\\Users\\jobja\\Desktop\\Project\\itfreshy2019\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2019-08-07T10:43:05.976Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"C:\\Users\\jobja\\Desktop\\Project\\itfreshy2019\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2019-08-07T10:43:05.976Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"C:\\Users\\jobja\\Desktop\\Project\\itfreshy2019\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[warn] !  TypeError: Router.use() requires a middleware function but got a undefined
+    at Function.use (C:\Users\jobja\Desktop\Project\itfreshy2019\functions\node_modules\express\lib\router\index.js:458:13)
+    at Object.<anonymous> (C:\Users\jobja\Desktop\Project\itfreshy2019\functions\src\routes\index.js:9:8)
+    at Module._compile (internal/modules/cjs/loader.js:774:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:785:10)
+    at Module.load (internal/modules/cjs/loader.js:641:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:556:12)
+    at Module.require (internal/modules/cjs/loader.js:681:19)
+    at require (internal/modules/cjs/helpers.js:16:16)
+    at Object.<anonymous> (C:\Users\jobja\Desktop\Project\itfreshy2019\functions\index.js:4:41)
+    at Module._compile (internal/modules/cjs/loader.js:774:30)
+[warn] !  We were unable to load your functions code. (see above)
+[debug] [2019-08-07T10:43:13.184Z] ----------------------------------------------------------------------
+[debug] [2019-08-07T10:43:13.186Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jobja\Desktop\Project\itfreshy2019\functions\node_modules\firebase-tools\lib\bin\firebase.js serve --only functions
+[debug] [2019-08-07T10:43:13.187Z] CLI Version:   7.2.2
+[debug] [2019-08-07T10:43:13.187Z] Platform:      win32
+[debug] [2019-08-07T10:43:13.187Z] Node Version:  v12.4.0
+[debug] [2019-08-07T10:43:13.188Z] Time:          Wed Aug 07 2019 17:43:13 GMT+0700 (Indochina Time)
+[debug] [2019-08-07T10:43:13.188Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-08-07T10:43:13.194Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-08-07T10:43:13.194Z] > authorizing via signed-in user
+[debug] [2019-08-07T10:43:13.194Z] [iam] checking project itfreshy2019 for permissions ["firebase.projects.get"]
+[debug] [2019-08-07T10:43:13.195Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/itfreshy2019:testIamPermissions  
+
+[debug] [2019-08-07T10:43:14.698Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-07T10:43:14.700Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/itfreshy2019  
+ 
+[debug] [2019-08-07T10:43:15.247Z] <<< HTTP RESPONSE 200
+[warn] !  Your requested "node" version "8" doesn't match your global version "12"
+[debug] [2019-08-07T10:43:15.259Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/itfreshy2019/adminSdkConfig  
+ 
+[debug] [2019-08-07T10:43:15.554Z] <<< HTTP RESPONSE 200
+[info] +  functions: Emulator started at http://localhost:5000
+[info] i  functions: Watching "C:\Users\jobja\Desktop\Project\itfreshy2019\functions" for Cloud Functions...
+[debug] [2019-08-07T10:43:16.103Z] [runtime-status] Functions runtime initialized. {"cwd":"C:\\Users\\jobja\\Desktop\\Project\\itfreshy2019\\functions","node_version":"12.4.0"}
+[debug] [2019-08-07T10:43:16.103Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-08-07T10:43:16.104Z] [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.3.0","resolution":"C:\\Users\\jobja\\Desktop\\Project\\itfreshy2019\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2019-08-07T10:43:16.105Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"C:\\Users\\jobja\\Desktop\\Project\\itfreshy2019\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2019-08-07T10:43:16.105Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"C:\\Users\\jobja\\Desktop\\Project\\itfreshy2019\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[warn] !  TypeError: Router.use() requires a middleware function but got a undefined
+    at Function.use (C:\Users\jobja\Desktop\Project\itfreshy2019\functions\node_modules\express\lib\router\index.js:458:13)
+    at Object.<anonymous> (C:\Users\jobja\Desktop\Project\itfreshy2019\functions\src\routes\index.js:9:8)
+    at Module._compile (internal/modules/cjs/loader.js:774:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:785:10)
+    at Module.load (internal/modules/cjs/loader.js:641:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:556:12)
+    at Module.require (internal/modules/cjs/loader.js:681:19)
+    at require (internal/modules/cjs/helpers.js:16:16)
+    at Object.<anonymous> (C:\Users\jobja\Desktop\Project\itfreshy2019\functions\index.js:4:41)
+    at Module._compile (internal/modules/cjs/loader.js:774:30)
+[warn] !  We were unable to load your functions code. (see above)
+[debug] [2019-08-07T10:48:50.719Z] File C:\Users\jobja\Desktop\Project\itfreshy2019\functions\src\routes\index.js changed, reloading triggers
+[debug] [2019-08-07T10:48:52.024Z] [runtime-status] Functions runtime initialized. {"cwd":"C:\\Users\\jobja\\Desktop\\Project\\itfreshy2019\\functions","node_version":"12.4.0"}
+[debug] [2019-08-07T10:48:52.025Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-08-07T10:48:52.027Z] [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.3.0","resolution":"C:\\Users\\jobja\\Desktop\\Project\\itfreshy2019\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2019-08-07T10:48:52.028Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"C:\\Users\\jobja\\Desktop\\Project\\itfreshy2019\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2019-08-07T10:48:52.029Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"C:\\Users\\jobja\\Desktop\\Project\\itfreshy2019\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[warn] !  TypeError: Router.use() requires a middleware function but got a undefined
+    at Function.use (C:\Users\jobja\Desktop\Project\itfreshy2019\functions\node_modules\express\lib\router\index.js:458:13)
+    at Object.<anonymous> (C:\Users\jobja\Desktop\Project\itfreshy2019\functions\src\routes\index.js:10:8)
+    at Module._compile (internal/modules/cjs/loader.js:774:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:785:10)
+    at Module.load (internal/modules/cjs/loader.js:641:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:556:12)
+    at Module.require (internal/modules/cjs/loader.js:681:19)
+    at require (internal/modules/cjs/helpers.js:16:16)
+    at Object.<anonymous> (C:\Users\jobja\Desktop\Project\itfreshy2019\functions\index.js:4:41)
+    at Module._compile (internal/modules/cjs/loader.js:774:30)
+[warn] !  We were unable to load your functions code. (see above)
+[debug] [2019-08-07T10:51:19.605Z] File C:\Users\jobja\Desktop\Project\itfreshy2019\functions\src\routes\index.js changed, reloading triggers
+[debug] [2019-08-07T10:51:20.882Z] [runtime-status] Functions runtime initialized. {"cwd":"C:\\Users\\jobja\\Desktop\\Project\\itfreshy2019\\functions","node_version":"12.4.0"}
+[debug] [2019-08-07T10:51:20.882Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-08-07T10:51:20.884Z] [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.3.0","resolution":"C:\\Users\\jobja\\Desktop\\Project\\itfreshy2019\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2019-08-07T10:51:20.885Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"C:\\Users\\jobja\\Desktop\\Project\\itfreshy2019\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2019-08-07T10:51:20.886Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"C:\\Users\\jobja\\Desktop\\Project\\itfreshy2019\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[warn] !  TypeError: app.use is not a function
+    at Object.<anonymous> (C:\Users\jobja\Desktop\Project\itfreshy2019\functions\src\routes\index.js:8:5)
+    at Module._compile (internal/modules/cjs/loader.js:774:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:785:10)
+    at Module.load (internal/modules/cjs/loader.js:641:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:556:12)
+    at Module.require (internal/modules/cjs/loader.js:681:19)
+    at require (internal/modules/cjs/helpers.js:16:16)
+    at Object.<anonymous> (C:\Users\jobja\Desktop\Project\itfreshy2019\functions\index.js:4:41)
+    at Module._compile (internal/modules/cjs/loader.js:774:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:785:10)
+[warn] !  We were unable to load your functions code. (see above)
