@@ -1,4 +1,4 @@
-User = (name, nickname, id, year, imgURL, branch, bio) => {
+User = function User(name, nickname, id, year, imgURL, branch, bio) {
     this.name = name;
     this.nickname = nickname;
     this.id = id;
