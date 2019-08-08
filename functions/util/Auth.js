@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const admin = require("../src/config/firebase");
 const firestore = admin.firestore();
+require('custom-env').env();
 
 async function generateToken(userId) {
     try {
@@ -13,6 +14,21 @@ async function generateToken(userId) {
         return token;
     } catch (e) {
         // eslint-disable-next-line no-console
+        console.log(e);
+    }
+}
+
+async function registerFacebook(email) {
+    try {
+        let addUser = await firestore.collection('users').add({
+            email:email
+        });
+        if (addUser) {
+            return addUser.id
+        } else {
+            return false
+        }
+    } catch (e) {
         console.log(e);
     }
 }
@@ -69,7 +85,13 @@ module.exports = {
                 let token = await generateToken(data.doc.id);
                 return token;
             } else {
-                return data.status
+                let uid = await registerFacebook(email);
+                if (uid) {
+                    let token = await generateToken(uid);
+                    return token;
+                } else {
+                    return false
+                }
             }
         } catch (e) {
             // eslint-disable-next-line no-console

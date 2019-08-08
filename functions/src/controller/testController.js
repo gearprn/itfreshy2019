@@ -1,5 +1,9 @@
+const Auth = require('../../util/Auth')
+
 module.exports = {
     test: async (req, res, err) => {
-        res.send("test-controller");
+        let {token} = req.body;
+        let {userId} = await Auth.validateToken(token);
+        console.log(userId);
     }
 };

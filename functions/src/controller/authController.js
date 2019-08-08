@@ -28,7 +28,7 @@ module.exports = {
                     rse.send({
                         statusCode: 401,
                         status: false,
-                        message: 'Login fail [Please register]'
+                        message: 'Login fail'
                     })
                 }
             }
