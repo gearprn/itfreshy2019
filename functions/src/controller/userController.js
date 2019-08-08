@@ -7,18 +7,28 @@ var firestore = admin.firestore();
 module.exports = {
     register : async (req, res) => {
         try {
+            let batch = firestore.batch();
             let uid = "test";
             let {name, nickname, id, year, imgURL, branch, bio, email} = req.body;
             let qrCode = new QRCode(uid, randomstring.generate(7));
             let user = new User(uid, name, nickname, id, year, imgURL, branch, bio, qrCode, email);
             let userRef = firestore.collection('users').doc(uid); //todo: save this data to given uid from facebook login
-            let saveUser = await userRef.set(JSON.parse(JSON.stringify(user)));
-            if (saveUser) {
-                res.send({
-                    statusCode: 201,
-                    status: true,
-                    message: "User Created",
-                });
+            let saveUser = await batch.set(userRef, JSON.parse(JSON.stringify(user)));
+
+            let nameArrayRef = firestore.doc('users/nameArray');
+            let getArray = await nameArrayRef.get();
+            let array = getArray.data().array;
+            array.push(user.nickname);
+            let saveArray = await batch.set(nameArrayRef, {"array": array}, {merge: true})
+
+            if (saveUser && saveArray) {
+                batch.commit().then(() => {
+                    res.send({
+                        statusCode: 201,
+                        status: true,
+                        message: "User Created",
+                    });
+                })
             } else {
                 res.send({
                     statusCode: 400,

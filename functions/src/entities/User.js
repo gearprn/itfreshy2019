@@ -16,6 +16,7 @@ class User {
             year4: 0
         };
         this.qrCode = qrCode;
+        this.email = email;
     }
 }
 
