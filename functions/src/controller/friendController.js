@@ -8,18 +8,27 @@ var QrText = require("../../util/QrText");
 module.exports = {
     quiz : async (req, res) => {
         try {
-            let {encode} = req.body;
-            let friend = await firestore.collection("users").where("qrCode.encode", "==", encode).get();
-            friend = friend.data();
-            console.log(JSON.stringify(friend));
+            let {encoded} = req.body;
+            let friend = {};
+            await firestore.collection("users").where("qrCode.encoded", "==", encoded)
+                .get()
+                .then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                        friend = doc.data();
+                        friend["uid"] = doc.id
+                    });
+                })
+                .catch(function(error) {
+                    console.log("Error getting documents: ", error);
+                });
 
             let choice = {};
-            let friendUid = await QrText.decode(encode, friend.qrCode.hash);
+            let friendUid = await QrText.decode(encoded, friend.qrCode.hash);
 
-            if(friend.qrCode.uid == friendUid){
+            if(friend.uid == friendUid){
                 friend.qrCode.counter++;
                 if(friend.qrCode.counter >= 7){
-                    let hash = randomstring.generate(7)
+                    let hash = randomstring.generate(7);
                     let encoded = QrText.generate(uid, hash);
                     let newQrCode = new QRCode(uid, hash, encoded);
                     await firestore.collection("users").doc(friendUid).update({
@@ -27,8 +36,8 @@ module.exports = {
                     })
                 }
                 let names = await firestore.collection("users").doc("nameArray").get();
-                names = names.data();
-                choice = QrText.randomChoice(friend, names);
+                names = names.data().array;
+                choice = await QrText.randomChoice(friend, names);
                 res.send({
                     statusCode: 200,
                     status: true,
