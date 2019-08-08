@@ -5,8 +5,10 @@ module.exports = {
     loginFacebook: async  (req, rse) => {
         try {
             let {uid} = req.body;
-            let email = await admin.auth().getUser(uid)
-                .then(  (userRecord) => { return userRecord.toJSON().providerData[0].email })
+            let providerData = await admin.auth().getUser(uid)
+                .then(  (userRecord) => {
+                    return userRecord.toJSON().providerData[0];
+                })
                 .catch(function(error) {
                     rse.send({
                         statusCode: 404,
@@ -15,8 +17,8 @@ module.exports = {
                         error: error
                     })
                 });
-            if (email) {
-                let token = await Auth.loginFacebook(email);
+            if (providerData.email) {
+                let token = await Auth.loginFacebook(providerData);
                 if (token) {
                     rse.send({
                         statusCode: 200,

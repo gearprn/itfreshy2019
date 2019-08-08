@@ -18,10 +18,11 @@ async function generateToken(userId) {
     }
 }
 
-async function registerFacebook(email) {
+async function registerFacebook(providerData) {
     try {
         let addUser = await firestore.collection('users').add({
-            email:email
+            email: providerData.email,
+            photoURL: providerData.photoURL
         });
         if (addUser) {
             return addUser.id
@@ -47,10 +48,10 @@ module.exports = {
             console.log(e);
         }
     },
-    loginFacebook: async (email) => {
+    loginFacebook: async (providerData) => {
         try {
             let data = await new Promise((resolve) => {
-                firestore.collection('users').where('email','==',email).get()
+                firestore.collection('users').where('email','==',providerData.email).get()
                     .then((snapshot)=> {
                         if (snapshot.empty) {
                             // eslint-disable-next-line no-console
@@ -85,7 +86,7 @@ module.exports = {
                 let token = await generateToken(data.doc.id);
                 return token;
             } else {
-                let uid = await registerFacebook(email);
+                let uid = await registerFacebook(providerData);
                 if (uid) {
                     let token = await generateToken(uid);
                     return token;
