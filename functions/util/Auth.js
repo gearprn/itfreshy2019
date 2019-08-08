@@ -35,8 +35,10 @@ async function registerFacebook(providerData) {
 }
 
 module.exports = {
-    validateToken: async (token) => {
+    validateToken: async (request) => {
         try {
+            token = request.headers.authorization;
+            token = token.split(' ')[1];
             let decoded = jwt.verify(token, process.env.JWT_KEY);
             if (decoded) {
                 return decoded
