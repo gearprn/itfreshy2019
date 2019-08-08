@@ -7,9 +7,10 @@ var firestore = admin.firestore();
 module.exports = {
     register : async (req, res) => {
         try {
-            let {uid, name, nickname, id, year, imgURL, branch, bio} = req.body;
-            let qrCode = new QRCode(randomstring.generate(7));
-            let user = new User(uid, name, nickname, id, year, imgURL, branch, bio, qrCode);
+            let uid = "test";
+            let {name, nickname, id, year, imgURL, branch, bio, email} = req.body;
+            let qrCode = new QRCode(uid, randomstring.generate(7));
+            let user = new User(uid, name, nickname, id, year, imgURL, branch, bio, qrCode, email);
             let userRef = firestore.collection('users').doc(uid); //todo: save this data to given uid from facebook login
             let saveUser = await userRef.set(JSON.parse(JSON.stringify(user)));
             if (saveUser) {

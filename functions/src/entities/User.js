@@ -1,5 +1,5 @@
 class User {
-    constructor (uid, name, nickname, id, year, imgURL, branch, bio, qrCode) {
+    constructor (uid, name, nickname, id, year, imgURL, branch, bio, qrCode, email) {
         this.uid = uid;
         this.name = name;
         this.nickname = nickname;
