@@ -1,9 +1,7 @@
-var randomstring = require("randomstring");
-
 class QRCode {
-    constructor() {
+    constructor(hash) {
         this.encoded = 0;
-        this.hash = randomstring.generate(7);
+        this.hash = hash;
         this.counter = 0;
     }
 }
