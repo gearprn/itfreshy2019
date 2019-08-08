@@ -13,7 +13,7 @@ module.exports = {
             friend = friend.data();
             console.log(JSON.stringify(friend));
 
-            let choice = QrText.choice(friend, names);
+            let choice = {};
             let friendUid = await QrText.decode(encode, friend.qrCode.hash);
 
             if(friend.qrCode.uid == friendUid){
