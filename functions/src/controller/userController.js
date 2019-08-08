@@ -1,13 +1,15 @@
-var User = require("../entities/User")
-var admin = require("../config/firebase")
+var User = require("../entities/User");
+var QRCode = require("../entities/QRCode");
+var admin = require("../config/firebase");
 var firestore = admin.firestore();
 
 module.exports = {
     register : async (req, res) => {
         try {
-            let {name, nickname, id, year, imgURL, branch, bio} = req.body;
-            let user = new User(name, nickname, id, year, imgURL, branch, bio);
-            let userRef = firestore.collection('users').doc();
+            let {uid, name, nickname, id, year, imgURL, branch, bio} = req.body;
+            let qrCode = new QRCode(uid);
+            let user = new User(uid, name, nickname, id, year, imgURL, branch, bio, qrCode);
+            let userRef = firestore.collection('users').doc(uid); //todo: save this data to given uid from facebook login
             let saveUser = await userRef.set(JSON.parse(JSON.stringify(user)));
             if (saveUser) {
                 res.send({
@@ -30,7 +32,7 @@ module.exports = {
                 status: false,
                 message: "Internal Server Error",
                 error: e
-            })
+            });
         }
-    }
+    },
 };
