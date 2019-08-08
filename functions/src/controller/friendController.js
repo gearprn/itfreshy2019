@@ -8,33 +8,38 @@ var QrText = require("../../util/QrText");
 module.exports = {
     quiz : async (req, res) => {
         try {
-            let qrCode = req.body;
-            let friendUid = await QrText.decode(qrCode.encode, qrCode.hash);
-            let friendRef = firestore.collection("users").doc(friendUid);
-            if(qrCode.counter == 7){
-                let newQrCode = new QRCode(friendUid, randomstring.generate(7));
-                await friendRef.update({
-                    qrCode: JSON.parse(JSON.stringify(newQrCode))
-                })
-            }
-            let names = await firestore.collection("users").doc("nameArray").get();
-            names = names.data();
-            let friend = await firestore.collection("users").doc(friendUid).get();
+            let {encode} = req.body;
+            let friend = await firestore.collection("users").where("qrCode.encode", "==", encode).get();
             friend = friend.data();
-            console.log(names);
-            choices = [];
-            let choices = {};
-            choices[Math.floor((Math.random() * 4) + 1)] = friend.nickname;
-            for(let i=0;i<3;i++){
+            console.log(JSON.stringify(friend));
 
+            let choice = QrText.choice(friend, names);
+            let friendUid = await QrText.decode(encode, friend.qrCode.hash);
+
+            if(friend.qrCode.uid == friendUid){
+                friend.qrCode.counter++;
+                if(friend.qrCode.counter >= 7){
+                    let newQrCode = new QRCode(friendUid, randomstring.generate(7));
+                    await friendRef.update({
+                        qrCode: JSON.parse(JSON.stringify(newQrCode))
+                    })
+                }
+                let names = await firestore.collection("users").doc("nameArray").get();
+                names = names.data();
+                choice = QrText.randomChoice(friend, names);
+                res.send({
+                    statusCode: 200,
+                    status: true,
+                    message: "Success",
+                    data:{choice:choice}
+                });
+            } else {
+                res.send({
+                    statusCode: 400,
+                    status: false,
+                    message: "QrCode Expired"
+                });
             }
-            res.send({
-                statusCode: 201,
-                status: true,
-                message: "User Created",
-                user:friendRef
-            });
-
         } catch(e) {
             console.log(e);
             res.send({
