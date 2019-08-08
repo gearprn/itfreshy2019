@@ -19,7 +19,9 @@ module.exports = {
             if(friend.qrCode.uid == friendUid){
                 friend.qrCode.counter++;
                 if(friend.qrCode.counter >= 7){
-                    let newQrCode = new QRCode(friendUid, randomstring.generate(7));
+                    let hash = randomstring.generate(7)
+                    let encoded = QrText.generate(uid, hash);
+                    let newQrCode = new QRCode(uid, hash, encoded);
                     await firestore.collection("users").doc(friendUid).update({
                         qrCode: JSON.parse(JSON.stringify(newQrCode))
                     })

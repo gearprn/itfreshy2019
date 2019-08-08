@@ -13,7 +13,7 @@ module.exports = {
         let choices = {};
         choices[allChoices.splice(Math.floor(Math.random() * allChoices.length), 1)[0]] = friend.nickname;
         for(let i=0;i<3;i++){
-            choices[allChoices.splice(Math.floor(Math.random() * allChoices.length), 1)[0]] = name[Math.floor(Math.random() * names.length]
+            choices[allChoices.splice(Math.floor(Math.random() * allChoices.length), 1)[0]] = name[Math.floor(Math.random() * names.length)]
         }
         return choices
     },
