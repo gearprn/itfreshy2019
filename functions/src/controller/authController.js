@@ -1,4 +1,3 @@
-// const {firebaseAuth} = require('../config/firebase');
 const admin = require('firebase-admin');
 const Auth = require('../../util/Auth')
 
@@ -12,7 +11,7 @@ module.exports = {
                     rse.send({
                         statusCode: 404,
                         status: false,
-                        message: 'Email not found!',
+                        message: 'Facebook uid not found!',
                         error: error
                     })
                 });
@@ -29,16 +28,9 @@ module.exports = {
                     rse.send({
                         statusCode: 401,
                         status: false,
-                        message: 'Login fail'
+                        message: 'Login fail [Please register]'
                     })
                 }
-            } else {
-                rse.send({
-                    statusCode: 404,
-                    status: false,
-                    message: 'Email not found!',
-                    error: email
-                })
             }
         } catch (e) {
             rse.send(e);

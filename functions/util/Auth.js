@@ -31,10 +31,10 @@ module.exports = {
             console.log(e);
         }
     },
-    loginFacebook: async (userData) => {
+    loginFacebook: async (email) => {
         try {
             let data = await new Promise((resolve) => {
-                firestore.collection('users').where('email','==',userData).get()
+                firestore.collection('users').where('email','==',email).get()
                     .then((snapshot)=> {
                         if (snapshot.empty) {
                             // eslint-disable-next-line no-console
@@ -66,7 +66,7 @@ module.exports = {
                     });
             });
             if (data.status) {
-                let token = await generateToken(data.id());
+                let token = await generateToken(data.doc.id);
                 return token;
             } else {
                 return data.status
@@ -75,13 +75,5 @@ module.exports = {
             // eslint-disable-next-line no-console
             console.log(e);
         }
-    },
-    // registerFacebook: (req) => {
-    //     try {
-    //
-    //     } catch (e) {
-    //         // eslint-disable-next-line no-console
-    //         console.log(e);
-    //     }
-    // }
+    }
 }
