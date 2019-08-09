@@ -14,10 +14,9 @@ module.exports = {
         choices[allChoices.splice(Math.floor(Math.random() * allChoices.length), 1)[0]] = friend.nickname;
         names.splice(names.indexOf(friend.nickname), 1);
         for(let i=0;i<3;i++){
-            console.log(names);
             choices[allChoices.splice(Math.floor(Math.random() * allChoices.length), 1)[0]] = names.splice(Math.floor(Math.random() * names.length), 1)[0]
         }
-        console.log(choices)
+        console.log(choices);
         return choices
     },
 };
