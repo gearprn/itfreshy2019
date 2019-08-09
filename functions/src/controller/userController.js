@@ -1,22 +1,25 @@
-var randomstring = require("randomstring");
-var User = require("../entities/User");
-var QRCode = require("../entities/QRCode");
-var admin = require("../config/firebase");
-var firestore = admin.firestore();
-var QrText = require("../../util/QrText");
+const randomstring = require("randomstring");
+const User = require("../entities/User");
+const QRCode = require("../entities/QRCode");
+const admin = require("../config/firebase");
+const QrText = require("../../util/QrText");
+const { validateToken } = require("../../util/Auth");
+const firestore = admin.firestore();
 
 module.exports = {
     register : async (req, res) => {
         try {
             let batch = firestore.batch();
-            let uid = "test";
+
+            let uidOBJ = await validateToken(req);
+            let uid = uidOBJ.userId;
             let {name, nickname, id, year, imgURL, branch, bio, email} = req.body;
             let hash = randomstring.generate(7);
             let encoded = await QrText.generate(uid, hash);
             let qrCode = new QRCode(uid, hash, encoded);
             let user = new User(uid, name, nickname, id, year, imgURL, branch, bio, qrCode, email);
             let userRef = firestore.collection('users').doc(uid); //todo: save this data to given uid from facebook login
-            let saveUser = await batch.set(userRef, JSON.parse(JSON.stringify(user)));
+            let saveUser = await batch.update(userRef, JSON.parse(JSON.stringify(user)));
 
             let nameArrayRef = firestore.doc('users/nameArray');
             let getArray = await nameArrayRef.get();
