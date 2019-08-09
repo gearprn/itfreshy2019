@@ -76,8 +76,8 @@ module.exports = {
             //for test api
             let userId;
             let token = req.headers.authorization;
-            console.log(token.split(" ")[1])
-            await firestore.collection("tokens").where("token", "==", "test")
+            console.log(token.split(" ")[1]);
+            await firestore.collection("tokens").where("token", "==", "testio9 ")
                 .get()
                 .then(function(querySnapshot) {
                     querySnapshot.forEach(function(doc) {
@@ -91,8 +91,10 @@ module.exports = {
 
                 let userFriendList = userData.friendList;
                 userData.friendList = null;
+                userData.qrCode = null;
                 let friendFriendList = friendData.friendList;
                 friendData.friendList = null;
+                friendData.qrCode = null;
 
                 userFriendList.push(friendData);
                 friendFriendList.push(userData);
