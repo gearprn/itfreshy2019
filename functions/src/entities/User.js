@@ -13,7 +13,8 @@ class User {
             year1: 0,
             year2: 0,
             year3: 0,
-            year4: 0
+            year4: 0,
+            sum: 0
         };
         this.qrCode = qrCode;
         this.email = email;

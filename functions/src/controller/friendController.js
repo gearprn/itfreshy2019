@@ -92,9 +92,11 @@ module.exports = {
                 let userFriendList = userData.friendList;
                 userData.friendList = null;
                 userData.qrCode = null;
+                userData.amountOf.sum += 1;
                 let friendFriendList = friendData.friendList;
                 friendData.friendList = null;
                 friendData.qrCode = null;
+                friendDataamountOf.sum += 1;
 
                 userFriendList.push(friendData);
                 friendFriendList.push(userData);
