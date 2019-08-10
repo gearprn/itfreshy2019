@@ -78,5 +78,80 @@ module.exports = {
                 error: e
             });
         }
+    },
+
+    edit : async (req, res) => {
+        try {
+            let uidOBJ = await validateToken(req);
+            let uid = uidOBJ.userId;
+
+            let userRef = firestore.collection('users').doc(uid);
+            await userRef.get().then((doc) => {
+                if (doc.exists) {
+                    let {nickname, bio, branch} = req.body;
+                    let payload = {
+                        'nickname': nickname,
+                        'bio': bio,
+                        'branch': branch,
+                    }
+                    userRef.update(payload).then(() => {
+                        res.send({
+                            statusCode: 200,
+                            status: true,
+                            message: "Change has been saved!"
+                        });
+                    });
+
+                } else {
+                    res.send({
+                        statusCode: 404,
+                        status: false,
+                        message: "User not found",
+                    });
+                }
+            });
+        } catch (e) {
+            console.log(e);
+            res.send({
+                statusCode: 500,
+                status: false,
+                message: "Internal Server Error",
+                error: e
+            });
+        }
+    },
+
+    friendList : async (req, res) => {
+        try {
+            let uidOBJ = await validateToken(req);
+            let uid = uidOBJ.userId;
+
+            let userRef = firestore.collection('users').doc(uid);
+            await userRef.get().then((doc) => {
+                if (doc.exists) {
+                    let user = doc.data();
+                    res.send({
+                        statusCode: 200,
+                        status: true,
+                        message: "Success",
+                        friendList: user.friendList
+                    });
+                } else {
+                    res.send({
+                        statusCode: 404,
+                        status: false,
+                        message: "User not found"
+                    });
+                }
+            });
+        } catch (e) {
+            console.log(e);
+            res.send({
+                statusCode: 500,
+                status: false,
+                message: "Internal Server Error",
+                error: e
+            });
+        }
     }
 };
