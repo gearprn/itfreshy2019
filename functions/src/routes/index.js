@@ -4,7 +4,7 @@ const { test } = require('../controller/testController');
 const { loginFacebook } = require('../controller/authController');
 const { register, profile, edit, friendList} = require("../controller/userController");
 const { quiz, addFriend } = require("../controller/friendController");
-const { leaderboard }
+const { leaderboard } = require("../controller/boardController");
 const API = require('../../util/API');
 
 router.use(cors({ origin: true }));
