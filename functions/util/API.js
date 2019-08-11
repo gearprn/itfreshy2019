@@ -7,4 +7,5 @@ module.exports = {
     USER_FRIENDLIST: '/user/friendlist',
     QUIZ:'/friend/quiz',
     ADD_FRIEND: '/friend/add',
+    LEADERBOARD: '/leaderboard'
 }
