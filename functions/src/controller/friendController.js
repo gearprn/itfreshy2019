@@ -96,16 +96,18 @@ module.exports = {
                 let friendFriendList = friendData.friendList;
                 friendData.friendList = null;
                 friendData.qrCode = null;
-                friendDataamountOf.sum += 1;
+                friendData.amountOf.sum += 1;
 
                 userFriendList.push(friendData);
                 friendFriendList.push(userData);
 
                 await firestore.collection("users").doc(userId).update({
-                    friendList: userFriendList
+                    friendList: userFriendList,
+                    amountOf: userData.amountOf
                 });
                 await firestore.collection("users").doc(friend).update({
-                    friendList: friendFriendList
+                    friendList: friendFriendList,
+                    amountOf: friendData.amountOf
                 });
 
                 res.send({
