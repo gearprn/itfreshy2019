@@ -1,0 +1,119 @@
+{
+  "paths": {
+    "/user/register":{
+      "post": {
+        "summary": "register user",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/user"
+              }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusCode":{"type":"string"},
+                "status":{"type": "boolean"},
+                "message":{"type":"string"}
+              }
+            }
+          },
+          "400":{
+            "description": "Incorrect answer",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusCode":{"type":"string"},
+                "status":{"type": "boolean"},
+                "message":{"type":"string"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/friend/quiz":{
+      "post": {
+        "summary": "get quiz",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "encoded":{"type": "string"}
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusCode":{"type":"string"},
+                "status":{"type": "boolean"},
+                "message":{"type":"string"},
+                "data":{
+                  "type":"object",
+                  "properties": {
+                    "friend":{"type":"string"},
+                    "choice":{"type":"object"}
+                  }
+                }
+              }
+            }
+          },
+          "400":{
+            "description": "Incorrect answer",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusCode":{"type":"string"},
+                "status":{"type": "boolean"},
+                "message":{"type":"string"}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "itfreshy2019 documentation"
+  },
+  "host": "localhost:5000/itfreshy2019/us-central1/api",
+  "schemes": ["http", "https"],
+  "security": [{"Bearer": []}],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "authorization",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "user":{
+      "properties": {
+        "name": {"type": "string"},
+        "nickname": {"type": "string"},
+        "id": {"type": "string"},
+        "year": {"type": "string"},
+        "branch": {"type": "string"},
+        "bio": {"type": "string"},
+        "email": {"type": "string"},
+        "imgUrl": {"type": "string"}
+      }
+    }
+  }
+}

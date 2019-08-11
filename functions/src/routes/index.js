@@ -5,6 +5,8 @@ const { loginFacebook } = require('../controller/authController');
 const { register, profile, edit, friendList} = require("../controller/userController");
 const{ quiz, addFriend } = require("../controller/friendController");
 const API = require('../../util/API');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 
 router.use(cors({ origin: true }));
 
@@ -18,5 +20,12 @@ router.put(API.USER_EDIT, edit);
 
 router.post(API.QUIZ, quiz);
 router.post(API.ADD_FRIEND, addFriend);
+
+const options = {
+    swaggerOptions: {
+        docExpansion: 'none',
+    },
+};
+router.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 
 module.exports = router;
