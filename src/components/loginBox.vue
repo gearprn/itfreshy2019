@@ -1,19 +1,18 @@
 <template>
-    <div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 col-sm-12">
-                    <button @click="login()">Login With Facebook</button>
-                </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-12 d-flex">
+                <button @click="login()">Login With Facebook</button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import BootstrapVue from 'bootstrap-vue'
+import Vue from 'vue'
 import firebase from 'firebase'
 import axios from 'axios'
+
 
 var provider = new firebase.auth.FacebookAuthProvider();
 
@@ -40,7 +39,7 @@ export default {
                     }
                 })
                 .then((res) => {
-                    console.log(res)
+                    console.log(res.data)
                 })
                 .catch((err) => {
                     console.log(err)
