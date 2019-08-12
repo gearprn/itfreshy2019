@@ -18,6 +18,7 @@ class User {
         };
         this.qrCode = qrCode;
         this.email = email;
+        this.isRegister = true;
     }
 }
 
