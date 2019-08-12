@@ -4,7 +4,6 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12">
                     <button @click="login()">Login With Facebook</button>
-                    <button @click="logout()">logout With Facebook</button>
                 </div>
             </div>
         </div>
@@ -14,19 +13,38 @@
 <script>
 import BootstrapVue from 'bootstrap-vue'
 import firebase from 'firebase'
+import axios from 'axios'
 
 var provider = new firebase.auth.FacebookAuthProvider();
 
 export default {
     name: "loginBox",
+    data () {
+        return {
+            facebookToken: null
+        }
+    },
     methods: {
         login() {
             firebase.auth().signInWithPopup(provider).then(function(result) {
                 var token = result.credential.accessToken;
                 var user = result.user;
-                console.log(token)
-                console.log(user)
-
+                // console.log(token)
+                // console.log(user)
+                // console.log(user.uid)
+                axios({
+                    method: "POST",
+                    url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/auth/client",
+                    data: {
+                        "uid": user.uid
+                    }
+                })
+                .then((res) => {
+                    console.log(res)
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
             }).catch(function(error) {
                 console.log(error.code)
                 console.log(error.message)
