@@ -18,19 +18,21 @@ module.exports = {
                     })
                 });
             if (providerData.email) {
-                let token = await Auth.loginFacebook(providerData);
-                if (token) {
+                let {status, firstTime, token} = await Auth.loginFacebook(providerData);
+                if (status) {
                     rse.send({
                         statusCode: 200,
                         status: true,
                         message: 'Login success',
-                        token: token
+                        token: token,
+                        firstTime: firstTime
                     })
                 } else {
                     rse.send({
                         statusCode: 401,
                         status: false,
-                        message: 'Login fail'
+                        message: 'Login fail',
+                        firstTime: firstTime
                     })
                 }
             }

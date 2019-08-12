@@ -86,14 +86,31 @@ module.exports = {
             });
             if (data.status) {
                 let token = await generateToken(data.doc.id);
-                return token;
+                if (data.doc.data().name == undefined) {
+                    return {
+                        token: token,
+                        firstTime: true,
+                        status: true
+                    };
+                }
+                return {
+                    token: token,
+                    firstTime: false,
+                    status: true
+                };
             } else {
                 let uid = await registerFacebook(providerData);
                 if (uid) {
                     let token = await generateToken(uid);
-                    return token;
+                    return {
+                        token: token,
+                        firstTime: true,
+                        status: true
+                    };
                 } else {
-                    return false
+                    return {
+                        status: false
+                    }
                 }
             }
         } catch (e) {
