@@ -4,7 +4,7 @@ const Auth = require('../../util/Auth')
 module.exports = {
     loginFacebook: async  (req, rse) => {
         try {
-            let {uid} = req.body;
+            let uid = req.headers['facebook-id'];
             let providerData = await admin.auth().getUser(uid)
                 .then(  (userRecord) => {
                     return userRecord.toJSON().providerData[0];
