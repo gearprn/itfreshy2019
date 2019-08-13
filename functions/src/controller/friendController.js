@@ -122,6 +122,18 @@ module.exports = {
                             return 0;
                         }
                     }
+                    switch(friendData.year){
+                        case 2: userData.amountOf.year1 += 2; break;
+                        case 3: userData.amountOf.year1 += 3; break;
+                        case 4: userData.amountOf.year1 += 4; break;
+                        default:  userData.amountOf.year1 += 1;
+                    }
+                    switch(userData.year){
+                        case 2: friendData.amountOf.year1 += 2; break;
+                        case 3: friendData.amountOf.year1 += 3; break;
+                        case 4: friendData.amountOf.year1 += 4; break;
+                        default:  friendData.amountOf.year1 += 1;
+                    }
 
                     //prepare to save
                     userData.friendList = null;
