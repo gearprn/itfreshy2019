@@ -10,6 +10,7 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
           <b-nav-item @click="gotoHome">หน้าหลัก</b-nav-item>
+          <b-nav-item @click="logout" v-if="alreadyLogin === true">Logout</b-nav-item>
           <!-- <b-nav-item href="https://oph2019-kmitl-c2dac.web.app/register" v-if="this.getLoginState() === false">ลงทะเบียน</b-nav-item> -->
           <!-- <b-nav-item v-if="this.getLoginState() === false" @click="login()">เข้าสู่ระบบ</b-nav-item>
           <b-nav-item v-if="this.getLoginState() === true" @click="gotoDashboard()"> ข้อมูลของคุณ </b-nav-item>
@@ -55,14 +56,20 @@ import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
 import { mapGetters } from 'vuex'
 import axios from 'axios'
+import Cookies from 'js-cookie'
+import firebase from "firebase"
 
 Vue.use(BootstrapVue)
+
+var provider = new firebase.auth.FacebookAuthProvider();
+
 export default {
   name: 'NavCard',
   data () {
     return {
       showModal: false,
-      modalmsg: ""
+      modalmsg: "",
+      alreadyLogin: Cookies.get('token') != null
     }
   },
   methods: {
@@ -101,6 +108,21 @@ export default {
     // login(){
     //   this.$router.push('/login')
     // }
+    logout() {
+      firebase
+        .auth()
+        .signOut()
+        .then(function() {
+          console.log("logout successful!");
+          Cookies.remove('token')
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+
+        this.alreadyLogin = false
+        this.$router.push('/login')
+    },
     gotoHome() {
       this.$router.push('/dashboard')
     }

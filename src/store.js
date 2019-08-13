@@ -1,19 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import axios from "axios"
-// import createPersistedState from 'vuex-persistedstate';
-// import Cookies from 'js-cookie';
 
 Vue.use(Vuex)
 
 let store = new Vuex.Store({
   base: process.env.NODE_ENV,
   state: {
-    profile: {
-      user: "",
-      photoURL: "",
-      email: ""
-    },
+    profile: {},
     firstTime: true
   },
   getters: {
@@ -53,14 +46,6 @@ let store = new Vuex.Store({
   actions: {
 
   }
-  // plugins: [createPersistedState({
-  //   key: 'ophkmitl',
-  //   storage: {
-  //     getItem: key => Cookies.get(key),
-  //     setItem: (key, value) => Cookies.set(key, value, { expires: 1, secure: false, }),
-  //     removeItem: key => Cookies.remove(key)
-  //   },
-  // })],
 })
 
 export default store
