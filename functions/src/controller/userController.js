@@ -56,7 +56,8 @@ module.exports = {
 
     myProfile : async (req, res) => {
         try {
-            uid = req.headers.uid;
+            let uidOBJ = await validateToken(req);
+            let uid = uidOBJ.userId;
             let userRef = firestore.collection('users').doc(uid);
             userRef.get().then((doc) => {
                 if (doc.exists) {
