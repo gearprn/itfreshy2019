@@ -34,6 +34,9 @@ let store = new Vuex.Store({
     }
   },
   mutations: {
+    setProfile: (state, profile) => {
+      state.profile = profile
+    },
     setUser: (state, user) => {
       state.profile.user = user
     },

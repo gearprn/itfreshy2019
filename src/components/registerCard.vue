@@ -58,6 +58,7 @@
 import BootstrapVue from "bootstrap-vue";
 import firebase from "firebase";
 import axios from "axios";
+import Cookies from "js-cookie"
 
 export default {
   name: "registerCard",
@@ -74,6 +75,7 @@ export default {
   },
   methods: {
     onSubmit() {
+      let token = Cookies.get('token')
       // console.log(localStorage.getItem('token'));
       // console.log(localStorage.getItem('email'));
       // console.log(localStorage.getItem('photoURL'));
@@ -81,7 +83,7 @@ export default {
         method: "POST",
           url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/user/register",
           headers: {
-            "authorization" : "Bearer " + localStorage.getItem('token')
+            "authorization" : "Bearer " + token
           },
           data: {
             "name": this.name,
@@ -90,12 +92,14 @@ export default {
             "year": this.year,
             "branch": this.branch,
             "bio": this.bio,
-            "email": localStorage.getItem('email'),
-            "imgUrl": localStorage.getItem('photoURL')
+            "email": this.$store.getters.getEmail,
+            "imgUrl": this.$store.getters.getPhotoURL
           }
       })
       .then((res) => {
         if (res.data.status) {
+          console.log(res)
+          store.commit('setProfile', res.data)
           this.$router.push('/dashboard')
         }
       })
