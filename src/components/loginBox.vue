@@ -17,7 +17,8 @@
 import Vue from "vue";
 import firebase from "firebase";
 import axios from "axios";
-import { mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
+import Cookies from "js-cookie";
 
 var provider = new firebase.auth.FacebookAuthProvider();
 
@@ -29,11 +30,9 @@ export default {
     };
   },
   methods: {
-    ...mapMutations([
-      'setUser'
-    ]),
     login() {
       let router = this.$router
+      let store = this.$store
       firebase
         .auth()
         .signInWithPopup(provider)
@@ -53,24 +52,28 @@ export default {
           })
           .then(res => {
             console.log(res.data);
-            localStorage.setItem('token', res.data.token);
-            localStorage.setItem('photoURL', user.photoURL);
-            localStorage.setItem('email', user.email);
+            console.log(user)
+            Cookies.set('token', res.data.token, { expires: 1, secure: false, });
+            // Cookies.set('photoURL', user.photoURL, { expires: 1, secure: false, });
+            // Cookies.set('email', user.email, { expires: 1, secure: false, });
+            store.commit('setPhotoURL', user.photoURL)
+            store.commit('setEmail', user.email)
 
             if (res.data.firstTime) {
+              store.commit('setFirstTime', true)
               router.push('/register')
-            } 
+            }
             else {
               axios({
                 method: "GET",
                 url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/user/myprofile",
                 headers: {
-                  "authorization" : "Bearer " + localStorage.getItem('token')
+                  "authorization" : "Bearer " + Cookies.get('token')
                 }
               })
               .then((res) => {
                 console.log(res.data)
-                this.setUser(res.data)
+                store.commit('setUser', res.data)
               })
               .catch((err) => {
                 console.log(err)
@@ -97,7 +100,9 @@ export default {
         .signOut()
         .then(function() {
           console.log("logout successful!");
-          localStorage.clear();
+          Cookies.remove('token')
+          Cookies.remove('photoURL')
+          Cookies.remove('email')
         })
         .catch(function(error) {
           console.log(error);

@@ -9,7 +9,7 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
-          <b-nav-item href="http://openhouse.kmitl.ac.th/2019/">หน้าหลัก</b-nav-item>
+          <b-nav-item @click="gotoHome">หน้าหลัก</b-nav-item>
           <!-- <b-nav-item href="https://oph2019-kmitl-c2dac.web.app/register" v-if="this.getLoginState() === false">ลงทะเบียน</b-nav-item> -->
           <!-- <b-nav-item v-if="this.getLoginState() === false" @click="login()">เข้าสู่ระบบ</b-nav-item>
           <b-nav-item v-if="this.getLoginState() === true" @click="gotoDashboard()"> ข้อมูลของคุณ </b-nav-item>
@@ -101,6 +101,9 @@ export default {
     // login(){
     //   this.$router.push('/login')
     // }
+    gotoHome() {
+      this.$router.push('/dashboard')
+    }
   }
 }
 

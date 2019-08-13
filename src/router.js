@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import loginPage from './views/loginPage.vue'
 import dashboardPage from './views/dashboardPage.vue'
+import Cookies from 'js-cookie'
+import store from './store.js'
 
 Vue.use(Router)
 
@@ -19,25 +21,51 @@ let router = new Router({
       path: '/dashboard',
       name: 'dashboard',
       component: dashboardPage,
-      // meta: {
-      //   requiredAuth: true
-      // }
+      meta: {
+        requiredAuth: true
+      }
     },
-    // {
-    //   path: '/login',
-    //   name: 'login',
-    //   component: () => import('./components/loginBox.vue')
-    // },
     {
       path: '/register',
       name: 'register',
-      component: () => import('./components/registerCard.vue')
+      component: () => import('./components/registerCard.vue'),
+      meta: {
+        requiredAuth: true,
+        firstTimeLogin: true
+      }
     }
   ]
 })
 
+
 router.beforeEach((to, from, next) => {
-  next()
+  if (to.matched.some(record => record.meta.requiredAuth)) {
+    let token = Cookies.get('token')
+    if (to.matched.some(record => record.meta.firstTimeLogin)) {
+      if (store.getters.getFirstTime) { 
+        next()
+      } else {
+        console.log(to.fullPath)
+        next({
+          path: '/dashboard',
+          params: {
+            nextUrl: to.fullPath
+          }
+        })
+      }
+    } else if (token != null) {
+      next()
+    } else {
+      next({
+        path: '/login',
+        params: {
+          nextUrl: to.fullPath
+        }
+      })
+    }
+  } else {
+    next()
+  }
 })
 
 export default router

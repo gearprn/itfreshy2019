@@ -7,13 +7,14 @@
 
 <script>
 import { getters, mapGetters } from 'vuex'
+import Cookies from 'js-cookie'
 
 export default {
   name: "dashboardPage",
   components: {},
   data () {
     return {
-      uid: localStorage.getItem('token')
+      uid: Cookies.get('token')
     }
   },
   methods: {

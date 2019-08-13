@@ -74,9 +74,9 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log(localStorage.getItem('token'));
-      console.log(localStorage.getItem('email'));
-      console.log(localStorage.getItem('photoURL'));
+      // console.log(localStorage.getItem('token'));
+      // console.log(localStorage.getItem('email'));
+      // console.log(localStorage.getItem('photoURL'));
       axios({
         method: "POST",
           url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/user/register",
