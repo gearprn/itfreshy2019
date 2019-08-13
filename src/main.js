@@ -4,6 +4,10 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 import firebase from 'firebase'
+import Bootstrap from 'bootstrap/dist/css/bootstrap.min.css'
+import BootstrapVue from 'bootstrap-vue'
+
+Vue.use(BootstrapVue)
 
 Vue.config.productionTip = false
 
