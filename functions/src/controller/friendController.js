@@ -95,17 +95,6 @@ module.exports = {
                 });
             }
 
-            //for test api
-            // let userId;
-            // let token = req.headers.authorization;
-            // console.log(token.split(" ")[1]);
-            // await firestore.collection("tokens").where("token", "==", "testio9 ")
-            //     .get()
-            //     .then(function(querySnapshot) {
-            //         querySnapshot.forEach(function(doc) {
-            //             userId = doc.data().userId;
-            //         });
-            //     });
             let friendData = await firestore.collection("users").doc(friend).get();
             if(friendData.exists){
                 friendData = friendData.data();
