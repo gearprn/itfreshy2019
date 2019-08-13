@@ -17,6 +17,7 @@
 import Vue from "vue";
 import firebase from "firebase";
 import axios from "axios";
+import { mapMutations } from 'vuex'
 
 var provider = new firebase.auth.FacebookAuthProvider();
 
@@ -28,6 +29,9 @@ export default {
     };
   },
   methods: {
+    ...mapMutations([
+      'setUser'
+    ]),
     login() {
       let router = this.$router
       firebase
@@ -37,20 +41,42 @@ export default {
           var token = result.credential.accessToken;
           var user = result.user;
           // console.log(token)
+          // console.log(user.photoURL)
           // console.log(user)
           // console.log(user.uid)
           axios({
             method: "POST",
-            url:
-              "https://us-central1-itfreshy2019.cloudfunctions.net/api/auth/client",
-            data: {
-              uid: user.uid
+            url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/auth/client",
+            headers: {
+              "facebook-id": user.uid
             }
           })
           .then(res => {
             console.log(res.data);
-            localStorage.setItem('token', res.data);
-            router.push('/dashboard')
+            localStorage.setItem('token', res.data.token);
+            localStorage.setItem('photoURL', user.photoURL);
+            localStorage.setItem('email', user.email);
+
+            if (res.data.firstTime) {
+              router.push('/register')
+            } 
+            else {
+              axios({
+                method: "GET",
+                url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/user/myprofile",
+                headers: {
+                  "authorization" : "Bearer " + localStorage.getItem('token')
+                }
+              })
+              .then((res) => {
+                console.log(res.data)
+                this.setUser(res.data)
+              })
+              .catch((err) => {
+                console.log(err)
+              })
+              router.push('/dashboard')
+            }
           })
           .catch(err => {
             console.log(err);
@@ -61,7 +87,6 @@ export default {
           console.log(error.message);
           var errorCode = error.code;
           var errorMessage = error.message;
-
           var email = error.email;
           var credential = error.credential;
         });

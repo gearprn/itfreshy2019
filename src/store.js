@@ -13,7 +13,7 @@ export default new Vuex.Store({
   },
   getters: {
     getUser: (state) => {
-      return this.user
+      return state.user
     }
   },
   mutations: {

@@ -1,16 +1,25 @@
 <template>
   <div id="app">
+    <nav-card></nav-card>
     <router-view/>
+    <footer-card></footer-card>
   </div>
 </template>
 
 <script>
+import NavCard from '@/components/nav.vue'
+import FooterCard from '@/components/footer.vue'
+
 import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue)
 
 export default {
   name: 'app',
+  components: {
+    NavCard,
+    FooterCard
+  }
 }
 </script>
 

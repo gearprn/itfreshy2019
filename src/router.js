@@ -19,20 +19,20 @@ let router = new Router({
       path: '/dashboard',
       name: 'dashboard',
       component: dashboardPage,
-      meta: {
-        requiredAuth: true
-      }
-    }
+      // meta: {
+      //   requiredAuth: true
+      // }
+    },
     // {
     //   path: '/login',
     //   name: 'login',
     //   component: () => import('./components/loginBox.vue')
     // },
-    // {
-    //   path: '/register',
-    //   name: 'register',
-    //   component: () => import('./components/registerCard.vue')
-    // }
+    {
+      path: '/register',
+      name: 'register',
+      component: () => import('./components/registerCard.vue')
+    }
   ]
 })
 
