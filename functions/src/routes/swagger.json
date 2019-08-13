@@ -38,6 +38,36 @@
         }
       }
     },
+    "/user/friendlist":{
+      "get": {
+        "summary": "get friendList",
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusCode":{"type":"string"},
+                "status":{"type": "boolean"},
+                "message":{"type":"string"},
+                "friendList": {"type":"object"}
+              }
+            }
+          },
+          "404":{
+            "description": "Incorrect answer",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusCode":{"type":"string"},
+                "status":{"type": "boolean"},
+                "message":{"type":"string"}
+              }
+            }
+          }
+        }
+      }
+    },
     "/friend/quiz":{
       "post": {
         "summary": "get quiz",
@@ -85,6 +115,85 @@
           }
         }
       }
+    },
+    "/friend/add":{
+      "post": {
+        "summary": "add friend",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "friend":{"type": "string", "description": "uid"},
+                "answer":{"type": "string", "example":"Tae"}
+              }
+            }
+          }
+        ],
+        "responses": {
+          "206": {
+            "description": "ok",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusCode":{"type":"string"},
+                "status":{"type": "boolean"},
+                "message":{"type":"string"},
+                "data":{
+                  "type":"object",
+                  "properties": {
+                    "friend":{"type":"string"},
+                    "choice":{"type":"object"}
+                  }
+                }
+              }
+            }
+          },
+          "400":{
+            "description": "Incorrect answer",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusCode":{"type":"string"},
+                "status":{"type": "boolean"},
+                "message":{"type":"string"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/leaderboard":{
+      "get": {
+        "summary": "get leaderboard",
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusCode":{"type":"string"},
+                "status":{"type": "boolean"},
+                "message":{"type":"string"},
+                "board": {"type":"object"}
+              }
+            }
+          },
+          "404":{
+            "description": "Incorrect answer",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusCode":{"type":"string"},
+                "status":{"type": "boolean"},
+                "message":{"type":"string"}
+              }
+            }
+          }
+        }
+      }
     }
   },
   "swagger": "2.0",
@@ -99,7 +208,8 @@
     "Bearer": {
       "type": "apiKey",
       "name": "authorization",
-      "in": "header"
+      "in": "header",
+      "description": "Format 'Bearer [token]'"
     }
   },
   "definitions": {

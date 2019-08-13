@@ -25,11 +25,6 @@ router.post(API.ADD_FRIEND, addFriend);
 
 router.get(API.LEADERBOARD, leaderboard);
 
-const options = {
-    swaggerOptions: {
-        docExpansion: 'none',
-    },
-};
-router.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
+router.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 module.exports = router;
