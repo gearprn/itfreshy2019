@@ -51,8 +51,8 @@ export default {
             }
           })
           .then(res => {
-            console.log(res.data);
-            console.log(user)
+            // console.log(res.data);
+            // console.log(user)
             Cookies.set('token', res.data.token, { expires: 1, secure: false, });
             // Cookies.set('photoURL', user.photoURL, { expires: 1, secure: false, });
             // Cookies.set('email', user.email, { expires: 1, secure: false, });
@@ -72,7 +72,7 @@ export default {
                 }
               })
               .then((res) => {
-                console.log(res.data)
+                // console.log(res.data)
                 store.commit('setProfile', res.data)
               })
               .catch((err) => {
@@ -99,7 +99,7 @@ export default {
         .auth()
         .signOut()
         .then(function() {
-          console.log("logout successful!");
+          // console.log("logout successful!");
           Cookies.remove('token')
           Cookies.remove('photoURL')
           Cookies.remove('email')

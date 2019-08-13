@@ -9,7 +9,12 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
-          <b-nav-item @click="gotoHome">หน้าหลัก</b-nav-item>
+          <b-nav-item @click="gotoHome" v-if="alreadyLogin === false">Login</b-nav-item>
+          <b-nav-item @click="gotoHome" v-if="alreadyLogin === true">My Profile</b-nav-item>
+          <b-nav-item @click="gotoMyQr" v-if="alreadyLogin === true">My QR Code</b-nav-item>
+          <b-nav-item @click="gotoScanner" v-if="alreadyLogin === true">QR Scanner</b-nav-item>
+          <b-nav-item v-if="alreadyLogin === true">Friend List</b-nav-item>
+          <b-nav-item v-if="alreadyLogin === true">Leaderboard</b-nav-item>
           <b-nav-item @click="logout" v-if="alreadyLogin === true">Logout</b-nav-item>
           <!-- <b-nav-item href="https://oph2019-kmitl-c2dac.web.app/register" v-if="this.getLoginState() === false">ลงทะเบียน</b-nav-item> -->
           <!-- <b-nav-item v-if="this.getLoginState() === false" @click="login()">เข้าสู่ระบบ</b-nav-item>
@@ -125,6 +130,12 @@ export default {
     },
     gotoHome() {
       this.$router.push('/dashboard')
+    },
+    gotoMyQr() {
+      this.$router.push('/qr')
+    },
+    gotoScanner() {
+      this.$router.push('/qrScanner')
     }
   }
 }

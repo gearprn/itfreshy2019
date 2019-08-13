@@ -38,8 +38,8 @@ export default {
   },
   mounted() {
     let profile = this.$store.getters.getProfile
-    console.log(profile)
-    console.log(Object.keys(profile).length == 0)
+    // console.log(profile)
+    // console.log(Object.keys(profile).length == 0)
     if (this.token != null && Object.keys(profile).length == 0) {
       axios({
         method: "GET",
@@ -49,7 +49,7 @@ export default {
         }
       })
       .then((res) => {
-        console.log(res)
+        // console.log(res)
         this.$store.commit('setProfile', res.data)
         this.profile = res.data
         this.loading = true
@@ -64,7 +64,7 @@ export default {
     } else {
       this.$router.push('/login')
     }
-    console.log(this.profile)
+    // console.log(this.profile)
   },
   methods: {
     initializeProfile() {

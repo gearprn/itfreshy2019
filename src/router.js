@@ -33,6 +33,22 @@ let router = new Router({
         requiredAuth: true,
         firstTimeLogin: true
       }
+    },
+    {
+      path: '/qr',
+      name: 'qrcodeCard',
+      component: () => import('./components/qrcodeCard.vue'),
+      meta: {
+        requiredAuth: false
+      }
+    },
+    {
+      path: '/qrScanner',
+      name: 'qrcodeScanner',
+      component: () => import('./components/qrcodeScanner.vue'),
+      meta: {
+        requiredAuth: false
+      }
     }
   ]
 })
