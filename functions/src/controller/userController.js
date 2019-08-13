@@ -54,7 +54,7 @@ module.exports = {
         }
     },
 
-    profile : async (req, res) => {
+    myProfile : async (req, res) => {
         try {
             uid = req.headers.uid;
             let userRef = firestore.collection('users').doc(uid);
@@ -75,6 +75,38 @@ module.exports = {
                 statusCode: 500,
                 status: false,
                 message: "Internal Server Error",
+                error: e
+            });
+        }
+    },
+
+    getProfile : async (req, res) => {
+        try {
+            let { uid } = req.headers;
+            let userRef = firestore.collection('users').doc(uid);
+            userRef.get().then((doc) => {
+                if (doc.exists) {
+                    let user = doc.data();
+                    res.send({
+                        statusCode: 200,
+                        status: true,
+                        message: 'Request success',
+                        user: user
+                    });
+                } else {
+                    res.send({
+                        statusCode: 404,
+                        status: false,
+                        message: 'User not found'
+                    });
+                }
+            });
+        } catch (e) {
+            console.log(e);
+            res.send({
+                statusCode: 500,
+                status: false,
+                message: 'Internal Server Error',
                 error: e
             });
         }

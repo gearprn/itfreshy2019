@@ -2,7 +2,7 @@ const router = require('express').Router();
 const cors = require('cors')
 const { test } = require('../controller/testController');
 const { loginFacebook } = require('../controller/authController');
-const { register, profile, edit, friendList} = require("../controller/userController");
+const { register, myProfile, edit, friendList, getProfile} = require("../controller/userController");
 const { quiz, addFriend } = require("../controller/friendController");
 const { leaderboard } = require("../controller/boardController");
 const API = require('../../util/API');
@@ -13,7 +13,8 @@ router.post(API.TEST, test);
 router.post(API.CLIENT_AUTH, loginFacebook);
 
 router.post(API.USER_REGISTER, register);
-router.get(API.USER_PROFILE, profile);
+router.get(API.USER_PROFILE, myProfile);
+router.get(API.USER_GET, getProfile);
 router.get(API.USER_FRIENDLIST, friendList);
 router.put(API.USER_EDIT, edit);
 
