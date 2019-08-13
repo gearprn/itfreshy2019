@@ -41,12 +41,17 @@ module.exports = {
             let friendUid = await QrText.decode(encoded, friend.qrCode.hash);
 
             if(friend.uid == friendUid){
+                friend.qrCode.counter += 1;
                 if(friend.qrCode.counter >= 7){
                     let hash = randomstring.generate(7);
                     let encoded = await QrText.generate(friend.uid, hash);
                     let newQrCode = new QRCode(friend.uid, hash, encoded);
                     await firestore.collection("users").doc(friend.uid).update({
                         qrCode: JSON.parse(JSON.stringify(newQrCode))
+                    })
+                } else {
+                    await firestore.collection("users").doc(friend.uid).update({
+                        qrCode: friend.qrCode
                     })
                 }
                 let names = await firestore.collection("users").doc("nameArray").get();
