@@ -113,6 +113,9 @@ module.exports = {
                     let userData = await firestore.collection("users").doc(userId).get();
                     userData = userData.data();
 
+                    console.log(userId)
+                    console.log(userData)
+
                     let userFriendList = userData.friendList;
                     let friendFriendList = friendData.friendList;
 
@@ -127,28 +130,30 @@ module.exports = {
                             return 0;
                         }
                     }
-                    switch(friendData.year){
-                        case 2: userData.amountOf.year2 += 1; break;
-                        case 3: userData.amountOf.year3 += 1; break;
-                        case 4: userData.amountOf.year4 += 1; break;
-                        default:  userData.amountOf.year1 += 1;
-                    }
-                    switch(userData.year){
-                        case 2: friendData.amountOf.year2 += 1; break;
-                        case 3: friendData.amountOf.year3 += 1; break;
-                        case 4: friendData.amountOf.year4 += 1; break;
-                        default:  friendData.amountOf.year1 += 1;
-                    }
+                    // switch(friendData.year){
+                    //     case "2": userData.amountOf.year2 += 1; break;
+                    //     case "3": userData.amountOf.year3 += 1; break;
+                    //     case "4": userData.amountOf.year4 += 1; break;
+                    //     default:  userData.amountOf.year1 += 1;
+                    // }
+                    // switch(userData.year){
+                    //     case "2": friendData.amountOf.year2 += 1; break;
+                    //     case "3": friendData.amountOf.year3 += 1; break;
+                    //     case "4": friendData.amountOf.year4 += 1; break;
+                    //     default:  friendData.amountOf.year1 += 1;
+                    // }
 
                     //prepare to save
                     userData.friendList = null;
                     userData.qrCode = null;
                     userData.amountOf.sum += 1;
+                    userData.amountOf["year"+friendData.year] += 1;
                     userData.uid = userId;
 
                     friendData.friendList = null;
                     friendData.qrCode = null;
                     friendData.amountOf.sum += 1;
+                    friendData.amountOf["year"+userData.year] += 1;
                     friendData.uid = friend;
 
                     userFriendList.push(friendData);
