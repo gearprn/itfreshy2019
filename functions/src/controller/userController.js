@@ -57,6 +57,13 @@ module.exports = {
     myProfile : async (req, res) => {
         try {
             let uidOBJ = await validateToken(req);
+            if (uidOBJ === undefined) {
+                res.status(401).send({
+                    statusCode: 401,
+                    status: false,
+                    message: 'Unauthorized'
+                });
+            }
             let uid = uidOBJ.userId;
             let userRef = firestore.collection('users').doc(uid);
             userRef.get().then((doc) => {
@@ -116,6 +123,13 @@ module.exports = {
     edit : async (req, res) => {
         try {
             let uidOBJ = await validateToken(req);
+            if (uidOBJ === undefined) {
+                res.status(401).send({
+                    statusCode: 401,
+                    status: false,
+                    message: 'unauthorized'
+                });
+            }
             let uid = uidOBJ.userId;
 
             let userRef = firestore.collection('users').doc(uid);
