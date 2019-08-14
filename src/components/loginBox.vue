@@ -52,7 +52,7 @@ export default {
           })
           .then(res => {
             // console.log(res.data);
-            Cookies.set('token', res.data.token, { expires: 5, secure: true, });
+            Cookies.set('token', res.data.token, { expires: 5, secure: false, });
             store.commit('setPhotoURL', user.photoURL)
             store.commit('setEmail', user.email)
 
@@ -70,11 +70,11 @@ export default {
               })
               .then((res) => {
                 store.commit('setProfile', res.data)
+                router.push('/dashboard')
               })
               .catch((err) => {
                 console.log(err)
               })
-              router.push('/dashboard')
             }
           })
           .catch(err => {

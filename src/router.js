@@ -57,7 +57,14 @@ let router = new Router({
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiredAuth)) {
     let token = Cookies.get('token')
-    if (to.matched.some(record => record.meta.firstTimeLogin)) {
+    if (token == null) {
+      next({
+        path: '/login',
+        params: {
+          nextUrl: to.fullPath
+        }
+      })
+    } else if (to.matched.some(record => record.meta.firstTimeLogin)) {
       if (store.getters.getFirstTime) { 
         next()
       } else {
@@ -69,15 +76,8 @@ router.beforeEach((to, from, next) => {
           }
         })
       }
-    } else if (token != null) {
-      next()
     } else {
-      next({
-        path: '/login',
-        params: {
-          nextUrl: to.fullPath
-        }
-      })
+      next()
     }
   } else {
     next()
