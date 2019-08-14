@@ -59,7 +59,7 @@
 <script>
 import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import firebase from "firebase"
@@ -83,6 +83,9 @@ export default {
     ]),
     ...mapMutations([
       'clearProfile'
+    ]),
+    ...mapActions([
+      'loginWithToken'
     ]),
     logout() {
       firebase
@@ -113,6 +116,15 @@ export default {
     },
     gotoLogin() {
       this.$router.push('/login')
+    }
+  },
+  mounted() {
+    if (!this.checkLogined()) {
+      this.loginWithToken(Cookies.get('token'))
+        .catch((err) => {
+          console.log(err)
+          this.$router.push('/login')
+        })
     }
   }
 }

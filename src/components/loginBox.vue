@@ -3,6 +3,7 @@
     <b-container fluid>
       <b-row class="justify-content-center m-5">
         <b-img-lazy src="https://via.placeholder.com/240?text=Logo+240x240"></b-img-lazy>
+        <!-- <b-img-lazy src="../assets/itec_logo.png"></b-img-lazy> -->
       </b-row>
       <b-row class="justify-content-md-center p-3">
         <b-col md='3' sm='12'>

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 
 Vue.use(Vuex)
 
@@ -56,7 +57,29 @@ let store = new Vuex.Store({
     }
   },
   actions: {
-
+    loginWithToken({ commit, state }, token) {
+      return new Promise((resolve, reject) => {
+        if (token == null) reject("Invaild Token")
+        else if (Object.keys(state.profile).length == 0) {
+          axios({
+            method: "GET",
+            url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/user/myprofile",
+            headers: {
+              "authorization" : "Bearer " + token
+            }
+          })
+          .then((res) => {
+            commit('setProfile', res.data)
+            resolve(res)
+          })
+          .catch((err) => {
+            reject(err)
+          })
+        } else {
+          resolve(state.profile)
+        } 
+      })
+    }
   }
 })
 
