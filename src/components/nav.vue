@@ -9,13 +9,13 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
-          <b-nav-item @click="gotoHome" v-if="alreadyLogin === false">Login</b-nav-item>
-          <b-nav-item @click="gotoHome" v-if="alreadyLogin === true">My Profile</b-nav-item>
-          <b-nav-item @click="gotoMyQr" v-if="alreadyLogin === true">My QR Code</b-nav-item>
-          <b-nav-item @click="gotoScanner" v-if="alreadyLogin === true">QR Scanner</b-nav-item>
-          <b-nav-item v-if="alreadyLogin === true">Friend List</b-nav-item>
-          <b-nav-item v-if="alreadyLogin === true">Leaderboard</b-nav-item>
-          <b-nav-item @click="logout" v-if="alreadyLogin === true">Logout</b-nav-item>
+          <b-nav-item @click="gotoHome" v-if="this.checkLogined()">My Profile</b-nav-item>
+          <b-nav-item @click="gotoMyQr" v-if="this.checkLogined()">My QR Code</b-nav-item>
+          <b-nav-item @click="gotoScanner" v-if="this.checkLogined()">QR Scanner</b-nav-item>
+          <b-nav-item v-if="this.checkLogined()">Friend List</b-nav-item>
+          <b-nav-item v-if="this.checkLogined()">Leaderboard</b-nav-item>
+          <b-nav-item @click="logout" v-if="this.checkLogined()">Logout</b-nav-item>
+          <b-nav-item @click="gotoLogin" v-else>Login</b-nav-item>
           <!-- <b-nav-item href="https://oph2019-kmitl-c2dac.web.app/register" v-if="this.getLoginState() === false">ลงทะเบียน</b-nav-item> -->
           <!-- <b-nav-item v-if="this.getLoginState() === false" @click="login()">เข้าสู่ระบบ</b-nav-item>
           <b-nav-item v-if="this.getLoginState() === true" @click="gotoDashboard()"> ข้อมูลของคุณ </b-nav-item>
@@ -59,7 +59,7 @@
 <script>
 import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import firebase from "firebase"
@@ -74,59 +74,33 @@ export default {
     return {
       showModal: false,
       modalmsg: "",
-      alreadyLogin: Cookies.get('token') != null
+      alreadyLogin: false
     }
   },
   methods: {
-    // ...mapGetters([
-    //   'getUsername',
-    //   'getLoginState',
-    //   'getToken'
-    // ]),
-    // logout() {
-    //   this.showModal = true
-    //   this.modalmsg = "กรุณารอซักครู่ ระบบกำลังออกจากระบบให้คุณ"
-    //   axios({
-    //     method: "DELETE",
-    //     url: "https://us-central1-oph2019-kmitl-c2dac.cloudfunctions.net/auth/logout",
-    //     headers: {
-    //       "Content-Type": "application/json"
-    //     },
-    //     data: {
-    //       token: this.getToken()
-    //     }
-    //   })
-    //   .then((res) => {
-    //     this.showModal = false
-    //     this.$router.push('/logout')
-    //   })
-    //   .catch((err) => {
-    //     // console.log(err)
-    //   })
-    // },
-    // gotoDashboard() {
-    //   this.$router.push('/dashboard')
-    // },
-    // gotoWorkshop() {
-    //   this.$router.push('/workshop')
-    // },
-    // login(){
-    //   this.$router.push('/login')
-    // }
+    ...mapGetters([
+      'checkLogined', 'getProfile'
+    ]),
+    ...mapMutations([
+      'clearProfile'
+    ]),
     logout() {
       firebase
         .auth()
         .signOut()
-        .then(function() {
-          console.log("logout successful!");
+        .then(() => {
+          console.log("logout successful!")
           Cookies.remove('token')
+          this.clearProfile()
+          console.log(this.checkLogined())
+          console.log(this.getProfile())
         })
-        .catch(function(error) {
-          console.log(error);
+        .catch((err) => {
+          console.log(err);
         });
 
         this.alreadyLogin = false
-        this.$router.push('/login')
+        this.gotoLogin()
     },
     gotoHome() {
       this.$router.push('/dashboard')
@@ -136,6 +110,9 @@ export default {
     },
     gotoScanner() {
       this.$router.push('/qrScanner')
+    },
+    gotoLogin() {
+      this.$router.push('/login')
     }
   }
 }

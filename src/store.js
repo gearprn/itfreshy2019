@@ -7,7 +7,7 @@ let store = new Vuex.Store({
   base: process.env.NODE_ENV,
   state: {
     profile: {},
-    firstTime: true
+    firstTime: true,
   },
   getters: {
     getProfile: (state) => {
@@ -24,6 +24,13 @@ let store = new Vuex.Store({
     },
     getFirstTime: (state) => {
       return state.firstTime
+    },
+    checkLogined: (state) => {
+      let logined = false
+      if (state.profile != null) {
+        logined = Object.keys(state.profile).length != 0
+      }
+      return logined
     }
   },
   mutations: {
@@ -41,6 +48,10 @@ let store = new Vuex.Store({
     },
     setFirstTime: (state, bool) => {
       state.firstTime = bool
+    },
+    clearProfile: (state) => {
+      state.profile = {}
+      console.log(state.profile)
     }
   },
   actions: {
