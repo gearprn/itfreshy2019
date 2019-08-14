@@ -8,6 +8,7 @@
       <b-container>
         <h4><{{ this.getProfile().nickname }}></h4>
         <h5>{{ this.getProfile().id }} | {{ this.getProfile().branch }}</h5>
+        <p>bio : {{ this.getProfile().bio }}</p>
       </b-container>
       <b-container class="mt-3 p-4" fluid>
         <b-container class="p-3 overall">
@@ -18,13 +19,13 @@
               <b-col>รุ่น 17</b-col>
               <b-col>รุ่น 16</b-col>
               <b-col>รุ่น 15</b-col>
-              <b-col>รุ่น 14</b-col> 
+              <b-col>รุ่น 14</b-col>
             </b-row>
             <b-row class="justify-content-center">
               <b-col>{{ this.getProfile().amountOf.year1 }}</b-col>
               <b-col>{{ this.getProfile().amountOf.year2 }}</b-col>
               <b-col>{{ this.getProfile().amountOf.year3 }}</b-col>
-              <b-col>{{ this.getProfile().amountOf.year4 }}</b-col> 
+              <b-col>{{ this.getProfile().amountOf.year4 }}</b-col>
             </b-row>
           </b-container>
         </b-container>
