@@ -3,6 +3,7 @@
     <b-container fluid>
       <b-row class="justify-content-center m-5">
         <b-img-lazy src="https://via.placeholder.com/240?text=Logo+240x240"></b-img-lazy>
+        <!-- <b-img-lazy src="../assets/itec_logo.png"></b-img-lazy> -->
       </b-row>
       <b-row class="justify-content-md-center p-3">
         <b-col md='3' sm='12'>
@@ -52,7 +53,7 @@ export default {
           })
           .then(res => {
             // console.log(res.data);
-            Cookies.set('token', res.data.token, { expires: 5, secure: true, });
+            Cookies.set('token', res.data.token, { expires: 5, secure: false, });
             store.commit('setPhotoURL', user.photoURL)
             store.commit('setEmail', user.email)
 
@@ -70,11 +71,11 @@ export default {
               })
               .then((res) => {
                 store.commit('setProfile', res.data)
+                router.push('/dashboard')
               })
               .catch((err) => {
                 console.log(err)
               })
-              router.push('/dashboard')
             }
           })
           .catch(err => {

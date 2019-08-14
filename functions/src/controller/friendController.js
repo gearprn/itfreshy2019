@@ -8,15 +8,17 @@ var auth = require("../../util/Auth");
 module.exports = {
     quiz : async (req, res) => {
         try {
-            if(req.headers.authorization){
-                userId = auth.validateToken(req);
-            } else {
+            let {userId, status, error} = await auth.validateToken(req);
+
+            if (!status) {
                 res.status(401).send({
                     statusCode: 401,
                     status: false,
-                    message: "Please Login",
+                    message: 'Please login',
+                    error: error
                 });
             }
+
             let {encoded} = req.body;
             let friend = {};
             await firestore.collection("users").where("qrCode.encoded", "==", encoded)
@@ -83,27 +85,23 @@ module.exports = {
     addFriend: async (req, res) => {
         try {
             let {answer, friend} = req.body;
-            let userId;
-            if(req.headers.authorization){
-                userId = await auth.validateToken(req);
-                userId = userId.userId;
-            } else {
+            let {userId, status, error} = await auth.validateToken(req);
+
+            if (!status) {
                 res.status(401).send({
                     statusCode: 401,
                     status: false,
-                    message: "Please Login",
+                    message: 'Please login',
+                    error: error
                 });
             }
 
             let friendData = await firestore.collection("users").doc(friend).get();
-            if(friendData.exists){
+            if(friendData.exists && userId != friend){
                 friendData = friendData.data();
                 if(friendData.nickname = answer){
                     let userData = await firestore.collection("users").doc(userId).get();
                     userData = userData.data();
-
-                    console.log(userId)
-                    console.log(userData)
 
                     let userFriendList = userData.friendList;
                     let friendFriendList = friendData.friendList;

@@ -1,12 +1,12 @@
 <template>
   <b-container fluid class="qrcode">
     <b-container>
-      <b-row class="justify-content-center" v-if="qrcode != null">
-        <b-spinner style="width:3rem;height:3rem;"></b-spinner>
-      </b-row>
-      <b-row style="justify-content: center;" class="m-3">
+      <b-row style="justify-content: center;" class="m-3" v-if="qrcode != null">
         <img center alt="Center image" :src="qrcode" />
         <!-- <button @click="update()">hit</button> -->
+      </b-row>
+      <b-row class="justify-content-center" v-else>
+        <b-spinner style="width:3rem;height:3rem;"></b-spinner>
       </b-row>
     </b-container>
   </b-container>
@@ -15,7 +15,7 @@
 <script>
 import QRcode from "qrcode";
 import Cookies from "js-cookie";
-import { getters, mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import { db } from "../main";
 
 export default {
@@ -28,7 +28,10 @@ export default {
   },
   methods: {
     ...mapGetters([
-      'getProfile'
+      'getProfile', 'checkLogined'
+    ]),
+    ...mapActions([
+      'loginWithToken'
     ]),
     update() {
       let profile = this.getProfile()
@@ -47,7 +50,18 @@ export default {
     }
   },
   mounted() {
-    this.update();
+    if (!this.checkLogined()) {
+      this.loginWithToken(Cookies.get('token'))
+        .then(() => {
+          this.update();
+        })
+        .catch((err) => {
+          console.log(err)
+          this.$router.push('/login')
+        })
+    } else {
+      this.update();
+    }
   }
 };
 </script>
