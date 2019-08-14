@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { getters, mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import Cookies from 'js-cookie'
 import axios from 'axios'
 
@@ -54,22 +54,17 @@ export default {
   methods: {
     ...mapGetters([
       'getProfile'
+    ]),
+    ...mapActions([
+      'loginWithToken'
     ])
   },
   mounted() {
     let profile = this.getProfile()
     // console.log(profile)
     // console.log(Object.keys(profile).length == 0)
-    if (this.token != null && Object.keys(profile).length == 0) {
-      axios({
-        method: "GET",
-        url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/user/myprofile",
-        headers: {
-          "authorization" : "Bearer " + Cookies.get('token')
-        }
-      })
+    this.loginWithToken(this.token)
       .then((res) => {
-        this.$store.commit('setProfile', res.data)
         this.profile = res.data
         this.loading = true
       })
@@ -77,13 +72,6 @@ export default {
         console.log(err)
         this.$router.push('/login')
       })
-    } else if (this.token != null) {
-      this.profile = profile
-      this.loading = true
-    } else {
-      this.$router.push('/login')
-    }
-    // console.log(this.profile)
   },
 };
 </script>
