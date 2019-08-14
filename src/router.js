@@ -21,6 +21,14 @@ let router = new Router({
       }
     },
     {
+      path: '/friendlist',
+      name: 'friend',
+      component: friendListPage,
+      meta: {
+        requiredAuth: false
+      }
+    },
+    {
       path: '/login',
       name: 'login',
       component: loginPage,
@@ -76,7 +84,7 @@ router.beforeEach((to, from, next) => {
         }
       })
     } else if (to.matched.some(record => record.meta.firstTimeLogin)) {
-      if (store.getters.getFirstTime) { 
+      if (store.getters.getFirstTime) {
         next()
       } else {
         // console.log(to.fullPath)

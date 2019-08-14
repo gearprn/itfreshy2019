@@ -12,7 +12,7 @@
           <b-nav-item @click="gotoHome" v-if="this.checkLogined()">My Profile</b-nav-item>
           <b-nav-item @click="gotoMyQr" v-if="this.checkLogined()">My QR Code</b-nav-item>
           <b-nav-item @click="gotoScanner" v-if="this.checkLogined()">QR Scanner</b-nav-item>
-          <b-nav-item v-if="this.checkLogined()">Friend List</b-nav-item>
+          <b-nav-item @click="gotoFriendList" v-if="this.checkLogined()">Friend List</b-nav-item>
           <b-nav-item v-if="this.checkLogined()">Leaderboard</b-nav-item>
           <b-nav-item @click="logout" v-if="this.checkLogined()">Logout</b-nav-item>
           <b-nav-item @click="gotoLogin" v-else>Login</b-nav-item>
@@ -116,6 +116,9 @@ export default {
     },
     gotoLogin() {
       this.$router.push('/login')
+    },
+    gotoFriendList() {
+      this.$router.push('/friendlist')
     }
   },
   mounted() {
