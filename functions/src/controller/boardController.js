@@ -11,7 +11,7 @@ module.exports = {
             let {userId, status, error} = await auth.validateToken(req);
 
             if (!status) {
-                res.status(401).send({
+                res.send({
                     statusCode: 401,
                     status: false,
                     message: 'Unauthorized',
@@ -23,7 +23,7 @@ module.exports = {
                 firestore.doc('users/'+userId).get()
                     .then((snapshot)=> {
                         if (!snapshot.exists) {
-                            res.status(404).send({
+                            res.send({
                                 statusCode: 404,
                                 status: false,
                                 message: 'User not found!',
@@ -34,7 +34,7 @@ module.exports = {
                         }
                     })
                     .catch(err => {
-                        res.status(400).send({
+                        res.send({
                             statusCode: 400,
                             status: false,
                             message: 'Catch form leaderboard',
@@ -47,7 +47,7 @@ module.exports = {
                     firestore.collection('users').where('year','==','1').orderBy('amountOf.sum').get()
                         .then((snapshot)=> {
                             if (snapshot.empty) {
-                                res.status(404).send({
+                                res.send({
                                     statusCode: 404,
                                     status: false,
                                     message: 'Board not found!',
@@ -63,7 +63,7 @@ module.exports = {
                             }
                         })
                         .catch(err => {
-                            res.status(400).send({
+                            res.send({
                                 statusCode: 400,
                                 status: false,
                                 message: 'Catch form leaderboard',
@@ -91,7 +91,7 @@ module.exports = {
                     }
                 }
 
-                res.status(200).send({
+                res.send({
                     statusCode: 200,
                     status: true,
                     message: 'Request success',
@@ -99,7 +99,7 @@ module.exports = {
                     board: newBoard
                 })
             } else {
-                res.status(401).send({
+                res.send({
                     statusCode: 401,
                     status: false,
                     message: 'Permission fail',
@@ -110,7 +110,7 @@ module.exports = {
 
         } catch (e) {
             console.log(e);
-            res.status(500).send({
+            res.send({
                 statusCode: 500,
                 status: false,
                 message: "Internal Server Error",

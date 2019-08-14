@@ -6,7 +6,7 @@ module.exports = {
         if (status) {
             res.send(userId)
         } else {
-            res.status(400).send({
+            res.send({
                 statusCode: 400,
                 status: false,
                 message: 'fail',
