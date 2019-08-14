@@ -10,8 +10,17 @@ module.exports = {
     register : async (req, res) => {
         try {
             let batch = firestore.batch();
-
             let {userId, status, error} = await auth.validateToken(req);
+
+            if (!status) {
+                res.status(401).send({
+                    statusCode: 401,
+                    status: false,
+                    message: 'Unauthorized',
+                    error: error
+                });
+            }
+
             let uid = userId
             let userRef = firestore.collection('users').doc(uid);
             userRef.get().then((doc) => {
@@ -75,6 +84,16 @@ module.exports = {
     myProfile : async (req, res) => {
         try {
             let {userId, status, error} = await auth.validateToken(req);
+
+            if (!status) {
+                res.status(401).send({
+                    statusCode: 401,
+                    status: false,
+                    message: 'Unauthorized',
+                    error: error
+                });
+            }
+
             let uid = userId;
             let userRef = firestore.collection('users').doc(uid);
             userRef.get().then((doc) => {
@@ -134,7 +153,17 @@ module.exports = {
     edit : async (req, res) => {
         try {
             let {userId, status, error} = await auth.validateToken(req);
-            let uid = userId
+
+            if (!status) {
+                res.status(401).send({
+                    statusCode: 401,
+                    status: false,
+                    message: 'Unauthorized',
+                    error: error
+                });
+            }
+
+            let uid = userId;
 
             let userRef = firestore.collection('users').doc(uid);
             await userRef.get().then((doc) => {
@@ -175,6 +204,16 @@ module.exports = {
     friendList : async (req, res) => {
         try {
             let {userId, status, error} = await auth.validateToken(req);
+
+            if (!status) {
+                res.status(401).send({
+                    statusCode: 401,
+                    status: false,
+                    message: 'Unauthorized',
+                    error: error
+                });
+            }
+
             let uid = userId;
 
             let userRef = firestore.collection('users').doc(uid);
