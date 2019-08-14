@@ -3,7 +3,7 @@ const User = require("../entities/User");
 const QRCode = require("../entities/QRCode");
 const admin = require("../config/firebase");
 const QrText = require("../../util/QrText");
-const { validateToken } = require("../../util/Auth");
+const auth = require("../../util/Auth");
 const firestore = admin.firestore();
 
 module.exports = {
@@ -11,8 +11,8 @@ module.exports = {
         try {
             let batch = firestore.batch();
 
-            let uidOBJ = await validateToken(req);
-            let uid = uidOBJ.userId;
+            let {userId, status, error} = await auth.validateToken(req);
+            let uid = userId
             let userRef = firestore.collection('users').doc(uid);
             userRef.get().then((doc) => {
                 if (doc.exists) {
@@ -74,15 +74,8 @@ module.exports = {
 
     myProfile : async (req, res) => {
         try {
-            let uidOBJ = await validateToken(req);
-            if (uidOBJ === undefined) {
-                res.status(401).send({
-                    statusCode: 401,
-                    status: false,
-                    message: 'Unauthorized'
-                });
-            }
-            let uid = uidOBJ.userId;
+            let {userId, status, error} = await auth.validateToken(req);
+            let uid = userId;
             let userRef = firestore.collection('users').doc(uid);
             userRef.get().then((doc) => {
                 if (doc.exists) {
@@ -140,15 +133,8 @@ module.exports = {
 
     edit : async (req, res) => {
         try {
-            let uidOBJ = await validateToken(req);
-            if (uidOBJ === undefined) {
-                res.status(401).send({
-                    statusCode: 401,
-                    status: false,
-                    message: 'unauthorized'
-                });
-            }
-            let uid = uidOBJ.userId;
+            let {userId, status, error} = await auth.validateToken(req);
+            let uid = userId
 
             let userRef = firestore.collection('users').doc(uid);
             await userRef.get().then((doc) => {
@@ -188,8 +174,8 @@ module.exports = {
 
     friendList : async (req, res) => {
         try {
-            let uidOBJ = await validateToken(req);
-            let uid = uidOBJ.userId;
+            let {userId, status, error} = await auth.validateToken(req);
+            let uid = userId;
 
             let userRef = firestore.collection('users').doc(uid);
             await userRef.get().then((doc) => {
