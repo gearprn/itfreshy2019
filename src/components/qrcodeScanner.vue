@@ -2,9 +2,43 @@
   <b-container fluid class="qrcode">
     <b-container>
       <b-row style="justify-content: center;" class="m-3">
-        <qrcode-stream @decode="onDecode"></qrcode-stream>
-        <h3>{{ result }}</h3>
+        <b-col class="justify-content-center" md="12" sm="12">
+          <qrcode-stream v-if="showScanner == true" @decode="onDecode"></qrcode-stream>
+        </b-col>
+        <b-col v-if="showScanner != true" class="justify-content-center"  md="12" sm="12">
+          <h3>ไหนเพื่อนหรือพี่ที่เราสเเกนไปชื่ออะไร</h3>
+        </b-col>
+        <b-col v-if="showScanner != true" md="4" sm="12" v-for="name in choice">
+          <button class="btn btn-primary m-2 w-100" @click="addFriend(name)">{{ name }}</button>
+        </b-col>
+
+
       </b-row>
+
+      <div v-if="showModal">
+        <transition name="modal">
+        <div class="modal-mask">
+            <div class="modal-wrapper">
+
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title req-field">เเจ้งเตือน</h5>
+                        <button  class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" @click="showModal = false">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{ modalmsg }}</p>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+        </div>
+        </transition>
+      </div>
+
     </b-container>
   </b-container>
 </template>
@@ -25,7 +59,12 @@ export default {
     return {
       qrcode: "132",
       result: "",
-      error: ""
+      error: "",
+      showScanner: true,
+      showModal: false,
+      modalmsg: "",
+      friendUid: "",
+      choice: []
     };
   },
   methods: {
@@ -36,18 +75,67 @@ export default {
       'loginWithToken'
     ]),
     onDecode(result) {
+      // this.modalmsg = "กรุณารอซักครู่"
       this.result = result;
       axios({
         method: "POST",
-        url:
-          "https://us-central1-itfreshy2019.cloudfunctions.net/api/user/myprofile",
+        url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/friend/quiz",
         headers: {
-          authorization: "Bearer " + Cookies.get("token")
+          "authorization" : "Bearer " + Cookies.get('token')
         },
         data: {
-          encoded: result
+          "encoded": result
         }
-      });
+      })
+      .then((res) => {
+        console.log(res.data)
+        if (!res.data.status) {
+          this.showScanner = true
+          this.showModal = true
+          this.modalmsg = "QR code หมดอายุเเล้วจ้า"
+        } else {
+          this.showScanner = false
+          this.friendUid = res.data.data.friend
+          this.choice = res.data.data.choice
+        }
+
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },
+    addFriend(name) {
+      console.log(name)
+      axios({
+        method: "POST",
+        url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/friend/add",
+        headers: {
+          "authorization" : "Bearer " + Cookies.get('token')
+        },
+        data: {
+          answer: name,
+          friend: this.friendUid
+        }
+      })
+      .then((res) => {
+        console.log(res.data.message)
+        if (res.data.message == "Incorrect answer") {
+          this.showScanner = true
+          this.showModal = true
+          this.modalmsg = "ตอบผิดไปสเเกนใหม่นะ"
+        } else if (res.data.message =="Already Add") {
+          this.showScanner = true
+          this.showModal = true
+          this.modalmsg = "มีรายชื่อเพื่อนคนนี้เเล้ว"
+        } else {
+          this.showScanner = true
+          this.showModal = true
+          this.modalmsg = "เพิ่มเพื่อนเรียบร้อย"
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     }
   },
   mounted() {
@@ -66,5 +154,22 @@ export default {
 .error {
   font-weight: bold;
   color: red;
+}
+
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  display: table;
+  transition: opacity .9s ease;
+}
+
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
 }
 </style>

@@ -11,7 +11,7 @@ module.exports = {
             let {userId, status, error} = await auth.validateToken(req);
 
             if (!status) {
-                res.status(401).send({
+                res.send({
                     statusCode: 401,
                     status: false,
                     message: 'Please login',
@@ -31,7 +31,7 @@ module.exports = {
                 });
 
             if(!friend.uid){
-                res.status(400).send({
+                res.send({
                     statusCode: 400,
                     status: false,
                     message: "QrCode Expired"
@@ -59,14 +59,14 @@ module.exports = {
                 let names = await firestore.collection("users").doc("nameArray").get();
                 names = names.data().array;
                 choice = await QrText.randomChoice(friend, names);
-                res.status(200).send({
+                res.send({
                     statusCode: 200,
                     status: true,
                     message: "Success",
                     data:{friend:friendUid,choice:choice}
                 });
             } else {
-                res.status(400).send({
+                res.send({
                     statusCode: 400,
                     status: false,
                     message: "QrCode Incorrect"
@@ -74,7 +74,7 @@ module.exports = {
             }
         } catch(e) {
             console.log(e);
-            res.status(500).send({
+            res.send({
                 statusCode: 500,
                 status: false,
                 message: "Internal Server Error",
@@ -88,7 +88,7 @@ module.exports = {
             let {userId, status, error} = await auth.validateToken(req);
 
             if (!status) {
-                res.status(401).send({
+                res.send({
                     statusCode: 401,
                     status: false,
                     message: 'Please login',
@@ -109,7 +109,7 @@ module.exports = {
                     // check if already add
                     for(let i=0;i<userFriendList.length;i++){
                         if(friend == userFriendList[i].uid){
-                            res.status(400).send({
+                            res.send({
                                 statusCode: 400,
                                 status: false,
                                 message: "Already Add",
@@ -143,28 +143,30 @@ module.exports = {
                         amountOf: friendData.amountOf
                     });
 
-                    res.status(206).send({
+                    res.send({
                         statusCode: 206,
                         status: true,
                         message: "Add friend Success",
                     });
                 } else {
-                    res.status(400).send({
+                    console.log(friendData.nickname);
+                    console.log(friend);
+                    res.send({
                         statusCode: 400,
                         status: false,
                         message: "Incorrect answer",
                     });
                 }
             } else {
-                res.status(404).send({
+                res.send({
                     statusCode: 404,
                     status: false,
                     message: "User Not found",
-                });
+                }).statusCode(404001);
             }
         } catch(e) {
             console.log(e);
-            res.status(500).send({
+            res.send({
                 statusCode: 500,
                 status: false,
                 message: "Internal Server Error",

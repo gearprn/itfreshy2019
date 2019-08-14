@@ -1,9 +1,8 @@
 <template>
   <b-container fluid class="qrcode">
     <b-container>
-      <b-row style="justify-content: center;" class="m-3" v-if="qrcode != null">
+      <b-row style="justify-content: center;" class="m-3" v-if="qrcode != ''">
         <img center alt="Center image" :src="qrcode" />
-        <!-- <button @click="update()">hit</button> -->
       </b-row>
       <b-row class="justify-content-center" v-else>
         <b-spinner style="width:3rem;height:3rem;"></b-spinner>
