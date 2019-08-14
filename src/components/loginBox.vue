@@ -52,7 +52,7 @@ export default {
           })
           .then(res => {
             // console.log(res.data);
-            Cookies.set('token', res.data.token, { expires: 5, secure: false, });
+            Cookies.set('token', res.data.token, { expires: 5, secure: true, });
             store.commit('setPhotoURL', user.photoURL)
             store.commit('setEmail', user.email)
 
