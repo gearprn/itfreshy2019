@@ -13,12 +13,30 @@ module.exports = {
 
             let uidOBJ = await validateToken(req);
             let uid = uidOBJ.userId;
+            let userRef = firestore.collection('users').doc(uid);
+            userRef.get().then((doc) => {
+                if (doc.exists) {
+                    let user = doc.data();
+                    if (user.name != undefined) {
+                        res.status(400).send({
+                            statusCode: 400,
+                            status: false,
+                            message: 'You have already registered'
+                        });
+                    }
+                } else {
+                    res.status(404).send({
+                        statusCode: 404,
+                        status: false,
+                        message: 'User not found'
+                    });
+                }
+            });
             let {name, nickname, id, year, imgURL, branch, bio, email} = req.body;
             let hash = randomstring.generate(7);
             let encoded = await QrText.generate(uid, hash);
             let qrCode = new QRCode(uid, hash, encoded);
             let user = new User(uid, name, nickname, id, year, imgURL, branch, bio, qrCode, email);
-            let userRef = firestore.collection('users').doc(uid); //todo: save this data to given uid from facebook login
             let saveUser = await batch.update(userRef, JSON.parse(JSON.stringify(user)));
 
             let nameArrayRef = firestore.doc('users/nameArray');
