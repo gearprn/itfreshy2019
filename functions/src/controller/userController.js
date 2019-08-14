@@ -13,7 +13,7 @@ module.exports = {
             let {userId, status, error} = await auth.validateToken(req);
 
             if (!status) {
-                res.status(401).send({
+                res.send({
                     statusCode: 401,
                     status: false,
                     message: 'Unauthorized',
@@ -27,14 +27,14 @@ module.exports = {
                 if (doc.exists) {
                     let user = doc.data();
                     if (user.name != undefined) {
-                        res.status(400).send({
+                        res.send({
                             statusCode: 400,
                             status: false,
                             message: 'You have already registered'
                         });
                     }
                 } else {
-                    res.status(404).send({
+                    res.send({
                         statusCode: 404,
                         status: false,
                         message: 'User not found'
@@ -56,14 +56,14 @@ module.exports = {
 
             if (saveUser && saveArray) {
                 batch.commit().then(() => {
-                    res.status(201).send({
+                    res.send({
                         statusCode: 201,
                         status: true,
                         message: "User Created",
                     });
                 })
             } else {
-                res.status(400).send({
+                res.send({
                     statusCode: 400,
                     status: false,
                     message: "Something went wrong when you try to register"
@@ -72,7 +72,7 @@ module.exports = {
 
         } catch(e) {
             console.log(e);
-            res.status(500).send({
+            res.send({
                 statusCode: 500,
                 status: false,
                 message: "Internal Server Error",
@@ -86,7 +86,7 @@ module.exports = {
             let {userId, status, error} = await auth.validateToken(req);
 
             if (!status) {
-                res.status(401).send({
+                res.send({
                     statusCode: 401,
                     status: false,
                     message: 'Unauthorized',
@@ -100,7 +100,7 @@ module.exports = {
                 if (doc.exists) {
                     res.send(doc.data());
                 } else {
-                    res.status(404).send({
+                    res.send({
                         statusCode: 404,
                         status: false,
                         message: "User not found"
@@ -109,7 +109,7 @@ module.exports = {
             })
         } catch (e) {
             console.log(e);
-            res.status(500).send({
+            res.send({
                 statusCode: 500,
                 status: false,
                 message: "Internal Server Error",
@@ -125,14 +125,14 @@ module.exports = {
             userRef.get().then((doc) => {
                 if (doc.exists) {
                     let user = doc.data();
-                    res.status(200).send({
+                    res.send({
                         statusCode: 200,
                         status: true,
                         message: 'Request success',
                         user: user
                     });
                 } else {
-                    res.status(404).send({
+                    res.send({
                         statusCode: 404,
                         status: false,
                         message: 'User not found'
@@ -141,7 +141,7 @@ module.exports = {
             });
         } catch (e) {
             console.log(e);
-            res.status(500).send({
+            res.send({
                 statusCode: 500,
                 status: false,
                 message: 'Internal Server Error',
@@ -155,7 +155,7 @@ module.exports = {
             let {userId, status, error} = await auth.validateToken(req);
 
             if (!status) {
-                res.status(401).send({
+                res.send({
                     statusCode: 401,
                     status: false,
                     message: 'Unauthorized',
@@ -175,7 +175,7 @@ module.exports = {
                         'branch': branch,
                     }
                     userRef.update(payload).then(() => {
-                        res.status(200).send({
+                        res.send({
                             statusCode: 200,
                             status: true,
                             message: "Change has been saved!"
@@ -183,7 +183,7 @@ module.exports = {
                     });
 
                 } else {
-                    res.status(404).send({
+                    res.send({
                         statusCode: 404,
                         status: false,
                         message: "User not found",
@@ -192,7 +192,7 @@ module.exports = {
             });
         } catch (e) {
             console.log(e);
-            res.status(500).send({
+            res.send({
                 statusCode: 500,
                 status: false,
                 message: "Internal Server Error",
@@ -206,7 +206,7 @@ module.exports = {
             let {userId, status, error} = await auth.validateToken(req);
 
             if (!status) {
-                res.status(401).send({
+                res.send({
                     statusCode: 401,
                     status: false,
                     message: 'Unauthorized',
@@ -220,14 +220,14 @@ module.exports = {
             await userRef.get().then((doc) => {
                 if (doc.exists) {
                     let user = doc.data();
-                    res.status(200).send({
+                    res.send({
                         statusCode: 200,
                         status: true,
                         message: "Success",
                         friendList: user.friendList
                     });
                 } else {
-                    res.status(404).send({
+                    res.send({
                         statusCode: 404,
                         status: false,
                         message: "User not found"
@@ -236,7 +236,7 @@ module.exports = {
             });
         } catch (e) {
             console.log(e);
-            res.status(500).send({
+            res.send({
                 statusCode: 500,
                 status: false,
                 message: "Internal Server Error",

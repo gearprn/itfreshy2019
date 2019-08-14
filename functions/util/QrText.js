@@ -16,7 +16,6 @@ module.exports = {
         for(let i=0;i<3;i++){
             choices[allChoices.splice(Math.floor(Math.random() * allChoices.length), 1)[0]] = names.splice(Math.floor(Math.random() * names.length), 1)[0]
         }
-        console.log(choices);
         return choices
     },
 };
