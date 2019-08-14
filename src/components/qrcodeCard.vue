@@ -27,8 +27,12 @@ export default {
     };
   },
   methods: {
+    ...mapGetters([
+      'getProfile'
+    ]),
     update() {
-      var docRef = db.collection("users").doc("0hZEMhFZgMguQz7wMhbs");
+      let profile = this.getProfile()
+      var docRef = db.collection("users").doc(profile.uid)
       docRef.onSnapshot(doc => {
         // console.log(doc.data().qrCode.counter)
         QRcode.toDataURL(doc.data().qrCode.encoded)

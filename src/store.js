@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 let store = new Vuex.Store({
   base: process.env.NODE_ENV,
+  mode: 'history',
   state: {
     profile: {},
     firstTime: true,
