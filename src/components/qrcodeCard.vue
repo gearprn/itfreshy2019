@@ -1,10 +1,10 @@
 <template>
   <b-container fluid class="qrcode">
     <b-container>
-      <b-row class="justify-content-center" v-if="qrcode != null">
+      <b-row class="justify-content-center" v-if="qrcode == null">
         <b-spinner style="width:3rem;height:3rem;"></b-spinner>
       </b-row>
-      <b-row style="justify-content: center;" class="m-3">
+      <b-row style="justify-content: center;" class="m-3" v-else>
         <img center alt="Center image" :src="qrcode" />
         <!-- <button @click="update()">hit</button> -->
       </b-row>
@@ -15,7 +15,7 @@
 <script>
 import QRcode from "qrcode";
 import Cookies from "js-cookie";
-import { getters, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import { db } from "../main";
 
 export default {
