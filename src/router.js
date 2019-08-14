@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import loginPage from './views/loginPage.vue'
 import dashboardPage from './views/dashboardPage.vue'
+import friendListPage from './views/friendListPage.vue'
 import Cookies from 'js-cookie'
 import store from './store.js'
 

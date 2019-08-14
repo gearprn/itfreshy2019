@@ -123,7 +123,7 @@ export default {
           this.showScanner = true
           this.showModal = true
           this.modalmsg = "ตอบผิดไปสเเกนใหม่นะ"
-        } else if (res.data.message =="Already Add") {
+        } else if (res.data.message == "Already Add") {
           this.showScanner = true
           this.showModal = true
           this.modalmsg = "มีรายชื่อเพื่อนคนนี้เเล้ว"

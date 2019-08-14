@@ -7,18 +7,18 @@
     <b-container fluid v-else-if="loading" class="mt-3 mb-5 p-5">
       <b-row>
         <b-col class="profile-area" md="4" sm="12">
-          <h2 style="word-wrap: break-word">{{ this.getProfile().name }}</h2>
+          <h2 style="word-wrap: break-word">{{ this.profile.name }}</h2>
           <b-container class="mt-2 mb-2">
-            <b-img-lazy :src="`${this.getProfile().photoURL}?type=large`" class="profile-img"></b-img-lazy>
+            <b-img-lazy :src="`${this.profile.photoURL}?type=large`" class="profile-img"></b-img-lazy>
           
-            <h4><{{ this.getProfile().nickname }}></h4>
-            <h5>{{ this.getProfile().id }} | {{ this.getProfile().branch }}</h5>
+            <h4><{{ this.profile.nickname }}></h4>
+            <h5>{{ this.profile.id }} | {{ this.profile.branch }}</h5>
           </b-container>
         </b-col>
         <b-col>
-          <b-container class="bios-area" sm="12">
-            <h4>Bios</h4>
-            <h6>{{ this.getProfile().bio }}</h6>
+          <b-container class="bio-area" sm="12">
+            <h4>Bio</h4>
+            <h6 style="word-wrap: break-word">{{ this.profile.bio }}</h6>
           </b-container>
         </b-col>
       </b-row>
