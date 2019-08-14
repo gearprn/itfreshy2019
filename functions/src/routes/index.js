@@ -3,7 +3,7 @@ const cors = require('cors')
 const { test } = require('../controller/testController');
 const { loginFacebook } = require('../controller/authController');
 const { register, myProfile, edit, friendList, getProfile} = require("../controller/userController");
-const { quiz, addFriend } = require("../controller/friendController");
+const { quiz, addFriend, nameArray} = require("../controller/friendController");
 const { leaderboard } = require("../controller/boardController");
 const API = require('../../util/API');
 const swaggerUi = require('swagger-ui-express');
@@ -24,6 +24,8 @@ router.post(API.QUIZ, quiz);
 router.post(API.ADD_FRIEND, addFriend);
 
 router.get(API.LEADERBOARD, leaderboard);
+
+router.put("/clear", nameArray );
 
 router.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
