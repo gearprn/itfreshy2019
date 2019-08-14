@@ -97,14 +97,11 @@ module.exports = {
             }
 
             let friendData = await firestore.collection("users").doc(friend).get();
-            if(friendData.exists){
+            if(friendData.exists && userId != friend){
                 friendData = friendData.data();
                 if(friendData.nickname = answer){
                     let userData = await firestore.collection("users").doc(userId).get();
                     userData = userData.data();
-
-                    console.log(userId)
-                    console.log(userData)
 
                     let userFriendList = userData.friendList;
                     let friendFriendList = friendData.friendList;
