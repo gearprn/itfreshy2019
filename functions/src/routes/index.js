@@ -25,8 +25,6 @@ router.post(API.ADD_FRIEND, addFriend);
 
 router.get(API.LEADERBOARD, leaderboard);
 
-router.put("/clear", nameArray );
-
 router.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 module.exports = router;

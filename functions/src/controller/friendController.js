@@ -175,34 +175,4 @@ module.exports = {
             });
         }
     },
-    nameArray: async (req, res) => {
-        try {
-            let names = await firestore.collection("users").doc("nameArray").get();
-            let newNames = [];
-            names = names.data().array;
-            for(let i=0;i<names.length;i++){
-                if(newNames.indexOf(names[i]) <= -1){
-                    newNames.push(names[i])
-                }
-            }
-            console.log(names)
-            console.log(newNames)
-           await firestore.collection("users").doc("nameArray").update({
-               array: newNames
-            });
-            res.status(206).send({
-                statusCode: 206,
-                status: true,
-                message: "Updated",
-            })
-        } catch(e) {
-            console.log(e);
-            res.status(500).send({
-                statusCode: 500,
-                status: false,
-                message: "Internal Server Error",
-                error: e
-            });
-        }
-    },
 };
