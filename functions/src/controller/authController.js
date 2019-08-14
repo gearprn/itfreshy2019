@@ -10,7 +10,7 @@ module.exports = {
                     return userRecord.toJSON().providerData[0];
                 })
                 .catch(function(error) {
-                    rse.send({
+                    rse.status(404).send({
                         statusCode: 404,
                         status: false,
                         message: 'Facebook uid not found!',
@@ -20,7 +20,7 @@ module.exports = {
             if (providerData.email) {
                 let {status, firstTime, token} = await Auth.loginFacebook(providerData);
                 if (status) {
-                    rse.send({
+                    rse.status(200).send({
                         statusCode: 200,
                         status: true,
                         message: 'Login success',
@@ -28,7 +28,7 @@ module.exports = {
                         firstTime: firstTime
                     })
                 } else {
-                    rse.send({
+                    rse.status(401).send({
                         statusCode: 401,
                         status: false,
                         message: 'Login fail',
@@ -37,7 +37,13 @@ module.exports = {
                 }
             }
         } catch (e) {
-            rse.send(e);
+            console.log(e);
+            res.status(500).send({
+                statusCode: 500,
+                status: false,
+                message: "Internal Server Error",
+                error: e
+            });
         }
     }
 }
