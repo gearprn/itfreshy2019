@@ -8,7 +8,16 @@ module.exports = {
             let data = [];
             let newBoard = [];
             let myPosition = {};
-            let {userId} = await auth.validateToken(req);
+            let {userId, status, error} = await auth.validateToken(req);
+
+            if (!status) {
+                res.status(400).send({
+                    statusCode: 400,
+                    status: false,
+                    message: 'Catch form validateToken',
+                    error: error
+                });
+            }
 
             let usercheck = await new Promise((resolve) => {
                 firestore.doc('users/'+userId).get()
@@ -35,37 +44,44 @@ module.exports = {
             });
             if (usercheck.year == '1') {
                 let board = await new Promise((resolve) => {
-                firestore.collection('users').orderBy('amountOf.sum').get()
-                    .then((snapshot)=> {
-                        if (snapshot.empty) {
-                            res.status(404).send({
-                                statusCode: 404,
+                    firestore.collection('users').where('year','==','1').orderBy('amountOf.sum').get()
+                        .then((snapshot)=> {
+                            if (snapshot.empty) {
+                                res.status(404).send({
+                                    statusCode: 404,
+                                    status: false,
+                                    message: 'Board not found!',
+                                    error: 'No matching documents.'
+                                });
+                            } else {
+                                snapshot.forEach(doc=> {
+                                    let id = doc.id;
+                                    let userData = doc.data();
+                                    data.push({id, userData});
+                                    resolve(data);
+                                })
+                            }
+                        })
+                        .catch(err => {
+                            res.status(400).send({
+                                statusCode: 400,
                                 status: false,
-                                message: 'Board not found!',
-                                error: 'No matching documents.'
+                                message: 'Catch form leaderboard',
+                                error: err
                             });
-                        } else {
-                            snapshot.forEach(doc=> {
-                                let id = doc.id;
-                                let userData = doc.data();
-                                data.push({id, userData});
-                                resolve(data);
-                            })
-                        }
-                    })
-                    .catch(err => {
-                        res.status(400).send({
-                            statusCode: 400,
-                            status: false,
-                            message: 'Catch form leaderboard',
-                            error: err
                         });
-                    });
                 });
 
-                for (let i = 0; i < 10; i++) {
-                    newBoard.push(board[i]);
+                if (board.length >= 10) {
+                    for (let i = 0; i < 10; i++) {
+                        newBoard.push(board[i]);
+                    }
+                } else {
+                    for (let i = 0; i < board.length; i++) {
+                        newBoard.push(board[i]);
+                    }
                 }
+
 
                 for (let i = 0; i < board.length; i++) {
                     if (board[i].id == userId) {

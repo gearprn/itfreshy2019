@@ -38,6 +38,12 @@ module.exports = {
     validateToken: async (request) => {
         try {
             token = request.headers.authorization;
+            if (token == '' || token == undefined) {
+                return {
+                    status: false,
+                    error: 'Token invalid'
+                };
+            }
             token = token.split(' ')[1];
             let decoded = jwt.verify(token, process.env.JWT_KEY);
             if (decoded) {
