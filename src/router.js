@@ -13,17 +13,17 @@ let router = new Router({
   routes: [
     {
       path: '/',
-      name: 'login',
-      component: loginPage,
-      alias: '/login'
-    },
-    {
-      path: '/dashboard',
       name: 'dashboard',
       component: dashboardPage,
+      alias: '/dashboard',
       meta: {
         requiredAuth: true
       }
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: loginPage,
     },
     {
       path: '/register',
@@ -61,7 +61,7 @@ router.beforeEach((to, from, next) => {
       if (store.getters.getFirstTime) { 
         next()
       } else {
-        console.log(to.fullPath)
+        // console.log(to.fullPath)
         next({
           path: '/dashboard',
           params: {

@@ -1,18 +1,30 @@
 <template>
   <b-container class="dashboard">
     <b-container fluid v-if="loading" class="mt-3 mb-5">
-      <h2 style="word-wrap: break-word">สวัสดี คุณ {{ this.profile.name }}</h2>
+      <h2 style="word-wrap: break-word">สวัสดี คุณ {{ this.getProfile().name }}</h2>
       <b-container class="mt-3 mb-3">
-        <b-img-lazy :src="`${this.profile.photoURL}?type=large`" class="profile-img"></b-img-lazy>
+        <b-img-lazy :src="`${this.getProfile().photoURL}?type=large`" class="profile-img"></b-img-lazy>
       </b-container>
       <b-container>
-        <h4>({{ this.profile.nickname }})</h4>
-        <h5>{{ this.profile.id }} | {{ this.profile.branch }}</h5>
+        <h4>({{ this.getProfile().nickname }})</h4>
+        <h5>{{ this.getProfile().id }} | {{ this.getProfile().branch }}</h5>
       </b-container>
       <b-container class="mt-3" fluid>
-        <h4>จำนวนยอดเพื่อน/รุ่นพี่ที่สแกน QR code ไปแล้ว</h4>
-        <b-table>
-        </b-table>
+        <h4>จำนวนเพื่อน/รุ่นพี่ที่สแกน QR code ไปแล้ว {{ this.getProfile().amountOf.sum }} คน</h4>
+        <b-container>
+          <b-row class="justify-content-center">
+            <b-col>รุ่น 17</b-col>
+            <b-col>รุ่น 16</b-col>
+            <b-col>รุ่น 15</b-col>
+            <b-col>รุ่น 14</b-col> 
+          </b-row>
+          <b-row>
+            <b-col>{{ this.getProfile().amountOf.year1 }}</b-col>
+            <b-col>{{ this.getProfile().amountOf.year2 }}</b-col>
+            <b-col>{{ this.getProfile().amountOf.year3 }}</b-col>
+            <b-col>{{ this.getProfile().amountOf.year4 }}</b-col> 
+          </b-row>
+        </b-container>
       </b-container>
     </b-container>
     <b-container v-else class="mt-5 mb-5">
@@ -36,8 +48,13 @@ export default {
       loading: false
     }
   },
+  methods: {
+    ...mapGetters([
+      'getProfile'
+    ])
+  },
   mounted() {
-    let profile = this.$store.getters.getProfile
+    let profile = this.getProfile()
     // console.log(profile)
     // console.log(Object.keys(profile).length == 0)
     if (this.token != null && Object.keys(profile).length == 0) {
@@ -49,7 +66,7 @@ export default {
         }
       })
       .then((res) => {
-        // console.log(res)
+        console.log(res)
         this.$store.commit('setProfile', res.data)
         this.profile = res.data
         this.loading = true
@@ -66,11 +83,6 @@ export default {
     }
     // console.log(this.profile)
   },
-  methods: {
-    initializeProfile() {
-      
-    }
-  }
 };
 </script>
 

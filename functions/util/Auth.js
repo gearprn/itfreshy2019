@@ -38,16 +38,32 @@ module.exports = {
     validateToken: async (request) => {
         try {
             token = request.headers.authorization;
+            if (token == '' || token == undefined) {
+                return {
+                    status: false,
+                    error: 'Token invalid'
+                };
+            }
             token = token.split(' ')[1];
             let decoded = jwt.verify(token, process.env.JWT_KEY);
             if (decoded) {
-                return decoded
+                return {
+                    userId: decoded.userId,
+                    status: true,
+                    message: 'Decoded success!'
+                }
             } else {
-                return false;
+                return {
+                    status: false,
+                    error: 'Decoded false!'
+                };
             }
         } catch (e) {
-            // eslint-disable-next-line no-console
             console.log(e);
+            return {
+                status: false,
+                error: e
+            }
         }
     },
     loginFacebook: async (providerData) => {

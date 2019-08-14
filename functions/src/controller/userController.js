@@ -13,12 +13,30 @@ module.exports = {
 
             let uidOBJ = await validateToken(req);
             let uid = uidOBJ.userId;
+            let userRef = firestore.collection('users').doc(uid);
+            userRef.get().then((doc) => {
+                if (doc.exists) {
+                    let user = doc.data();
+                    if (user.name != undefined) {
+                        res.status(400).send({
+                            statusCode: 400,
+                            status: false,
+                            message: 'You have already registered'
+                        });
+                    }
+                } else {
+                    res.status(404).send({
+                        statusCode: 404,
+                        status: false,
+                        message: 'User not found'
+                    });
+                }
+            });
             let {name, nickname, id, year, imgURL, branch, bio, email} = req.body;
             let hash = randomstring.generate(7);
             let encoded = await QrText.generate(uid, hash);
             let qrCode = new QRCode(uid, hash, encoded);
             let user = new User(uid, name, nickname, id, year, imgURL, branch, bio, qrCode, email);
-            let userRef = firestore.collection('users').doc(uid); //todo: save this data to given uid from facebook login
             let saveUser = await batch.update(userRef, JSON.parse(JSON.stringify(user)));
 
             let nameArrayRef = firestore.doc('users/nameArray');
@@ -29,14 +47,14 @@ module.exports = {
 
             if (saveUser && saveArray) {
                 batch.commit().then(() => {
-                    res.send({
+                    res.status(201).send({
                         statusCode: 201,
                         status: true,
                         message: "User Created",
                     });
                 })
             } else {
-                res.send({
+                res.status(400).send({
                     statusCode: 400,
                     status: false,
                     message: "Something went wrong when you try to register"
@@ -45,7 +63,7 @@ module.exports = {
 
         } catch(e) {
             console.log(e);
-            res.send({
+            res.status(500).send({
                 statusCode: 500,
                 status: false,
                 message: "Internal Server Error",
@@ -57,13 +75,20 @@ module.exports = {
     myProfile : async (req, res) => {
         try {
             let uidOBJ = await validateToken(req);
+            if (uidOBJ === undefined) {
+                res.status(401).send({
+                    statusCode: 401,
+                    status: false,
+                    message: 'Unauthorized'
+                });
+            }
             let uid = uidOBJ.userId;
             let userRef = firestore.collection('users').doc(uid);
             userRef.get().then((doc) => {
                 if (doc.exists) {
                     res.send(doc.data());
                 } else {
-                    res.send({
+                    res.status(404).send({
                         statusCode: 404,
                         status: false,
                         message: "User not found"
@@ -72,7 +97,7 @@ module.exports = {
             })
         } catch (e) {
             console.log(e);
-            res.send({
+            res.status(500).send({
                 statusCode: 500,
                 status: false,
                 message: "Internal Server Error",
@@ -88,14 +113,14 @@ module.exports = {
             userRef.get().then((doc) => {
                 if (doc.exists) {
                     let user = doc.data();
-                    res.send({
+                    res.status(200).send({
                         statusCode: 200,
                         status: true,
                         message: 'Request success',
                         user: user
                     });
                 } else {
-                    res.send({
+                    res.status(404).send({
                         statusCode: 404,
                         status: false,
                         message: 'User not found'
@@ -104,7 +129,7 @@ module.exports = {
             });
         } catch (e) {
             console.log(e);
-            res.send({
+            res.status(500).send({
                 statusCode: 500,
                 status: false,
                 message: 'Internal Server Error',
@@ -116,6 +141,13 @@ module.exports = {
     edit : async (req, res) => {
         try {
             let uidOBJ = await validateToken(req);
+            if (uidOBJ === undefined) {
+                res.status(401).send({
+                    statusCode: 401,
+                    status: false,
+                    message: 'unauthorized'
+                });
+            }
             let uid = uidOBJ.userId;
 
             let userRef = firestore.collection('users').doc(uid);
@@ -128,7 +160,7 @@ module.exports = {
                         'branch': branch,
                     }
                     userRef.update(payload).then(() => {
-                        res.send({
+                        res.status(200).send({
                             statusCode: 200,
                             status: true,
                             message: "Change has been saved!"
@@ -136,7 +168,7 @@ module.exports = {
                     });
 
                 } else {
-                    res.send({
+                    res.status(404).send({
                         statusCode: 404,
                         status: false,
                         message: "User not found",
@@ -145,7 +177,7 @@ module.exports = {
             });
         } catch (e) {
             console.log(e);
-            res.send({
+            res.status(500).send({
                 statusCode: 500,
                 status: false,
                 message: "Internal Server Error",
@@ -163,14 +195,14 @@ module.exports = {
             await userRef.get().then((doc) => {
                 if (doc.exists) {
                     let user = doc.data();
-                    res.send({
+                    res.status(200).send({
                         statusCode: 200,
                         status: true,
                         message: "Success",
                         friendList: user.friendList
                     });
                 } else {
-                    res.send({
+                    res.status(404).send({
                         statusCode: 404,
                         status: false,
                         message: "User not found"
@@ -179,7 +211,7 @@ module.exports = {
             });
         } catch (e) {
             console.log(e);
-            res.send({
+            res.status(500).send({
                 statusCode: 500,
                 status: false,
                 message: "Internal Server Error",

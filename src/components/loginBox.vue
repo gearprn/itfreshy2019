@@ -52,10 +52,7 @@ export default {
           })
           .then(res => {
             // console.log(res.data);
-            // console.log(user)
-            Cookies.set('token', res.data.token, { expires: 1, secure: false, });
-            // Cookies.set('photoURL', user.photoURL, { expires: 1, secure: false, });
-            // Cookies.set('email', user.email, { expires: 1, secure: false, });
+            Cookies.set('token', res.data.token, { expires: 5, secure: true, });
             store.commit('setPhotoURL', user.photoURL)
             store.commit('setEmail', user.email)
 
@@ -72,7 +69,6 @@ export default {
                 }
               })
               .then((res) => {
-                // console.log(res.data)
                 store.commit('setProfile', res.data)
               })
               .catch((err) => {
@@ -101,8 +97,6 @@ export default {
         .then(function() {
           // console.log("logout successful!");
           Cookies.remove('token')
-          Cookies.remove('photoURL')
-          Cookies.remove('email')
         })
         .catch(function(error) {
           console.log(error);
