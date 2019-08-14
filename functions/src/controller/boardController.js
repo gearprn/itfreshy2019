@@ -11,10 +11,10 @@ module.exports = {
             let {userId, status, error} = await auth.validateToken(req);
 
             if (!status) {
-                res.status(400).send({
-                    statusCode: 400,
+                res.status(401).send({
+                    statusCode: 401,
                     status: false,
-                    message: 'Catch form validateToken',
+                    message: 'Unauthorized',
                     error: error
                 });
             }
