@@ -79,6 +79,32 @@ let store = new Vuex.Store({
           resolve(state.profile)
         } 
       })
+    },
+    getProfileByUid({ commit, state }, uid) {
+      return new Promise((resolve, reject) => {
+        if (uid == null) reject("Invaild UID")
+        else {
+          axios({
+            method: "GET",
+            url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/user/profile",
+            headers: {
+              "uid" : uid
+            }
+          })
+          .then((res) => {
+            console.log("success")
+            console.log(res)
+            if (res.data.statusCode != 200) {
+              reject(res.data.statusCode + "|" + res.data.message)
+            }
+            resolve(res.data)
+          })
+          .catch((err) => {
+            console.log(err)
+            reject(err)
+          })
+        }
+      })
     }
   }
 })

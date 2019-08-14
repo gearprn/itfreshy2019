@@ -48,7 +48,8 @@ export default {
     return {
       token: Cookies.get('token'),
       profile: "",
-      loading: false
+      loading: false,
+      error: ""
     }
   },
   methods: {
@@ -61,7 +62,7 @@ export default {
   },
   mounted() {
     let profile = this.getProfile()
-    // console.log(profile)
+    console.log(profile)
     // console.log(Object.keys(profile).length == 0)
     this.loginWithToken(this.token)
       .then((res) => {

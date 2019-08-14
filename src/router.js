@@ -26,6 +26,17 @@ let router = new Router({
       component: loginPage,
     },
     {
+      path: '/profile',
+      name: 'profile',
+      component: () => import('./components/profileCard.vue'),
+      children: [
+        {
+          path: '/profile/:uid',
+          component: () => import('./components/profileCard.vue')
+        }
+      ]
+    },
+    {
       path: '/register',
       name: 'register',
       component: () => import('./components/registerCard.vue'),
