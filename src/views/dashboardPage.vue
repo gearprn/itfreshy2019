@@ -1,13 +1,13 @@
 <template>
   <b-container fluid class="dashboard pb-3">
     <b-container v-if="loading" class="mt-3">
-      <h2 class="title-profile" >PROFILE</h2>
+      <h2 class="title-profile">PROFILE</h2>
       <b-container class="mt-3 mb-3">
         <b-row class="textMid">
           <b-img-lazy :src="`${this.getProfile().photoURL}?type=large`" class="rounded-top"></b-img-lazy>
         </b-row>
         <b-row class="textMid">
-          <div class="rounded-bottom nickname-box" style="background: #000000c9;color: #fff;">
+          <div class="rounded-bottom nickname-box" style="background: #000000c9; color: #fff;">
             <h4>{{ this.getProfile().nickname }}</h4>
           </div>
         </b-row>
@@ -102,7 +102,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 import Cookies from 'js-cookie'
 import axios from 'axios'
 
@@ -112,7 +112,7 @@ export default {
   data () {
     return {
       token: Cookies.get('token'),
-      profile: "",
+      profile: this.getProfile(),
       loading: false,
       error: ""
     }
@@ -127,17 +127,17 @@ export default {
   },
   mounted() {
     let profile = this.getProfile()
-    console.log(profile)
     // console.log(Object.keys(profile).length == 0)
     this.loginWithToken(this.token)
       .then((res) => {
-        this.profile = res.data
+        profile = res.data
         this.loading = true
       })
       .catch((err) => {
         console.log(err)
         this.$router.push('/login')
       })
+    this.profile = profile
   },
 };
 </script>
@@ -176,12 +176,15 @@ export default {
   /*height: 160px;*/
 }
 
-.title-profile{
-    background-image: -webkit-gradient( linear, left top, right top, color-stop(0, #DC04FF), color-stop(1, #00114F) );
-    background-image: gradient( linear, left top, right top, color-stop(0, #DC04FF), color-stop(1, #00114F) );
-    color:transparent;
-    -webkit-background-clip: text;
-    background-clip: text;
+.title-profile {
+  background-image: -webkit-gradient( linear, top, bottom, color-stop(0, #DC04FF), color-stop(1, #00114F) );
+  background-image: gradient( linear, top, bottom, color-stop(0, #DC04FF), color-stop(1, #00114F) );
+  background: linear-gradient(180deg, rgba(198,100,244,1) 0%, rgba(152,63,171,1) 42%, rgba(219,25,71,1) 100%);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0px 3px 2px #333300);
 }
 
 .bio {

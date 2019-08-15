@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <nav-card></nav-card>
-    <router-view/>
+    <transition name="slide-fade" mode="out-in">
+      <router-view/>
+    </transition>
     <!-- <footer-card></footer-card> -->
   </div>
 </template>
@@ -45,6 +47,8 @@ export default {
   text-align: center;
   color: white;
   background-image: url('assets/bg.jpg');
+  background-size: cover;
+  min-height: 100vh; 
 }
 
 #nav {
@@ -56,5 +60,18 @@ export default {
       color: #42b983;
     }
   }
+}
+
+/* Enter and leave animations can use different */
+/* durations and timing functions.              */
+.slide-fade-enter-active {
+  transition: all .2s ease;
+}
+.slide-fade-leave-active {
+  transition: all .4s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
