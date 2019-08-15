@@ -127,7 +127,12 @@ export default {
           this.showScanner = true
           this.showModal = true
           this.modalmsg = "มีรายชื่อเพื่อนคนนี้เเล้ว"
-        } else {
+        } else if (res.data.message == "User Not found") {
+          this.showScanner = true
+          this.showModal = true
+          this.modalmsg = "QR code ไม่ถูกต้อง"
+        }
+        else {
           this.showScanner = true
           this.showModal = true
           this.modalmsg = "เพิ่มเพื่อนเรียบร้อย"

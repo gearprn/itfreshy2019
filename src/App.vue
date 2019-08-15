@@ -2,7 +2,7 @@
   <div id="app">
     <nav-card></nav-card>
     <router-view/>
-    <footer-card></footer-card>
+    <!-- <footer-card></footer-card> -->
   </div>
 </template>
 
@@ -43,7 +43,8 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: white;
+  background-image: url('assets/bg.jpg');
 }
 #nav {
   padding: 30px;

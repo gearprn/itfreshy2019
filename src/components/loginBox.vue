@@ -1,9 +1,10 @@
 <template>
   <div class="login">
     <b-container fluid>
-      <b-row class="justify-content-center m-5">
-        <b-img-lazy src="https://via.placeholder.com/240?text=Logo+240x240"></b-img-lazy>
-        <!-- <b-img-lazy src="../assets/itec_logo.png"></b-img-lazy> -->
+      <b-row class="justify-content-center mt-5">
+        <b-col md="4" sm="12">
+          <img class="w-100" src="../assets/freshy-logo.png"></img>
+        </b-col>
       </b-row>
       <b-row class="justify-content-md-center p-3">
         <b-col md='3' sm='12'>
@@ -107,8 +108,18 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .fb-btn {
-  background-color: #4267b2;
+  background-color: #00bfff;
+}
+
+.btn-secondary {
+  color: #fff;
+  background-color: #00bfff;
+  border-color: #00bfff;
+}
+
+.login {
+  min-height: 600px
 }
 </style>

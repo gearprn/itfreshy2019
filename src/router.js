@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import loginPage from './views/loginPage.vue'
 import dashboardPage from './views/dashboardPage.vue'
 import friendListPage from './views/friendListPage.vue'
+import leaderBoardPage from './views/leaderBoardPage.vue'
 import Cookies from 'js-cookie'
 import store from './store.js'
 
@@ -25,6 +26,14 @@ let router = new Router({
       path: '/friendlist',
       name: 'friend',
       component: friendListPage,
+      meta: {
+        requiredAuth: false
+      }
+    },
+    {
+      path: '/leaderboard',
+      name: 'board',
+      component: leaderBoardPage,
       meta: {
         requiredAuth: false
       }
