@@ -150,15 +150,12 @@ let store = new Vuex.Store({
             }
           })
           .then((res) => {
-            // console.log("success")
-            // console.log(res)
             if (res.data.statusCode != 200) {
               reject(res.data.statusCode + "|" + res.data.message)
             }
             resolve(res.data)
           })
           .catch((err) => {
-            // console.log(err)
             reject(err)
           })
         }

@@ -91,11 +91,9 @@ export default {
         .auth()
         .signOut()
         .then(() => {
-          console.log("logout successful!")
+          // console.log("logout successful!")
           Cookies.remove('token')
           this.clearProfile()
-          console.log(this.checkLogined())
-          console.log(this.getProfile())
         })
         .catch((err) => {
           console.log(err);
