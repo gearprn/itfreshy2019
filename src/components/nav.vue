@@ -5,17 +5,16 @@
       <b-navbar-brand href="">
       </b-navbar-brand>
 
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+      <b-navbar-toggle target="nav-collapse" v-if="this.checkLogined()" ></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav class="ml-auto">
-          <b-nav-item @click="gotoHome" v-if="this.checkLogined()">My Profile</b-nav-item>
-          <b-nav-item @click="gotoMyQr" v-if="this.checkLogined()">My QR Code</b-nav-item>
-          <b-nav-item @click="gotoScanner" v-if="this.checkLogined()">QR Scanner</b-nav-item>
-          <b-nav-item @click="gotoFriendList" v-if="this.checkLogined()">Friend List</b-nav-item>
-          <b-nav-item @click="gotoleaderBoard" v-if="this.checkLogined()">Leaderboard</b-nav-item>
-          <b-nav-item @click="logout" v-if="this.checkLogined()">Logout</b-nav-item>
-          <b-nav-item @click="gotoLogin" v-else>Login</b-nav-item>
+        <b-navbar-nav class="ml-auto"  v-if="this.checkLogined()">
+          <b-nav-item @click="gotoHome">My Profile</b-nav-item>
+          <b-nav-item @click="gotoMyQr">My QR Code</b-nav-item>
+          <b-nav-item @click="gotoScanner">QR Scanner</b-nav-item>
+          <b-nav-item @click="gotoFriendList">Friend List</b-nav-item>
+          <b-nav-item @click="gotoleaderBoard">Leaderboard</b-nav-item>
+          <b-nav-item @click="logout">Logout</b-nav-item>
           <!-- <b-nav-item href="https://oph2019-kmitl-c2dac.web.app/register" v-if="this.getLoginState() === false">ลงทะเบียน</b-nav-item> -->
           <!-- <b-nav-item v-if="this.getLoginState() === false" @click="login()">เข้าสู่ระบบ</b-nav-item>
           <b-nav-item v-if="this.getLoginState() === true" @click="gotoDashboard()"> ข้อมูลของคุณ </b-nav-item>
@@ -129,7 +128,11 @@ export default {
       this.loginWithToken(Cookies.get('token'))
         .catch((err) => {
           console.log(err)
-          this.$router.push('/login')
+          if (err == "Doesn't register") {
+            this.logout()
+          } else if (this.$route.name != 'login') {
+            this.$router.push('/login')
+          }
         })
     }
   }

@@ -46,6 +46,7 @@ export default {
   color: white;
   background-image: url('assets/bg.jpg');
 }
+
 #nav {
   padding: 30px;
   a {

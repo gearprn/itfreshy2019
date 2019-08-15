@@ -16,10 +16,9 @@
 </template>
 
 <script>
-import Vue from "vue";
 import firebase from "firebase";
 import axios from "axios";
-import { mapMutations, mapGetters } from 'vuex'
+import { mapMutations, mapGetters, mapActions } from 'vuex'
 import Cookies from "js-cookie";
 
 var provider = new firebase.auth.FacebookAuthProvider();
@@ -32,66 +31,83 @@ export default {
     };
   },
   methods: {
+    ...mapActions([
+      'loginWithFB'
+    ]),
     login() {
-      let router = this.$router
-      let store = this.$store
-      firebase
-        .auth()
-        .signInWithPopup(provider)
-        .then(function(result) {
-          var token = result.credential.accessToken;
-          var user = result.user;
-          // console.log(token)
-          // console.log(user.photoURL)
-          // console.log(user)
-          // console.log(user.uid)
-          axios({
-            method: "POST",
-            url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/auth/client",
-            headers: {
-              "facebook-id": user.uid
-            }
-          })
-          .then(res => {
-            // console.log(res.data);
-            Cookies.set('token', res.data.token, { expires: 5, secure: false, });
-            store.commit('setPhotoURL', user.photoURL)
-            store.commit('setEmail', user.email)
-
-            if (res.data.firstTime) {
-              store.commit('setFirstTime', true)
-              router.push('/register')
-            }
-            else {
-              axios({
-                method: "GET",
-                url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/user/myprofile",
-                headers: {
-                  "authorization" : "Bearer " + Cookies.get('token')
-                }
-              })
-              .then((res) => {
-                store.commit('setProfile', res.data)
-                router.push('/dashboard')
-              })
-              .catch((err) => {
-                console.log(err)
-              })
-            }
-          })
-          .catch(err => {
-            console.log(err);
-          });
-        })
-        .catch(function(error) {
-          console.log(error.code);
-          console.log(error.message);
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          var email = error.email;
-          var credential = error.credential;
-        });
+      let response_ = ""
+      this.loginWithFB()
+      .then((res) => {
+        response_ = res
+        if (response_ === 'dashboard') { 
+          this.gotoHome()
+        } else if (response_ === 'register') {
+          this.gotoRegister()
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     },
+    // login() {
+    //   let router = this.$router
+    //   let store = this.$store
+    //   firebase
+    //     .auth()
+    //     .signInWithPopup(provider)
+    //     .then(function(result) {
+    //       var token = result.credential.accessToken;
+    //       var user = result.user;
+    //       // console.log(token)
+    //       // console.log(user.photoURL)
+    //       // console.log(user)
+    //       // console.log(user.uid)
+    //       axios({
+    //         method: "POST",
+    //         url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/auth/client",
+    //         headers: {
+    //           "facebook-id": user.uid
+    //         }
+    //       })
+    //       .then(res => {
+    //         // console.log(res.data);
+    //         Cookies.set('token', res.data.token, { expires: 5, secure: true, });
+    //         store.commit('setPhotoURL', user.photoURL)
+    //         store.commit('setEmail', user.email)
+    //         if (res.data.firstTime) {
+    //           store.commit('setFirstTime', true)
+    //           router.push('/register')
+    //         }
+    //         else {
+    //           axios({
+    //             method: "GET",
+    //             url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/user/myprofile",
+    //             headers: {
+    //               "authorization" : "Bearer " + Cookies.get('token')
+    //             }
+    //           })
+    //           .then((res) => {
+    //             store.commit('setProfile', res.data)
+    //             router.push('/dashboard')
+    //           })
+    //           .catch((err) => {
+    //             console.log(err)
+    //           })
+    //         }
+    //       })
+    //       .catch(err => {
+    //         console.log(err);
+    //       });
+    //     })
+    //     .catch(function(error) {
+    //       console.log(error.code);
+    //       console.log(error.message);
+    //       var errorCode = error.code;
+    //       var errorMessage = error.message;
+    //       var email = error.email;
+    //       var credential = error.credential;
+    //     });
+    // },
     logout() {
       firebase
         .auth()
@@ -103,6 +119,12 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
+    },
+    gotoHome() {
+      this.$router.push('/dashboard')
+    },
+    gotoRegister() {
+      this.$router.push('/register')
     }
   }
 };

@@ -11,8 +11,6 @@
         <b-col v-if="showScanner != true" md="4" sm="12" v-for="name in choice">
           <button class="btn btn-primary m-2 w-100" @click="addFriend(name)">{{ name }}</button>
         </b-col>
-
-
       </b-row>
 
       <div v-if="showModal">

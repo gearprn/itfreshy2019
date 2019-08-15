@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import firebase from 'firebase';
+import Cookies from 'js-cookie'
+import { isNull } from 'util';
 
 Vue.use(Vuex)
 
@@ -9,7 +12,7 @@ let store = new Vuex.Store({
   mode: 'history',
   state: {
     profile: {},
-    firstTime: true,
+    firstTime: false,
   },
   getters: {
     getProfile: (state) => {
@@ -30,7 +33,7 @@ let store = new Vuex.Store({
     checkLogined: (state) => {
       let logined = false
       if (state.profile != null) {
-        logined = Object.keys(state.profile).length != 0
+        logined = Object.keys(state.profile).length > 2
       }
       return logined
     }
@@ -53,10 +56,62 @@ let store = new Vuex.Store({
     },
     clearProfile: (state) => {
       state.profile = {}
-      console.log(state.profile)
     }
   },
   actions: {
+    loginWithFB({ commit, state }) {
+      let provider = new firebase.auth.FacebookAuthProvider();
+      return new Promise((resolve, reject) => {
+        firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(function(result) {
+          let token = result.credential.accessToken;
+          let user = result.user;
+
+          axios({
+            method: "POST",
+            url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/auth/client",
+            headers: {
+              "facebook-id": user.uid
+            }
+          })
+          .then((res) => {
+            // console.log(res.data);
+            let token_ = res.data.token
+            Cookies.set('token', token_, { expires: 5, secure: false, });
+            commit('setPhotoURL', user.photoURL)
+            commit('setEmail', user.email)
+
+            if (res.data.firstTime) {
+              commit('setFirstTime', true)
+              resolve('register')
+            } else {
+              axios({
+                method: "GET",
+                url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/user/myprofile",
+                headers: {
+                  "authorization" : "Bearer " + token_
+                }
+              })
+              .then((res) => {
+                commit('setProfile', res.data)
+                resolve('dashboard')
+              })
+              .catch((err) => {
+                reject(err)
+              })
+            }
+          })
+          .catch((err) => {
+            reject(err)
+          });
+        })
+        .catch((err) => {
+          reject(err)
+        });
+      })
+    },
     loginWithToken({ commit, state }, token) {
       return new Promise((resolve, reject) => {
         if (token == null) reject("Invaild Token")
@@ -69,6 +124,9 @@ let store = new Vuex.Store({
             }
           })
           .then((res) => {
+            if (res.data.id == null) {
+              reject('Doesn\'t register')
+            }
             commit('setProfile', res.data)
             resolve(res)
           })
@@ -92,15 +150,15 @@ let store = new Vuex.Store({
             }
           })
           .then((res) => {
-            console.log("success")
-            console.log(res)
+            // console.log("success")
+            // console.log(res)
             if (res.data.statusCode != 200) {
               reject(res.data.statusCode + "|" + res.data.message)
             }
             resolve(res.data)
           })
           .catch((err) => {
-            console.log(err)
+            // console.log(err)
             reject(err)
           })
         }

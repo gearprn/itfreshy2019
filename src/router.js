@@ -94,7 +94,7 @@ router.beforeEach((to, from, next) => {
         }
       })
     } else if (to.matched.some(record => record.meta.firstTimeLogin)) {
-      if (store.getters.getFirstTime) {
+      if (store.getters.getFirstTime === true) {
         next()
       } else {
         // console.log(to.fullPath)
