@@ -48,7 +48,7 @@ export default {
   color: white;
   background-image: url('assets/bg.jpg');
   background-size: cover;
-  min-height: 100vh; 
+  // min-height: 100vh; 
 }
 
 #nav {
@@ -74,4 +74,5 @@ export default {
 /* .slide-fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
+
 </style>

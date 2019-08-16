@@ -1,6 +1,7 @@
 <template>
   <b-container fluid class="qrcode">
-    <b-container>
+    <h2 class="title mb-3">Scan QR</h2>
+    <b-container class="box pt-1 pb-1">
       <b-row style="justify-content: center;" class="m-3">
         <b-col class="justify-content-center" md="12" sm="12">
           <qrcode-stream v-if="showScanner == true" @decode="onDecode"></qrcode-stream>
@@ -96,7 +97,6 @@ export default {
           this.friendUid = res.data.data.friend
           this.choice = res.data.data.choice
         }
-
       })
       .catch((err) => {
         console.log(err)
@@ -154,6 +154,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.qrcode {
+  min-height: calc(100vh - 72px);
+}
+
 .error {
   font-weight: bold;
   color: red;

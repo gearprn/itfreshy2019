@@ -1,7 +1,7 @@
 <template>
   <b-container fluid class="dashboard pb-3">
     <b-container v-if="loading" class="mt-3">
-      <h2 class="title-profile">PROFILE</h2>
+      <h2 class="title-profile mb-3">PROFILE</h2>
       <b-container class="mt-3 mb-3">
         <b-row class="textMid">
           <b-img-lazy :src="`${this.getProfile().photoURL}?type=large`" class="rounded-top"></b-img-lazy>
@@ -142,6 +142,25 @@ export default {
 };
 </script>
 
+<style lang="scss">
+.title {
+  background-image: -webkit-gradient( linear, top, bottom, color-stop(0, #DC04FF), color-stop(1, #00114F) );
+  background-image: gradient( linear, top, bottom, color-stop(0, #DC04FF), color-stop(1, #00114F) );
+  background: linear-gradient(180deg, rgba(198,100,244,1) 0%, rgba(152,63,171,1) 42%, rgba(219,25,71,1) 100%);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0px 3px 1px #333300);
+}
+.box {
+  border: 0;
+  border-radius: 5px;
+  box-shadow: 0px 6px 16px 0 #444;
+  background: #FFF;
+}
+</style>
+
 <style lang="scss" scoped>
 .dashboard {
   min-height: calc(100vh - 72px);
@@ -184,7 +203,7 @@ export default {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0px 3px 2px #333300);
+  filter: drop-shadow(0px 3px 1px #333300);
 }
 
 .bio {

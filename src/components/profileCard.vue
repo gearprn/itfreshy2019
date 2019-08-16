@@ -1,10 +1,11 @@
 <template>
-  <b-container class="profile c-border">
-    <b-container fluid v-if="error != null" class="mt-5 mb-5 p-5">
+  <b-container class="profile">
+    <h2 class="title mb-3">PROFILE</h2>
+    <b-container fluid v-if="error != null" class="mt-5 mb-5 p-5 box">
       <h2>{{ this.error.split('|')[0] }}</h2>
       <h3>{{ this.error.split('|')[1] }}</h3>
     </b-container>
-    <b-container fluid v-else-if="loading" class="mt-3 mb-5 p-5">
+    <b-container fluid v-else-if="loading" class="mt-3 mb-5 p-5 box profile-box">
       <b-row>
         <b-col class="profile-area" md="4" sm="12">
           <h2 style="word-wrap: break-word">{{ this.profile.name }}</h2>
@@ -85,11 +86,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.c-border {
-  border: 0;
-  border-radius: 5px;
-  box-shadow: 0px 6px 16px 0 #444;
-  background: #FFF;
+.profile {
+  min-height: calc(100vh - 72px);
+}
+
+.profile-box {
+  color: #000;
 }
 
 .overall {

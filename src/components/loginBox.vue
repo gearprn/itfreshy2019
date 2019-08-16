@@ -142,6 +142,6 @@ export default {
 }
 
 .login {
-  min-height: 600px
+  min-height: calc(100vh - 72px);
 }
 </style>

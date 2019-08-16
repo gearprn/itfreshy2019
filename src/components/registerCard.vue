@@ -1,5 +1,5 @@
 <template>
-  <b-container fluid class="mt-3">
+  <b-container fluid class="mt-3 register">
     <b-container>
       <b-form v-on:submit.prevent="onSubmit">
         <div class="form-group text-left">
@@ -113,6 +113,10 @@ export default {
 </script>
 
 <style>
+.register {
+  min-height: calc(100vh - 72px);
+}
+
 .form-control {
   margin-bottom: 1em;
 }

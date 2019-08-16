@@ -1,9 +1,10 @@
 <template>
   <b-container fluid class="friendlist">
-    <b-container>
+    <h2 class="title mb-3">Friend List</h2>
+    <b-container class="box">
       <b-row>
         <b-col md="4" sm="12" v-for="friend in friendlist">
-          <div class="card m-3" style="background: white">
+          <div class="card m-3 friend-card" style="background: white">
             <p>{{friend.name}}</p>
             <p>{{friend.nickname}}</p>
             <p>{{friend.bio}}</p>
@@ -50,6 +51,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.friendlist {
+  min-height: calc(100vh - 72px);
+}
+
 .overall {
   width: 80%;
   background-color: #FFF;
@@ -60,5 +65,9 @@ export default {
   height: 160px;
   border: 0;
   border-radius: 120px;
+}
+
+.friend-card {
+  color: #000;
 }
 </style>

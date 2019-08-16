@@ -1,10 +1,14 @@
 <template>
   <b-container fluid class="leaderboard">
-    <b-container>
+    <h2 class="title">LEADERBOARD</h2>
+    <b-container v-if="this.error != ''">
+      <h3>{{ this.error }}</h3>
+    </b-container>
+    <b-container v-else>
       <b-row>
-        <b-col md="4" sm="12" v-for="persone in leaderboard.board">
+        <b-col md="4" sm="12" v-for="person in leaderboard.board">
           <div class="card m-3" style="background: white">
-            <p>{{persone.userData.id}} {{persone.userData.name}}</p>
+            <p>{{person.userData.id}} {{person.userData.name}}</p>
           </div>
         </b-col>
         <b-col md="4" sm="12">
@@ -28,7 +32,8 @@ export default {
   data () {
     return {
       leaderboard: [],
-      yourPosition: null
+      yourPosition: null,
+      error: ""
     }
   },
   methods: {
@@ -43,21 +48,28 @@ export default {
       }
     })
     .then((res) => {
+      console.log("success")
       console.log(res.data)
-      this.leaderboard = res.data
-      this.yourPosition = res.data.myPosition
+      if (res.statusCode === 401) {
+        if (res.message === "Permission fail") {
+          this.error = "คุณไม่มีสิทธิเข้าถึง"
+        }
+      } else {
+        this.leaderboard = res.data
+        this.yourPosition = res.data.myPosition
+      }
     })
     .catch((err) => {
       console.log(err)
+      this.error = err
     })
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.overall {
-  width: 80%;
-  background-color: #FFF;
+.leaderboard {
+  min-height: calc(100vh - 72px);
 }
 
 .profile-img {

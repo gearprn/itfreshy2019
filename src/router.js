@@ -27,7 +27,7 @@ let router = new Router({
       name: 'friend',
       component: friendListPage,
       meta: {
-        requiredAuth: false
+        requiredAuth: true
       }
     },
     {
@@ -35,7 +35,7 @@ let router = new Router({
       name: 'board',
       component: leaderBoardPage,
       meta: {
-        requiredAuth: false
+        requiredAuth: true
       }
     },
     {

@@ -1,13 +1,16 @@
 <template>
   <b-container fluid class="qrcode">
-    <b-container>
-      <b-row style="justify-content: center;" class="m-3" v-if="qrcode != ''">
-        <img center alt="Center image" :src="qrcode" />
-      </b-row>
-      <b-row class="justify-content-center" v-else>
-        <b-spinner style="width:3rem;height:3rem;"></b-spinner>
-      </b-row>
-    </b-container>
+    <h2 class="title mb-3">QR code</h2>
+    <transition class="fade" mode="out-in" appear>
+      <b-container class="justify-content-center p-3" v-if="qrcode === ''" key="loading">
+        <b-spinner variant="light" style="width:5rem;height:5rem;"></b-spinner>
+      </b-container>
+      <b-container class="box" v-else key="shown">
+        <b-row style="justify-content: center;" class="m-3 p-3">
+          <img center class="qrcode-img" alt="Center image" :src="qrcode" />
+        </b-row>
+      </b-container>
+    </transition>
   </b-container>
 </template>
 
@@ -65,5 +68,19 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.qrcode {
+  min-height: calc(100vh - 72px);
+}
+.qrcode-img {
+  width: 240px;
+  height: 240px;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s ease;
+}
+.fade-enter, .fade-leave-to
+/* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 </style>
