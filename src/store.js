@@ -147,7 +147,7 @@ let store = new Vuex.Store({
       return new Promise((resolve, reject) => {
         firebase.auth().getRedirectResult()  
         .then((result) => {
-          console.log(result)
+          // console.log(result)
           // let token = result.credential.accessToken;
           if (result.user == null)
             reject('Doesn\'t Login')

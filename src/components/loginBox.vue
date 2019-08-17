@@ -133,7 +133,7 @@ export default {
   mounted() {
     this.loginWithCredential()
     .then((res) => {
-      console.log(res)
+      // console.log(res)
       if (res === "dashboard")
         this.gotoHome()
       else if (res === "register")
