@@ -8,7 +8,8 @@
       </b-row>
       <b-row class="justify-content-md-center p-3">
         <b-col md='3' sm='12'>
-          <b-button class="fb-btn" @click="login()">Login With Facebook</b-button>
+          <b-spinner variant="light" style="width:5rem;height:5rem;" v-if="this.logined"></b-spinner>
+          <b-button class="fb-btn" @click="login()" v-else>Login With Facebook</b-button>
         </b-col>
       </b-row>
     </b-container>
@@ -27,12 +28,14 @@ export default {
   name: "loginBox",
   data() {
     return {
+      logined: true,
       facebookToken: null
     };
   },
   methods: {
     ...mapActions([
-      'loginWithFB'
+      'loginWithFB',
+      'loginWithCredential'
     ]),
     login() {
       let response_ = ""
@@ -126,6 +129,22 @@ export default {
     gotoRegister() {
       this.$router.push('/register')
     }
+  },
+  mounted() {
+    this.loginWithCredential()
+    .then((res) => {
+      console.log(res)
+      if (res === "dashboard")
+        this.gotoHome()
+      else if (res === "register")
+        this.gotoRegister()
+    })
+    .catch((err) => {
+      console.log(err)
+      if (err === "Doesn't Login") {
+        this.logined = false
+      }
+    })
   }
 };
 </script>

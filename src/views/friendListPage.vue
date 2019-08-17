@@ -4,10 +4,13 @@
     <b-container class="box">
       <b-row>
         <b-col md="4" sm="12" v-for="friend in friendlist">
-          <div class="card m-3 friend-card" style="background: white">
-            <p>{{friend.name}}</p>
-            <p>{{friend.nickname}}</p>
-            <p>{{friend.bio}}</p>
+          <div class="card m-3 p-2 friend-card" @click="gotoProfile(friend.uid)">
+            <div class="friend-image p-3">
+              <img :src="friend.photoURL + '?type=large'">
+            </div>
+            <h5>{{friend.name}}</h5>
+            <h6><{{friend.nickname}}></h6>
+            <span style="word-wrap: break-word;">{{friend.bio}}</span>
           </div>
         </b-col>
       </b-row>
@@ -29,7 +32,9 @@ export default {
     }
   },
   methods: {
-
+    gotoProfile(uid) {
+      this.$router.push(`/profile/${uid}`)
+    }
   },
   mounted() {
     axios({
@@ -69,5 +74,15 @@ export default {
 
 .friend-card {
   color: #000;
+  background: rgb(253,253,253);
+  background: linear-gradient(180deg, rgba(253,253,253,1) 0%, rgba(250,250,250,1) 30%, rgba(235,235,235,1) 100%);
+  border: 0;
+  border-radius: 4px;
+  box-shadow: 1px 1px 3px 0 #AFAFAF;
+  cursor: pointer;
+  .friend-image > img {
+    width: 100%;
+    max-width: 180px;
+  }
 }
 </style>
