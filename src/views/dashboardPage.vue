@@ -165,7 +165,7 @@ export default {
 
 <style lang="scss" scoped>
 .dashboard {
-  min-height: calc(100vh - 72px);
+  min-height: calc(100vh - 56px);
 }
 
 .infoBox {

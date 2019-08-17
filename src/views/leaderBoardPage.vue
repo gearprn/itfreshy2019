@@ -69,7 +69,7 @@ export default {
 
 <style lang="scss" scoped>
 .leaderboard {
-  min-height: calc(100vh - 72px);
+  min-height: calc(100vh - 56px);
 }
 
 .profile-img {

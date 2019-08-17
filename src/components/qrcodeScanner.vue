@@ -6,8 +6,12 @@
         <b-col class="justify-content-center" md="12" sm="12">
           <qrcode-stream v-if="showScanner == true" @decode="onDecode"></qrcode-stream>
         </b-col>
+        <hr>
+        <b-col style="justify-content: center;" class="m-3 p-3">
+          <router-link class="btn btn-dark bg-salmon w-75" tag="button" to="/qrScanner">Go to Scanner</router-link>
+        </b-col>
         <b-col v-if="showScanner != true" class="justify-content-center"  md="12" sm="12">
-          <h3>ไหนเพื่อนหรือพี่ที่เราสเเกนไปชื่ออะไร</h3>
+          <h3>เพื่อน หรือ พี่ที่สเเกนไปชื่ออะไร</h3>
         </b-col>
         <b-col v-if="showScanner != true" md="4" sm="12" v-for="name in choice">
           <button class="btn btn-primary m-2 w-100" @click="addFriend(name)">{{ name }}</button>
@@ -151,8 +155,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.bg-salmon{
+    background: #FF7B7B !important;
+    border: 0 !important;
+    padding: .7em 1em .7em 1em !important;
+}
+
 .qrcode {
-  min-height: calc(100vh - 72px);
+  min-height: calc(100vh - 56px);
 }
 
 .error {

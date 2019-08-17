@@ -9,6 +9,10 @@
         <b-row style="justify-content: center;" class="m-3 p-3">
           <img center class="qrcode-img" alt="Center image" :src="qrcode" />
         </b-row>
+        <hr>
+        <b-row style="justify-content: center;" class="m-3 p-3">
+          <router-link class="btn btn-dark bg-salmon w-75" tag="button" to="/qrScanner">Go to Scanner</router-link>
+        </b-row>
       </b-container>
     </transition>
   </b-container>
@@ -69,8 +73,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.bg-salmon{
+    background: #FF7B7B !important;
+    border: 0 !important;
+    padding: .7em 1em .7em 1em !important;
+}
+
 .qrcode {
-  min-height: calc(100vh - 72px);
+  min-height: calc(100vh - 56px);
 }
 .qrcode-img {
   width: 240px;
