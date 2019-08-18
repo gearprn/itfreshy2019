@@ -73,7 +73,8 @@ export default {
     return {
       showModal: false,
       modalmsg: "",
-      alreadyLogin: false
+      alreadyLogin: false,
+      token: Cookies.get('token')
     }
   },
   methods: {
@@ -81,7 +82,7 @@ export default {
       'checkLogined', 'getProfile'
     ]),
     ...mapMutations([
-      'clearProfile'
+      'clearProfile', 'setProfile'
     ]),
     ...mapActions([
       'loginWithToken'
@@ -103,7 +104,20 @@ export default {
         this.gotoLogin()
     },
     gotoHome() {
-      this.$router.push('/dashboard')
+      let profile = this.getProfile()
+      console.log
+      axios({
+        method: "GET",
+        url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/user/myprofile",
+        headers: {
+          "authorization" : "Bearer " + this.token
+        }
+      })
+      .then((res) => {
+        this.setProfile(res.data)
+        this.$router.push('/dashboard')
+      })
+      // this.$router.push('/dashboard')
     },
     gotoMyQr() {
       this.$router.push('/qr')

@@ -1,7 +1,7 @@
 <template>
   <footer>
     <div class="footer-copyright text-right pr-3 py-3 bg-dark">
-      made with bootstrapVue and
+      made with BootstrapVue and
       <img src="../assets/itec_logo2.png" style="height:21px;" alt="">
     </div>
   </footer>

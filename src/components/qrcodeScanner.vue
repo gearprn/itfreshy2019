@@ -2,27 +2,27 @@
   <b-container fluid class="qrcode">
     <h2 class="title mb-3">Scan QR</h2>
     <b-container class="box">
-      <b-row style="justify-content: center;" class="m-3">
+      <b-row v-if="showScanner == true" style="justify-content: center;" class="m-3">
         <b-col class="justify-content-center" md="12" sm="12">
-          <qrcode-stream v-if="showScanner == true" @decode="onDecode" style="width: 240px; height: 240px;"></qrcode-stream>
+          <qrcode-stream @decode="onDecode" class="camera"></qrcode-stream>
         </b-col>
       </b-row>
 
-      <b-row style="justify-content: center;" class="m-3">
-        <b-col v-if="showScanner != true" class="justify-content-center"  md="12" sm="12">
-          <h3>เพื่อน หรือ พี่ที่สเเกนไปชื่ออะไร</h3>
+      <b-row v-if="showScanner != true" style="justify-content: center;" class="m-3">
+        <b-col class="justify-content-center mt-2"  md="12" sm="12">
+          <h4 style="color: black;">เพื่อน หรือ พี่ที่สเเกนไปชื่ออะไร</h4>
         </b-col>
       </b-row>
 
-      <b-row style="justify-content: center;" class="m-3 p-3">
-        <b-col v-if="showScanner != true" md="4" sm="12" v-for="name in choice">
-          <button class="btn btn-primary m-2 w-100" @click="addFriend(name)">{{ name }}</button>
+      <b-row v-if="showScanner != true" style="justify-content: center;" class="m-3 p-3">
+        <b-col md="4" sm="12" v-for="name in choice">
+          <button class="btn btn-primary m-2 w-100 .bg-salmon" @click="addFriend(name)">{{ name }}</button>
         </b-col>
       </b-row>
 
-      <hr>
-      <b-row style="justify-content: center;" class="p-3">
-        <b-col v-if="showScanner == true" style="justify-content: center;" class="">
+      <hr v-if="showScanner == true">
+      <b-row v-if="showScanner == true" style="justify-content: center;" class="p-3">
+        <b-col style="justify-content: center;" class="">
           <router-link class="btn btn-dark bg-salmon w-75" tag="button" to="/qr">Go to My QR</router-link>
         </b-col>
       </b-row>
@@ -34,13 +34,13 @@
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title req-field">เเจ้งเตือน</h5>
+                    <h6 class="modal-title" style="color: black;">เเจ้งเตือน</h6>
                     <button  class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true" @click="showModal = false">&times;</span>
                     </button>
                   </div>
                   <div class="modal-body">
-                      <p>{{ modalmsg }}</p>
+                      <p style="color: black;">{{ modalmsg }}</p>
                   </div>
                 </div>
               </div>
@@ -84,7 +84,7 @@ export default {
       'loginWithToken'
     ]),
     onDecode(result) {
-      // this.modalmsg = "กรุณารอซักครู่"
+      this.modalmsg = "กรุณารอซักครู่"
       this.result = result;
       axios({
         method: "POST",
@@ -164,6 +164,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.camera {
+  width: 240px;
+  height: 240px;
+}
 .bg-salmon{
     background: #FF7B7B !important;
     border: 0 !important;

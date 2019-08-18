@@ -131,11 +131,11 @@ export default {
   },
   mounted() {
     let profile = this.getProfile()
-    console.log(profile)
+    // console.log(profile)
     // console.log(Object.keys(profile).length == 0)
     this.loginWithToken(this.token)
       .then((res) => {
-        console.log(res)
+        // console.log(res)
         profile = res.data
         this.loading = true
       })
