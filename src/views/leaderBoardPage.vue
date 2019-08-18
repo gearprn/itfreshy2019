@@ -16,7 +16,7 @@
             <h4 class="mt-3 mb-3 title-leader" style="height: 1.5em;">ลำดับผู้ที่ล่ารายชื่อได้เยอะที่สุด</h4>
             <hr>
             <div class="m-3" style="background: white" v-for="(person, index) in leaderboard.board" :key="index">
-              <p style="color:black;">ลำดับที่ {{index+1}}  {{person.userData.id}} | {{person.userData.name}} | {{person.userData.amountOf.sum}}</p>
+              <p style="color:black;">ลำดับที่ {{index+1}}  {{person.userData.id}} | {{person.userData.name}} | {{person.userData.amountOf.sum}} คน</p>
             </div>
           </b-col>
           <b-col md="4" sm="12">

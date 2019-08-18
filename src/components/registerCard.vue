@@ -8,17 +8,17 @@
           <div class="row">
             <div class="col-md-4 col-sm-12">
               <label class="control-label">ชื่อ-นามสกุล <span class="req-field">*</span></label>
-              <input type="name" class="form-control" placeholder="ตัวอย่าง นายประยุทธ์ จันทร์อังคาร" v-model="name" required>
+              <input type="name" class="form-control" placeholder="ชื่อภาษาไทย" v-model="name" required>
             </div>
 
             <div class="col-md-4 col-sm-12">
               <label class="control-label">ชื่อเล่น <span class="req-field">*</span></label>
-              <input type="name" class="form-control" placeholder="ตัวอย่าง ตู่ พบกัน" v-model="nickname" required>
+              <input type="name" class="form-control" placeholder="ไอทีไอที" v-model="nickname" required>
             </div>
 
             <div class="col-md-4 col-sm-12">
               <label class="control-label">รหัสนักศึกษา <span class="req-field">*</span></label>
-              <input type="name" class="form-control" placeholder="ตัวอย่าง 62070044" v-model="sid" required>
+              <input type="name" class="form-control" placeholder="62070001" v-model="sid" required>
             </div>
             
             <div class="col-md-4 col-sm-12">
@@ -42,7 +42,7 @@
 
             <div class="col-lg-12 col-sm-12">
               <label class="control-label">อธิบายตัวคุณเเบบง่ายๆ <span class="req-field">*</span></label>
-              <textarea type="text" class="form-control" rows="5" placeholder="คอลลาเจนคืออาหารเสริม เเต่ถ้ามึงอยากเเดกเพิ่มเติมเเนะนำตีน" v-model="bio" required></textarea>
+              <textarea type="text" class="form-control" rows="5" placeholder="ใส่คำอธิบายที่เป็นตัวคุณ" v-model="bio" required></textarea>
             </div>
 
           </div>

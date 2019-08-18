@@ -23,7 +23,9 @@
               <!-- <div class="p-3 bio">
                 <p class="mb-0">{{ this.getProfile().bio }}</p>
               </div> -->
-
+              <div class="friend-card">
+                <p> {{ this.getProfile().bio }} </p>
+              </div>
               <hr style="background: rgba(0, 0, 0, 0.363);">
               <p class="m-0">ล่ารายชื่อได้ทั้งหมด {{ this.getProfile().amountOf.sum }} คน</p>
             </b-col>
@@ -220,4 +222,6 @@ export default {
 .bio {
   background: rgba(0, 0, 0, 0.1);
 }
+
+
 </style>

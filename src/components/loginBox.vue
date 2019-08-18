@@ -41,7 +41,9 @@ export default {
       let response_ = ""
       this.loginWithFB()
       .then((res) => {
+        console.log(res)
         response_ = res
+        console.log(response_)
         if (response_ === 'dashboard') { 
           this.gotoHome()
         } else if (response_ === 'register') {
