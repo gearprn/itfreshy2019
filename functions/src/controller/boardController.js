@@ -44,7 +44,7 @@ module.exports = {
             });
             if (usercheck.year == '1') {
                 let board = await new Promise((resolve) => {
-                    firestore.collection('users').where('year','==','1').orderBy('amountOf.sum').get()
+                    firestore.collection('users').where('year','==','1').orderBy('amountOf.sum', 'desc').get()
                         .then((snapshot)=> {
                             if (snapshot.empty) {
                                 res.send({
