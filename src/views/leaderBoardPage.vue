@@ -97,7 +97,7 @@ export default {
 }
 
 .leaderboard {
-  min-height: calc(100vh - 56px);
+  min-height: calc(100vh - 112px);
 }
 
 .profile-img {

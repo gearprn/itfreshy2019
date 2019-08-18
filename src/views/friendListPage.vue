@@ -9,17 +9,17 @@
 
       <b-container class="box">
         <b-row>
-          <b-col class="mt-3">
-            <button class="btn btn-dark bg-salmon" @click="selectYear = 1">ปี 1</button>
+          <b-col class="mt-3 col-md-3 col-6">
+            <button  class="btn btn-dark bg-salmon w-100" @click="selectYear = 1">ปี 1</button>
           </b-col>
-          <b-col class="mt-3">
-            <button class="btn btn-dark bg-salmon" @click="selectYear = 2">ปี 2</button>
+          <b-col class="mt-3 col-md-3 col-6">
+            <button  class="btn btn-dark bg-salmon w-100" @click="selectYear = 2">ปี 2</button>
           </b-col>
-          <b-col class="mt-3">
-            <button class="btn btn-dark bg-salmon" @click="selectYear = 3">ปี 3</button>
+          <b-col class="mt-3 col-md-3 col-6">
+            <button  class="btn btn-dark bg-salmon w-100" @click="selectYear = 3">ปี 3</button>
           </b-col>
-          <b-col class="mt-3">
-            <button class="btn btn-dark bg-salmon" @click="selectYear = 4">ปี 4</button>
+          <b-col class="mt-3 col-md-3 col-6">
+            <button  class="btn btn-dark bg-salmon w-100" @click="selectYear = 4">ปี 4</button>
           </b-col>
         </b-row>
         <hr>
@@ -191,7 +191,7 @@ export default {
     padding: .7em 1em .7em 1em !important;
 }
 .friendlist{
-  min-height: calc(100vh - 56px);
+  min-height: calc(100vh - 112px);
 }
 
 .overall {

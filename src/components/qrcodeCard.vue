@@ -10,7 +10,7 @@
           <img center class="qrcode-img" alt="Center image" :src="qrcode" />
         </b-row>
         <hr>
-        <b-row style="justify-content: center;" class="m-3 p-3">
+        <b-row style="justify-content: center;" class="p-3">
           <router-link class="btn btn-dark bg-salmon w-75" tag="button" to="/qrScanner">Go to Scanner</router-link>
         </b-row>
       </b-container>
@@ -80,7 +80,7 @@ export default {
 }
 
 .qrcode {
-  min-height: calc(100vh - 56px);
+  min-height: calc(100vh - 112px);
 }
 .qrcode-img {
   width: 240px;

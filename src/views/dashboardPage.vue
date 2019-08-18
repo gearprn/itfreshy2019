@@ -131,9 +131,11 @@ export default {
   },
   mounted() {
     let profile = this.getProfile()
+    console.log(profile)
     // console.log(Object.keys(profile).length == 0)
     this.loginWithToken(this.token)
       .then((res) => {
+        console.log(res)
         profile = res.data
         this.loading = true
       })
@@ -147,6 +149,7 @@ export default {
 </script>
 
 <style lang="scss">
+
 .title {
   background-image: -webkit-gradient( linear, top, bottom, color-stop(0, #DC04FF), color-stop(1, #00114F) );
   background-image: gradient( linear, top, bottom, color-stop(0, #DC04FF), color-stop(1, #00114F) );
@@ -167,7 +170,7 @@ export default {
 
 <style lang="scss" scoped>
 .dashboard {
-  min-height: calc(100vh - 56px);
+  min-height: calc(100vh - 112px);
 }
 
 .infoBox {

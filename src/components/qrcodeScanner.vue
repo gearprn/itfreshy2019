@@ -1,20 +1,29 @@
 <template>
   <b-container fluid class="qrcode">
     <h2 class="title mb-3">Scan QR</h2>
-    <b-container class="box pt-1 pb-1">
+    <b-container class="box">
       <b-row style="justify-content: center;" class="m-3">
         <b-col class="justify-content-center" md="12" sm="12">
-          <qrcode-stream v-if="showScanner == true" @decode="onDecode"></qrcode-stream>
+          <qrcode-stream v-if="showScanner == true" @decode="onDecode" style="width: 240px; height: 240px;"></qrcode-stream>
         </b-col>
-        <hr>
-        <b-col style="justify-content: center;" class="m-3 p-3">
-          <router-link class="btn btn-dark bg-salmon w-75" tag="button" to="/qrScanner">Go to Scanner</router-link>
-        </b-col>
+      </b-row>
+
+      <b-row style="justify-content: center;" class="m-3">
         <b-col v-if="showScanner != true" class="justify-content-center"  md="12" sm="12">
           <h3>เพื่อน หรือ พี่ที่สเเกนไปชื่ออะไร</h3>
         </b-col>
+      </b-row>
+
+      <b-row style="justify-content: center;" class="m-3 p-3">
         <b-col v-if="showScanner != true" md="4" sm="12" v-for="name in choice">
           <button class="btn btn-primary m-2 w-100" @click="addFriend(name)">{{ name }}</button>
+        </b-col>
+      </b-row>
+
+      <hr>
+      <b-row style="justify-content: center;" class="p-3">
+        <b-col v-if="showScanner == true" style="justify-content: center;" class="">
+          <router-link class="btn btn-dark bg-salmon w-75" tag="button" to="/qr">Go to My QR</router-link>
         </b-col>
       </b-row>
 
@@ -162,7 +171,7 @@ export default {
 }
 
 .qrcode {
-  min-height: calc(100vh - 56px);
+  min-height: calc(100vh - 112px);
 }
 
 .error {

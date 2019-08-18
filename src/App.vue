@@ -4,7 +4,7 @@
     <transition name="slide-fade" mode="out-in">
       <router-view/>
     </transition>
-    <!-- <footer-card></footer-card> -->
+    <footer-card></footer-card>
   </div>
 </template>
 

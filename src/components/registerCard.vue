@@ -59,7 +59,7 @@ import BootstrapVue from "bootstrap-vue";
 import firebase from "firebase";
 import axios from "axios";
 import Cookies from "js-cookie"
-import { mapMutations } from 'vuex';
+import { mapMutations, mapActions } from 'vuex';
 
 export default {
   name: "registerCard",
@@ -76,7 +76,10 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'setProfile'
+      'setProfile',
+    ]),
+    ...mapActions([
+      'loginWithToken'
     ]),
     onSubmit() {
       let token = Cookies.get('token')
@@ -98,11 +101,22 @@ export default {
           }
       })
       .then((res) => {
+        // console.log(token)
         if (res.data.status) {
-          console.log(res)
-          this.setProfile(res.data)
-          this.$router.push('/dashboard')
+          axios({
+            method: "GET",
+            url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/user/myprofile",
+            headers: {
+              "authorization" : "Bearer " + token
+            }
+          })
+          .then((res) => {
+            // console.log(res)
+            this.setProfile(res.data)
+            this.$router.push('/dashboard')
+          })
         }
+        this.$router.push('/login')
       })
       .catch((err) => {
         console.log(err)
@@ -114,7 +128,7 @@ export default {
 
 <style>
 .register {
-  min-height: calc(100vh - 56px);
+  min-height: calc(100vh - 114px);
 }
 
 .form-control {
