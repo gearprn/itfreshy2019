@@ -243,5 +243,78 @@ module.exports = {
                 error: e
             });
         }
-    }
+    },
+    editBySId: async (req,res) => {
+        try{
+            let {Sid} = req.params;
+            let {name, nickname, year, photoURL, branch, bio, email} = req.body;
+            let userData = {};
+            await firestore.collection("users").where("id", "==", Sid)
+                .get()
+                .then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                        userData = doc.data();
+                        userData["uid"] = doc.id
+                    });
+                });
+            userData.name = name ? name : userData.name;
+            userData.nickname = nickname ? nickname : userData.nickname;
+            userData.year = year ? year : userData.year;
+            userData.photoURL = photoURL ? photoURL : userData.photoURL;
+            userData.branch = branch ? branch : userData.branch;
+            userData.bio = bio ? bio : userData.bio;
+            userData.email = email ? email : userData.email;
+            await firestore.collection("users").doc(userData.uid).update({
+                name : userData.name,
+                nickname : userData.nickname,
+                year : userData.year,
+                photoURL : userData.photoURL,
+                branch : userData.branch,
+                bio : userData.bio,
+                email : userData.email
+            });
+            res.send({
+                statusCode: 206,
+                status: true,
+                message: "Success",
+            });
+        }catch(e){
+            console.log(e);
+            res.send({
+                statusCode: 500,
+                status: false,
+                message: "Internal Server Error",
+                error: e
+            });
+        }
+    },
+    getBySId: async (req,res) => {
+        try{
+            let {Sid} = req.params;
+            console.log(Sid)
+            let userData = {};
+            await firestore.collection("users").where("id", "==", Sid)
+                .get()
+                .then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                        userData = doc.data();
+                        userData["uid"] = doc.id
+                    });
+                });
+            res.send({
+                statusCode: 200,
+                status: true,
+                message: "Success",
+                user: userData
+            });
+        }catch(e){
+            console.log(e);
+            res.send({
+                statusCode: 500,
+                status: false,
+                message: "Internal Server Error",
+                error: e
+            });
+        }
+    },
 };
