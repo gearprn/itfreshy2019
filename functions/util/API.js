@@ -8,5 +8,7 @@ module.exports = {
     USER_GET: '/user/profile',
     QUIZ:'/friend/quiz',
     ADD_FRIEND: '/friend/add',
-    LEADERBOARD: '/leaderboard'
+    LEADERBOARD: '/leaderboard',
+    EDIT_BY_SID: '/user/edit/:Sid',
+    GET_BY_SID: '/user/get/:Sid'
 }
