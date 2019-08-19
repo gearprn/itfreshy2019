@@ -42,7 +42,7 @@ module.exports = {
                         });
                     });
             });
-            if (usercheck.year == '1') {
+            // if (usercheck.year == '1') {
                 let board = await new Promise((resolve) => {
                     firestore.collection('users').where('year','==','1').orderBy('amountOf.sum', 'desc').get()
                         .then((snapshot)=> {
@@ -83,12 +83,16 @@ module.exports = {
                 }
 
 
-                for (let i = 0; i < board.length; i++) {
-                    if (board[i].id == userId) {
-                        let userData = board[i].userData;
-                        myPosition = {position: i+1, userData};
-                        break;
+                if (usercheck.year == '1') {
+                    for (let i = 0; i < board.length; i++) {
+                        if (board[i].id == userId) {
+                            let userData = board[i].userData;
+                            myPosition = {position: i+1, userData};
+                            break;
+                        }
                     }
+                } else {
+                    myPosition = 'You are not the first year.';
                 }
 
                 res.send({
@@ -98,14 +102,14 @@ module.exports = {
                     myPosition: myPosition,
                     board: newBoard
                 })
-            } else {
-                res.send({
-                    statusCode: 401,
-                    status: false,
-                    message: 'Permission fail',
-                    error: 'Unauthorized.'
-                });
-            }
+            // } else {
+            //     res.send({
+            //         statusCode: 401,
+            //         status: false,
+            //         message: 'Permission fail',
+            //         error: 'Unauthorized.'
+            //     });
+            // }
 
 
         } catch (e) {
