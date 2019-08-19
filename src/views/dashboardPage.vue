@@ -214,7 +214,7 @@ export default {
 .title-profile {
   background-image: -webkit-gradient( linear, top, bottom, color-stop(0, #DC04FF), color-stop(1, #00114F) );
   background-image: gradient( linear, top, bottom, color-stop(0, #DC04FF), color-stop(1, #00114F) );
-  background: linear-gradient(180deg, rgba(198,100,244,1) 0%, rgba(152,63,171,1) 42%, rgba(219,25,71,1) 100%);
+  background: linear-gradient(120deg, rgba(198,100,244,1) 0%, rgba(152,63,171,1) 42%, rgba(219,25,71,1) 100%);
   color: transparent;
   background-clip: text;
   -webkit-background-clip: text;

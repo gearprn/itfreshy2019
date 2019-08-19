@@ -79,12 +79,17 @@ export default {
     padding: .7em 1em .7em 1em !important;
 }
 
+.title {
+  background-image: linear-gradient(to top, #c471f5 0%, #fa71cd 100%);
+}
+
 .qrcode {
   min-height: calc(100vh - 112px);
 }
+
 .qrcode-img {
   width: 240px;
-  height: 240px;
+  height: auto;
 }
 .fade-enter-active, .fade-leave-active {
   transition: opacity .3s ease;

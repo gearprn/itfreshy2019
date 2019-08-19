@@ -6,7 +6,6 @@
       <b-container class="justify-content-center p-3" v-if="loading">
         <b-spinner variant="light" style="width:5rem;height:5rem;"></b-spinner>
       </b-container>
-
       <b-container v-if="this.error != ''">
         <h3>{{ this.error }}</h3>
       </b-container>
@@ -26,7 +25,6 @@
           </b-col>
         </b-row>
       </b-container>
-
     </transition>
   </b-container>
 </template>
@@ -58,42 +56,40 @@ export default {
     // console.log(profile)
     if (profile.year !== '1') {
       this.$router.push('/dashboard')
-    }
-    axios({
-      method: "GET",
-      url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/leaderboard",
-      headers: {
-        "authorization" : "Bearer " + Cookies.get('token')
-      }
-    })
-    .then((res) => {
-      this.loading = false
-      // console.log("success")
-      // console.log(res.data)
-      if (res.statusCode === 401) {
-        if (res.message === "Permission fail") {
-          this.error = "คุณไม่มีสิทธิเข้าถึง"
+    } else {
+      axios({
+        method: "GET",
+        url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/leaderboard",
+        headers: {
+          "authorization" : "Bearer " + Cookies.get('token')
         }
-      } else {
-        this.leaderboard = res.data
-        this.yourPosition = res.data.myPosition
-      }
-    })
-    .catch((err) => {
-      // console.log(err)
-      this.error = err
-    })
+      })
+      .then((res) => {
+        this.loading = false
+        // console.log("success")
+        // console.log(res.data)
+        if (res.statusCode === 401) {
+          if (res.message === "Permission fail") {
+            this.error = "คุณไม่มีสิทธิเข้าถึง"
+          }
+        } else {
+          this.leaderboard = res.data
+          this.yourPosition = res.data.myPosition
+        }
+      })
+      .catch((err) => {
+        // console.log(err)
+        this.error = err
+      })
+    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.title-leader{
-    background-image: -webkit-gradient( linear, left top, right top, color-stop(0, #FF8C04), color-stop(1, #202020) );
-    background-image: gradient( linear, left top, right top, color-stop(0, #FF8C04), color-stop(1, #202020) );
-    color:transparent;
-    -webkit-background-clip: text;
-    background-clip: text;
+.title {
+  background-image: -webkit-gradient(120deg, #f6d365 0%, #fda085 100%);;
+  background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
 }
 
 .leaderboard {

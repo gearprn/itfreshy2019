@@ -2,9 +2,9 @@
   <b-container fluid class="qrcode">
     <h2 class="title mb-3">Scan QR</h2>
     <b-container class="box">
-      <b-row v-if="showScanner == true" style="justify-content: center;" class="m-3">
-        <b-col class="justify-content-center" md="12" sm="12">
-          <qrcode-stream @decode="onDecode" class="camera"></qrcode-stream>
+      <b-row v-if="showScanner == true" style="justify-content: center;" class="m-3 pt-4">
+        <b-col class="justify-content-center camera" style="text-align:center" md="12" sm="12">
+          <qrcode-stream @decode="onDecode"></qrcode-stream>
         </b-col>
       </b-row>
 
@@ -165,13 +165,18 @@ export default {
 
 <style lang="scss" scoped>
 .camera {
-  width: 240px;
-  height: 240px;
+  width: 480px;
+  height: auto;
 }
+
+.title {
+  background-image: linear-gradient(to top, #ff0844 0%, #ffb199 100%);
+}
+
 .bg-salmon{
-    background: #FF7B7B !important;
-    border: 0 !important;
-    padding: .7em 1em .7em 1em !important;
+  background: #FF7B7B !important;
+  border: 0 !important;
+  padding: .7em 1em .7em 1em !important;
 }
 
 .qrcode {
@@ -199,4 +204,25 @@ export default {
   display: table-cell;
   vertical-align: middle;
 }
+
+// .qrcode-stream__camera,
+// .qrcode-stream__pause-frame {
+// position: fixed;
+// right: 0;
+// bottom: 0;
+// min-width: 100%;
+// min-height: 100%;
+// width: auto;
+// height: auto;
+// background-size: cover;
+// max-width: inherit !important;
+// max-height: inherit !important;
+// }
+
+// .qrcode-stream__inner-wrapper {
+// position: inherit !important;
+// max-width: inherit !important;
+// max-height: inherit !important;
+// z-index: inherit !important;
+// }
 </style>
