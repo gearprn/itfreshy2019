@@ -73,7 +73,7 @@ let router = new Router({
       component: () => import('./components/qrcodeCard.vue'),
       meta: {
         title: 'QR Code',
-        requiredAuth: false
+        requiredAuth: true
       }
     },
     {
@@ -82,7 +82,7 @@ let router = new Router({
       component: () => import('./components/qrcodeScanner.vue'),
       meta: {
         title: 'Scan QR',
-        requiredAuth: false
+        requiredAuth: true
       }
     },
     {

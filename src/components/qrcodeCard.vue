@@ -90,9 +90,31 @@ export default {
 .qrcode-img {
   min-width: 120px;
   min-height: 120px;
-  width: 25%;
-  height: auto;
+  max-width: 240px;
+  max-height: 240px;
 }
+
+@media (min-width: 0px) and (max-width: 480px) {
+  .qrcode-img {
+    width: 50vw;
+    height: 50vw;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .qrcode-img {
+    width: 35vw;
+    height: 35vw;
+  }
+}
+
+@media (min-width: 768px) {
+  .qrcode-img {
+    width: 20vw;
+    height: 20vw;
+  }
+}
+
 .fade-enter-active, .fade-leave-active {
   transition: opacity .3s ease;
 }
