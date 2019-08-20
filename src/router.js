@@ -84,6 +84,10 @@ let router = new Router({
         title: 'Scan QR',
         requiredAuth: false
       }
+    },
+    {
+      path: '*',
+      component: () => import('./views/404.vue')
     }
   ]
 })
