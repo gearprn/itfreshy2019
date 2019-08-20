@@ -6,7 +6,7 @@
         <b-spinner variant="light" style="width:5rem;height:5rem;"></b-spinner>
       </b-container>
       <b-container class="box" v-else key="shown">
-        <b-row style="justify-content: center;" class="m-3 p-3">
+        <b-row style="justify-content: center;" class="m-3 py-3">
           <img center class="qrcode-img" alt="Center image" :src="qrcode" />
         </b-row>
         <hr>
@@ -88,7 +88,9 @@ export default {
 }
 
 .qrcode-img {
-  width: 240px;
+  min-width: 120px;
+  min-height: 120px;
+  width: 25%;
   height: auto;
 }
 .fade-enter-active, .fade-leave-active {
