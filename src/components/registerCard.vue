@@ -128,7 +128,7 @@ export default {
 
 <style>
 .register {
-  min-height: calc(100vh - 114px);
+  min-height: calc(100vh - 144px);
 }
 
 .form-control {

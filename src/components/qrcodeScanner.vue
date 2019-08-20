@@ -180,7 +180,7 @@ export default {
 }
 
 .qrcode {
-  min-height: calc(100vh - 112px);
+  min-height: calc(100vh - 142px);
 }
 
 .error {

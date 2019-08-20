@@ -123,10 +123,11 @@ export default {
     this.loginWithCredential()
     .then((res) => {
       // console.log(res)
-      if (res === "dashboard")
+      if (res === "dashboard") {
         this.gotoHome()
-      else if (res === "register")
+      } else if (res === "register") {
         this.gotoRegister()
+      }
     })
     .catch((err) => {
       console.log(err)
@@ -150,6 +151,6 @@ export default {
 }
 
 .login {
-  min-height: calc(100vh - 130px);
+  min-height: calc(100vh - 159.5px);
 }
 </style>

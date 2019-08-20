@@ -19,6 +19,7 @@ let router = new Router({
       component: dashboardPage,
       alias: '/dashboard',
       meta: {
+        title: 'Dashboard',
         requiredAuth: true
       }
     },
@@ -27,6 +28,7 @@ let router = new Router({
       name: 'friend',
       component: friendListPage,
       meta: {
+        title: 'Friendlist',
         requiredAuth: true
       }
     },
@@ -35,6 +37,7 @@ let router = new Router({
       name: 'board',
       component: leaderBoardPage,
       meta: {
+        title: 'Leaderboard',
         requiredAuth: true
       }
     },
@@ -59,6 +62,7 @@ let router = new Router({
       name: 'register',
       component: () => import('./components/registerCard.vue'),
       meta: {
+        title: 'Register',
         requiredAuth: true,
         firstTimeLogin: true
       }
@@ -68,6 +72,7 @@ let router = new Router({
       name: 'qrcodeCard',
       component: () => import('./components/qrcodeCard.vue'),
       meta: {
+        title: 'QR Code',
         requiredAuth: false
       }
     },
@@ -76,6 +81,7 @@ let router = new Router({
       name: 'qrcodeScanner',
       component: () => import('./components/qrcodeScanner.vue'),
       meta: {
+        title: 'Scan QR',
         requiredAuth: false
       }
     }
@@ -83,6 +89,7 @@ let router = new Router({
 })
 
 
+const DEFAULT_TITLE = "IT Freshy | 2019"
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiredAuth)) {
     let token = Cookies.get('token')
@@ -110,6 +117,14 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     next()
+  }
+})
+
+router.afterEach((to, from) => {
+  if (to.meta.title) {
+    document.title = `IT Freshy | ${to.meta.title}`
+  } else {
+    document.title = DEFAULT_TITLE    
   }
 })
 

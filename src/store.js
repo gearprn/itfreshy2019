@@ -59,63 +59,13 @@ let store = new Vuex.Store({
   },
   actions: {
     loginWithFB({ commit, state }) {
-      let provider = new firebase.auth.FacebookAuthProvider();
-      firebase.auth().signInWithRedirect(provider)
-      // return new Promise((resolve, reject) => {
-      //   firebase
-      //   .auth()
-      //   // .signInWithPopup(provider)
-      //   .signInWithRedirect(provider)
-
-        // firebase.auth().getRedirectResult()
-      //   .then(function(result) {
-      //     console.log(result)
-      //     let token = result.credential.accessToken;
-      //     let user = result.user;
-
-      //     axios({
-      //       method: "POST",
-      //       url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/auth/client",
-      //       headers: {
-      //         "facebook-id": user.uid
-      //       }
-      //     })
-      //     .then((res) => {
-      //       // console.log(res.data);
-      //       let token_ = res.data.token
-      //       Cookies.set('token', token_, { expires: 5, secure: false, });
-      //       commit('setPhotoURL', user.photoURL)
-      //       commit('setEmail', user.email)
-
-      //       if (res.data.firstTime) {
-      //         commit('setFirstTime', true)
-      //         resolve('register')
-      //       } else {
-      //         axios({
-      //           method: "GET",
-      //           url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/user/myprofile",
-      //           headers: {
-      //             "authorization" : "Bearer " + token_
-      //           }
-      //         })
-      //         .then((res) => {
-      //           commit('setProfile', res.data)
-      //           resolve('dashboard')
-      //         })
-      //         .catch((err) => {
-      //           reject(err)
-      //         })
-      //       }
-      //     })
-      //     .catch((err) => {
-      //       reject(err)
-      //     });
-      //   })
-      //   .catch((err) => {
-      //     reject(err)
-      //   });
-      //   resolve('redirect')
-      // })
+      let provider = new firebase.auth.FacebookAuthProvider()
+      return new Promise((resolve, reject) => {
+        firebase
+        .auth()
+        .signInWithRedirect(provider)
+        resolve('redirect')
+      })
     },
     loginWithToken({ commit, state }) {
       return new Promise((resolve, reject) => {
@@ -165,7 +115,7 @@ let store = new Vuex.Store({
           .then((res) => {
             // console.log(res.data);
             let token_ = res.data.token
-            Cookies.set('token', token_, { expires: 5, secure: true, });
+            Cookies.set('token', token_, { expires: 5, secure: false, });
             commit('setPhotoURL', user.photoURL)
             commit('setEmail', user.email)
 

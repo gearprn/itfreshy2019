@@ -170,7 +170,7 @@ export default {
 
 <style lang="scss" scoped>
 .dashboard {
-  min-height: calc(100vh - 112px);
+  min-height: calc(100vh - 142px);
 }
 
 .infoBox {
@@ -196,11 +196,6 @@ export default {
 .year {
   background: hsla(0, 100%, 70%, 1);
 }
-
-// .profile-img {
-//   width: 160px;
-//   height: 160px;
-// }
 
 .fade-enter-active, .fade-leave-active {
   transition: opacity .3s ease;

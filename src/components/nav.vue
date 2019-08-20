@@ -13,7 +13,7 @@
           <b-nav-item @click="gotoMyQr">My QR Code</b-nav-item>
           <b-nav-item @click="gotoScanner">QR Scanner</b-nav-item>
           <b-nav-item @click="gotoFriendList">Friend List</b-nav-item>
-          <b-nav-item @click="gotoleaderBoard" v-if="this.getProfile().year =='1'">Leaderboard</b-nav-item>
+          <b-nav-item @click="gotoleaderBoard">Leaderboard</b-nav-item>
           <b-nav-item @click="logout">Logout</b-nav-item>
           <!-- <b-nav-item href="https://oph2019-kmitl-c2dac.web.app/register" v-if="this.getLoginState() === false">ลงทะเบียน</b-nav-item> -->
           <!-- <b-nav-item v-if="this.getLoginState() === false" @click="login()">เข้าสู่ระบบ</b-nav-item>
@@ -105,7 +105,6 @@ export default {
     },
     gotoHome() {
       let profile = this.getProfile()
-      console.log
       axios({
         method: "GET",
         url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/user/myprofile",

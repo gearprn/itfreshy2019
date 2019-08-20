@@ -10,7 +10,7 @@
             </div>
             <h5>{{friend.name}}</h5>
             <h6><{{friend.nickname}}></h6>
-            <span style="word-wrap: break-word;">{{friend.bio}}</span>
+            <!-- <span style="word-wrap: break-word;">{{friend.bio}}</span> -->
           </div>
         </b-col>
       </b-row>
@@ -45,11 +45,11 @@ export default {
       }
     })
     .then((res) => {
-      console.log(res.data)
+      // console.log(res.data)
       this.friendlist = res.data.friendList
     })
     .catch((err) => {
-      console.log(err)
+      // console.log(err)
     })
   }
 };
@@ -57,7 +57,7 @@ export default {
 
 <style lang="scss" scoped>
 .friendlist {
-  min-height: calc(100vh - 72px);
+  min-height: calc(100vh - 102px);
 }
 
 .title {
