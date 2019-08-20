@@ -20,10 +20,18 @@ async function generateToken(userId) {
 
 async function registerFacebook(providerData) {
     try {
-        let addUser = await firestore.collection('users').add({
-            email: providerData.email,
-            photoURL: providerData.photoURL
-        });
+        let addUser;
+        if (providerData.email == undefined) {
+            addUser = await firestore.collection('users').add({
+                facebookUID: providerData.uid,
+                photoURL: providerData.photoURL
+            });
+        } else {
+            addUser = await firestore.collection('users').add({
+                email: providerData.email,
+                photoURL: providerData.photoURL
+            });
+        }
         if (addUser) {
             return addUser.id
         } else {
@@ -68,38 +76,74 @@ module.exports = {
     },
     loginFacebook: async (providerData) => {
         try {
-            let data = await new Promise((resolve) => {
-                firestore.collection('users').where('email','==',providerData.email).get()
-                    .then((snapshot)=> {
-                        if (snapshot.empty) {
+            let data;
+            if (providerData.email == undefined) {
+                data = await new Promise((resolve) => {
+                    firestore.collection('users').where('facebookUID','==',providerData.uid).get()
+                        .then((snapshot)=> {
+                            if (snapshot.empty) {
+                                // eslint-disable-next-line no-console
+                                console.log({
+                                    message:'User not found!',
+                                    error: 'No matching documents.'
+                                });
+                                resolve({
+                                    status: false,
+                                });
+                            } else {
+                                snapshot.forEach(doc=> {
+                                    resolve({
+                                        doc,
+                                        status: true
+                                    });
+                                })
+                            }
+                        })
+                        .catch(err => {
                             // eslint-disable-next-line no-console
                             console.log({
-                                message:'User not found!',
-                                error: 'No matching documents.'
+                                message: 'Error form loginFacebook [UID]',
+                                error: err
                             });
                             resolve({
                                 status: false,
                             });
-                        } else {
-                            snapshot.forEach(doc=> {
-                                resolve({
-                                    doc,
-                                    status: true
+                        });
+                });
+            } else {
+                data = await new Promise((resolve) => {
+                    firestore.collection('users').where('email','==',providerData.email).get()
+                        .then((snapshot)=> {
+                            if (snapshot.empty) {
+                                // eslint-disable-next-line no-console
+                                console.log({
+                                    message:'User not found!',
+                                    error: 'No matching documents.'
                                 });
-                            })
-                        }
-                    })
-                    .catch(err => {
-                        // eslint-disable-next-line no-console
-                        console.log({
-                            message: 'Error form loginFacebook',
-                            error: err
+                                resolve({
+                                    status: false,
+                                });
+                            } else {
+                                snapshot.forEach(doc=> {
+                                    resolve({
+                                        doc,
+                                        status: true
+                                    });
+                                })
+                            }
+                        })
+                        .catch(err => {
+                            // eslint-disable-next-line no-console
+                            console.log({
+                                message: 'Error form loginFacebook [EMAIL]',
+                                error: err
+                            });
+                            resolve({
+                                status: false,
+                            });
                         });
-                        resolve({
-                            status: false,
-                        });
-                    });
-            });
+                });
+            }
             if (data.status) {
                 let token = await generateToken(data.doc.id);
                 if (data.doc.data().name == undefined) {

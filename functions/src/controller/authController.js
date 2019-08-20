@@ -17,7 +17,7 @@ module.exports = {
                         error: error
                     })
                 });
-            if (providerData.email) {
+            if (providerData) {
                 let {status, firstTime, token} = await Auth.loginFacebook(providerData);
                 if (status) {
                     rse.send({
@@ -31,10 +31,16 @@ module.exports = {
                     rse.send({
                         statusCode: 401,
                         status: false,
-                        message: 'Login fail',
-                        firstTime: firstTime
+                        message: 'Login fail'
                     })
                 }
+            } else {
+                rse.send({
+                    statusCode: 400,
+                    status: false,
+                    message: 'Provider form facebook undefined',
+                    error: '-'
+                })
             }
         } catch (e) {
             rse.send(e);
