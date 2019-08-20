@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <b-container fluid>
-      <b-row class="justify-content-center mt-5">
+      <b-row class="justify-content-center mt-4">
         <b-col md="4" sm="12">
           <img class="w-100" src="../assets/freshy-logo.png"></img>
         </b-col>
@@ -151,6 +151,6 @@ export default {
 }
 
 .login {
-  min-height: calc(100vh - 159.5px);
+  min-height: calc(100vh - 138px);
 }
 </style>

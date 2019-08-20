@@ -17,7 +17,7 @@
             <!-- <div class="m-3" style="background: white" v-for="(person, index) in leaderboard.board" :key="index">
               <p style="color:black;">ลำดับที่ {{index+1}}  {{person.userData.id}} | {{person.userData.name}} | {{person.userData.amountOf.sum}} คน</p>
             </div> -->
-          <b-table striped hover :items="this.board" v-else></b-table>
+          <b-table striped hover :items="this.board.items" selectable select-mode="single" @row-selected="toProfile" v-else></b-table>
         </b-col>
         <b-col md="4" sm="12" v-if="yourPosition">
           <div class="m-3" style="background: white">
@@ -40,7 +40,10 @@ export default {
   data () {
     return {
       leaderboard: "",
-      board: [],
+      board: {
+        fields: [],
+        items: []
+      },
       yourPosition: "",
       error: "",
       loading: true
@@ -50,6 +53,20 @@ export default {
     ...mapGetters([
       'getProfile', 'checkLogined'
     ]),
+    toProfile(data) {
+      let index = data[0]["ลำดับที่"]
+      if (index === '🥇') {
+        index = 1
+      } else if (index === '🥈') {
+        index = 2
+      } else if (index === '🥉') {
+        index = 3
+      } else {
+        index = parseInt(index, 10)
+      }
+      let uid = this.leaderboard.board[--index].id
+      this.$router.push(`/profile/${uid}`)
+    }
   },
   mounted() {
     this.loading = true
@@ -63,7 +80,6 @@ export default {
       }
     })
     .then((res) => {
-      console.log(res)
       this.loading = false
       // console.log("success")
       // console.log(res.data)
@@ -81,11 +97,15 @@ export default {
             "ชื่อเล่น": d_.userData.nickname,
             "จำนวนชื่อที่ล่าได้": d_.userData.amountOf.sum
           }
-          this.board.push(arr)
+
+          if (index === 0)
+            arr["ลำดับที่"] = '🥇'
+          else if (index === 1)
+            arr["ลำดับที่"] = '🥈'
+          else if (index === 2)
+            arr["ลำดับที่"] = '🥉'
+          this.board.items.push(arr)
         })
-
-        console.log(this.board)
-
 
         if (res.data.yourPosition !== "You are not the first year." && res.data.yourPosition != null) {
           this.yourPosition = res.data.myPosition
