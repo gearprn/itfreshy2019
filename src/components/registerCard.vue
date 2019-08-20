@@ -18,12 +18,12 @@
 
             <div class="col-md-4 col-sm-12">
               <label class="control-label">รหัสนักศึกษา <span class="req-field">*</span></label>
-              <input type="name" class="form-control" placeholder="62070001" v-model="sid" required>
+              <input type="name" class="form-control" placeholder="62070001" v-model="sid" id="sid" required>
             </div>
             
             <div class="col-md-4 col-sm-12">
               <label class="control-label">ชั้นปี <span class="req-field">*</span></label>
-              <select v-model="year" class="custom-select">
+              <select v-model="year" class="custom-select" id="year">
                 <option value="1">ชั้นปีที่ 1</option>
                 <option value="2">ชั้นปีที่ 2</option>
                 <option value="3">ชั้นปีที่ 3</option>
@@ -83,45 +83,58 @@ export default {
     ]),
     onSubmit() {
       let token = Cookies.get('token')
-      axios({
-        method: "POST",
-          url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/user/register",
-          headers: {
-            "authorization" : "Bearer " + token
-          },
-          data: {
-            "name": this.name,
-            "nickname": this.nickname,
-            "id": this.sid,
-            "year": this.year,
-            "branch": this.branch,
-            "bio": this.bio,
-            "email": this.$store.getters.getEmail,
-            "imgUrl": this.$store.getters.getPhotoURL
-          }
-      })
-      .then((res) => {
-        // console.log(token)
-        if (res.data.status) {
-          axios({
-            method: "GET",
-            url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/user/myprofile",
+      console.log(this.sid)
+      if ((this.sid.startsWith("62") && this.year == 1) ||
+          (this.sid.startsWith("61") && this.year == 2) ||
+          (this.sid.startsWith("60") && this.year == 3) ||
+          (this.sid.startsWith("59") && this.year == 4)) {
+        axios({
+          method: "POST",
+            url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/user/register",
             headers: {
               "authorization" : "Bearer " + token
+            },
+            data: {
+              "name": this.name,
+              "nickname": this.nickname,
+              "id": this.sid,
+              "year": this.year,
+              "branch": this.branch,
+              "bio": this.bio,
+              "email": this.$store.getters.getEmail,
+              "imgUrl": this.$store.getters.getPhotoURL
             }
-          })
-          .then((res) => {
-            // console.log(res)
-            this.setProfile(res.data)
-            this.$router.push('/dashboard')
-          })
-        }
-        this.$router.push('/login')
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-    }
+        })
+        .then((res) => {
+          // console.log(token)
+          if (res.data.status) {
+            axios({
+              method: "GET",
+              url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/user/myprofile",
+              headers: {
+                "authorization" : "Bearer " + token
+              }
+            })
+            .then((res) => {
+              // console.log(res)
+              this.setProfile(res.data)
+              this.$router.push('/dashboard')
+            })
+          }
+          this.$router.push('/login')
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+      } else {
+        let error = "รหัสนักศึกษากับชั้นปีไม่สอดคล้องกัน"
+        console.log(error)
+        document.querySelector("#sid").style.borderWidth = "2px";
+        document.querySelector("#sid").style.borderColor = "red";
+        document.querySelector("#year").style.borderWidth = "2px";
+        document.querySelector("#year").style.borderColor = "red";
+      }
+    } 
   }
 };
 </script>
