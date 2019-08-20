@@ -40,19 +40,6 @@ export default {
     login() {
       let response_ = ""
       this.loginWithFB()
-      .then((res) => {
-        console.log(res)
-        response_ = res
-        console.log(response_)
-        if (response_ === 'dashboard') { 
-          this.gotoHome()
-        } else if (response_ === 'register') {
-          this.gotoRegister()
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-      })
     },
     // login() {
     //   let router = this.$router
