@@ -13,8 +13,8 @@
                 <h3>ดูเหมือนว่าคุณยังไม่ได้ทำความรู้จักกับเพื่อนปี 1 เลยนะ</h3>  
               </b-col>
               <b-col md="4" sm="12" class="my-3" v-for="friend in friendlist.year1" v-else>
-                <div class="card m-3 p-2 friend-card" @click="gotoProfile(friend.uid)">
-                  <div class="friend-image p-3">
+                <div class="card m-3 friend-card" @click="gotoProfile(friend.uid)">
+                  <div class="friend-image py-3 px-2">
                     <img :src="friend.photoURL + '?type=large'">
                   </div>
                   <h5>{{friend.name}}</h5>
@@ -32,9 +32,9 @@
               <b-col style="color: black;" class="my-5" v-if="friendlist.year2.length == 0">
                 <h3>ดูเหมือนว่าคุณยังไม่ได้ทำความรู้จักกับพี่ปี 2 เลยนะ</h3>  
               </b-col>
-              <b-col md="4" sm="12" v-for="friend in friendlist.year2" v-else>
-                <div class="card m-3 p-2 friend-card" @click="gotoProfile(friend.uid)">
-                  <div class="friend-image p-3">
+              <b-col md="4" sm="12" class="my-3" v-for="friend in friendlist.year2" v-else>
+                <div class="card m-3 friend-card" @click="gotoProfile(friend.uid)">
+                  <div class="friend-image py-3 px-2">
                     <img :src="friend.photoURL + '?type=large'">
                   </div>
                   <h5>{{friend.name}}</h5>
@@ -52,9 +52,9 @@
               <b-col style="color: black;" class="my-5" v-if="friendlist.year3.length == 0">
                 <h3>ดูเหมือนว่าคุณยังไม่ได้ทำความรู้จักกับพี่ปี 3 เลยนะ</h3>  
               </b-col>
-              <b-col md="4" sm="12" v-for="friend in friendlist.year3" v-else>
-                <div class="card m-3 p-2 friend-card" @click="gotoProfile(friend.uid)">
-                  <div class="friend-image p-3">
+              <b-col md="4" sm="12" class="my-3" v-for="friend in friendlist.year3" v-else>
+                <div class="card m-3 friend-card" @click="gotoProfile(friend.uid)">
+                  <div class="friend-image py-3 px-2">
                     <img :src="friend.photoURL + '?type=large'">
                   </div>
                   <h5>{{friend.name}}</h5>
@@ -72,9 +72,9 @@
               <b-col style="color: black;" class="my-5" v-if="friendlist.year4.length == 0">
                 <h3>ดูเหมือนว่าคุณยังไม่ได้ทำความรู้จักกับพี่ปี 4 เลยนะ</h3>  
               </b-col>
-              <b-col md="4" sm="12" v-for="friend in friendlist.year4" v-else>
-                <div class="card m-3 p-2 friend-card" @click="gotoProfile(friend.uid)">
-                  <div class="friend-image p-3">
+              <b-col md="4" sm="12" class="my-3" v-for="friend in friendlist.year4" v-else>
+                <div class="card m-3 friend-card" @click="gotoProfile(friend.uid)">
+                  <div class="friend-image py-3 px-2">
                     <img :src="friend.photoURL + '?type=large'">
                   </div>
                   <h5>{{friend.name}}</h5>
