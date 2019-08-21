@@ -10,5 +10,6 @@ module.exports = {
     ADD_FRIEND: '/friend/add',
     LEADERBOARD: '/leaderboard',
     EDIT_BY_SID: '/user/edit/:Sid',
-    GET_BY_SID: '/user/get/:Sid'
+    GET_BY_SID: '/user/get/:Sid',
+    MY_POSITION: '/leaderboard/position'
 }
