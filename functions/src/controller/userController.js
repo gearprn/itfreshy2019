@@ -66,7 +66,8 @@ module.exports = {
                 res.send({
                     statusCode: 400,
                     status: false,
-                    message: "Something went wrong when you try to register"
+                    message: "Something went wrong when you try to register",
+                    user: user
                 });
             }
 
@@ -153,6 +154,7 @@ module.exports = {
     edit : async (req, res) => {
         try {
             let {userId, status, error} = await auth.validateToken(req);
+            let { bio } = req.body;
 
             if (!status) {
                 res.send({
@@ -164,32 +166,23 @@ module.exports = {
             }
 
             let uid = userId;
-
             let userRef = firestore.collection('users').doc(uid);
-            await userRef.get().then((doc) => {
-                if (doc.exists) {
-                    let {nickname, bio, branch} = req.body;
-                    let payload = {
-                        'nickname': nickname,
-                        'bio': bio,
-                        'branch': branch,
-                    }
-                    userRef.update(payload).then(() => {
-                        res.send({
-                            statusCode: 200,
-                            status: true,
-                            message: "Change has been saved!"
-                        });
-                    });
+            userRef.update({'bio': bio}).then(() => {
+                res.send({
+                    statusCode: 200,
+                    status: true,
+                    message: 'Saved change.'
+                });
+            },
+            (e) => {
+                res.send({
+                    statusCode: 400,
+                    status: false,
+                    message: 'Something when wrong when we trying to save your data.',
+                    error: e
+                });
+            })
 
-                } else {
-                    res.send({
-                        statusCode: 404,
-                        status: false,
-                        message: "User not found",
-                    });
-                }
-            });
         } catch (e) {
             console.log(e);
             res.send({
@@ -317,4 +310,23 @@ module.exports = {
             });
         }
     },
+
+    getUserByEmail: async (req, res) => {
+        try {
+            let {email} = req.headers;
+            await firestore.collection("users").where("email", "==", email)
+            .get()
+            .then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    userData = doc.data();
+                    res.send({
+                        email: userData.email
+                    });
+                });
+            });
+        } catch (e) {
+            console.log(e);
+            res.send('ERROR')
+        }
+    }
 };
