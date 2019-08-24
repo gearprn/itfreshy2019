@@ -90,8 +90,11 @@ let store = new Vuex.Store({
             reject(err)
           })
         } else {
-          resolve(state.profile)
-        } 
+          let res = {
+            data: state.profile
+          }
+          resolve(res)
+        }
       })
     },
     loginWithCredential({ commit, state }) {

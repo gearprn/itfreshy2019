@@ -24,7 +24,7 @@ let router = new Router({
       }
     },
     {
-      path: '/friendlist',
+      path: '/friends',
       name: 'friend',
       component: friendListPage,
       meta: {
@@ -47,12 +47,17 @@ let router = new Router({
       component: loginPage,
     },
     {
+      path: '/profile/edit',
+      name: 'editProfile',
+      component: () => import('./views/editProfile.vue')
+    },
+    {
       path: '/profile',
       name: 'profile',
       component: () => import('./components/profileCard.vue'),
       children: [
         {
-          path: '/profile/:uid',
+          path: ':uid',
           component: () => import('./components/profileCard.vue')
         }
       ]
@@ -77,7 +82,7 @@ let router = new Router({
       }
     },
     {
-      path: '/qrScanner',
+      path: '/scan',
       name: 'qrcodeScanner',
       component: () => import('./components/qrcodeScanner.vue'),
       meta: {

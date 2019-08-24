@@ -1,6 +1,8 @@
 <template>
   <b-container fluid class="dashboard pb-3">
-    <h2 class="title-profile mb-3">PROFILE</h2>
+    <h2 class="mb-3">
+      <span class="title-profile">PROFILE</span>
+    </h2>
     <transition name="fade" mode="out-in">
       <b-container v-if="loading" class="mt-3">
         <b-container class="mt-3 mb-3">
@@ -24,7 +26,8 @@
                 <p class="mb-0">{{ this.getProfile().bio }}</p>
               </div> -->
               <div class="friend-card">
-                <p> {{ this.getProfile().bio }} </p>
+                <p>{{ this.getProfile().bio }}</p>
+                <b-link @click="toEdit">แก้ Bio</b-link>
               </div>
               <hr style="background: rgba(0, 0, 0, 0.363);">
               <p class="m-0">ล่ารายชื่อได้ทั้งหมด {{ this.getProfile().amountOf.sum }} คน</p>
@@ -127,7 +130,10 @@ export default {
     ]),
     ...mapActions([
       'loginWithToken'
-    ])
+    ]),
+    toEdit() {
+      this.$router.push('/profile/edit')
+    }
   },
   mounted() {
     let profile = this.getProfile()

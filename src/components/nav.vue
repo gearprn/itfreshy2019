@@ -9,11 +9,11 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto"  v-if="this.checkLogined()">
-          <b-nav-item @click="gotoHome">My Profile</b-nav-item>
-          <b-nav-item @click="gotoMyQr">My QR Code</b-nav-item>
-          <b-nav-item @click="gotoScanner">QR Scanner</b-nav-item>
-          <b-nav-item @click="gotoFriendList">Friend List</b-nav-item>
-          <b-nav-item @click="gotoleaderBoard">Leaderboard</b-nav-item>
+          <b-nav-item to="/dashboard" active-class="active">My Profile</b-nav-item>
+          <b-nav-item to="/qr" active-class="active">My QR Code</b-nav-item>
+          <b-nav-item to="/scan" active-class="active">QR Scanner</b-nav-item>
+          <b-nav-item to="/friends" active-class="active">Friend List</b-nav-item>
+          <b-nav-item to="/leaderboard" active-class="active">Leaderboard</b-nav-item>
           <b-nav-item @click="logout">Logout</b-nav-item>
           <!-- <b-nav-item href="https://oph2019-kmitl-c2dac.web.app/register" v-if="this.getLoginState() === false">ลงทะเบียน</b-nav-item> -->
           <!-- <b-nav-item v-if="this.getLoginState() === false" @click="login()">เข้าสู่ระบบ</b-nav-item>
@@ -101,37 +101,7 @@ export default {
         });
 
         this.alreadyLogin = false
-        this.gotoLogin()
-    },
-    gotoHome() {
-      let profile = this.getProfile()
-      axios({
-        method: "GET",
-        url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/user/myprofile",
-        headers: {
-          "authorization" : "Bearer " + this.token
-        }
-      })
-      .then((res) => {
-        this.setProfile(res.data)
-        this.$router.push('/dashboard')
-      })
-      // this.$router.push('/dashboard')
-    },
-    gotoMyQr() {
-      this.$router.push('/qr')
-    },
-    gotoScanner() {
-      this.$router.push('/qrScanner')
-    },
-    gotoLogin() {
-      this.$router.push('/login')
-    },
-    gotoFriendList() {
-      this.$router.push('/friendlist')
-    },
-    gotoleaderBoard() {
-      this.$router.push('/leaderboard')
+        this.$router.push('/login')
     }
   },
   mounted() {
@@ -178,11 +148,16 @@ export default {
 }
 
 .navbar-dark .navbar-nav .nav-link {
-    color: rgba(255,255,255,1);
+  color: rgba(255,255,255,1);
+  border-bottom: none;
+  transition: 0.25s ease all;
 }
 
 .navbar-dark:hover .navbar-nav:hover .nav-link:hover {
-    color: rgba(255,255,255,.5);
+  color: rgba(255,255,255,.5);
 }
 
+.active, .navbar.router-link-active, .navbar.router-link-exact-active {
+  color: gold !important;
+}
 </style>

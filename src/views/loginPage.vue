@@ -12,4 +12,5 @@ export default {
     loginBox
   }
 }
+// clear cache
 </script>

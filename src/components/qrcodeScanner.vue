@@ -1,6 +1,8 @@
 <template>
   <b-container fluid class="qrcode">
-    <h2 class="title mb-3">Scan QR</h2>
+    <h2 class="mb-3">
+      <span class="title">Scan QR</span>
+    </h2>
     <b-container class="box">
       <b-row v-if="showScanner == true" style="justify-content: center;" class="m-3 pt-4">
         <b-col class="justify-content-center camera" style="text-align:center" md="12" sm="12">

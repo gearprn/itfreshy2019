@@ -1,6 +1,8 @@
 <template>
   <b-container fluid class="leaderboard">
-    <h2 class="title">LEADERBOARD</h2>
+    <h2 class="mb-3">
+      <span class="title">LEADERBOARD</span>
+    </h2>
     <b-container>
       <b-row class="box text-left">
         <b-col md="12" sm="12">

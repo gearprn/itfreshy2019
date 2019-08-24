@@ -1,11 +1,10 @@
 <template>
-  <b-container class="profile">
+  <b-container class="edit-profile">
     <h2 class="mb-3">
-      <span class="title">PROFILE</span>
+      <span class="title">EDIT PROFILE</span>
     </h2>
     <b-container fluid v-if="error != null" class="mt-5 mb-5 p-5 box errorBox">
-      <h2>{{ this.error.split('|')[0] }}</h2>
-      <h3>{{ this.error.split('|')[1] }}</h3>
+      <h2>{{ this.error }}</h2>
     </b-container>
     <b-container fluid v-else-if="loading" class="mt-3 mb-5 p-5 box profile-box">
       <b-row>
@@ -21,31 +20,39 @@
         <b-col>
           <b-container class="bio-area" sm="12">
             <h4>Bio</h4>
-            <h6 style="word-wrap: break-word">{{ this.profile.bio }}</h6>
+            <b-form-textarea v-model="bio" placeholder="Your bio here" rows="6" max-rows="8" no-auto-shrink :value="bio"></b-form-textarea>
           </b-container>
+          <b-button type="submit" variant="primary" class="mt-3" @click="updateProfile">แก้ไขข้อมูล</b-button>
         </b-col>
       </b-row>
     </b-container>
     <b-container v-else class="mt-5 mb-5 p-5">
       <b-spinner style="width: 3rem; height: 3rem;" label="Loading..."></b-spinner>
     </b-container>
+    <b-modal v-model="showLog" size="lg" centered hide-body hide-footer no-stacking title="แจ้งเตือน">
+      <div class="d-block text-center p-3 ">
+        <h4> {{ log }} </h4>
+      </div>
+    </b-modal>
   </b-container>
 </template>
-
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import Cookies from 'js-cookie'
 import axios from 'axios'
 
 export default {
-  name: "profilePage",
+  name: "editProfile",
   components: {},
   data () {
     return {
       uid: "",
       profile: "",
+      bio: "",
       loading: false,
-      error: null
+      error: null,
+      log: "",
+      showLog: false
     }
   },
   methods: {
@@ -54,7 +61,40 @@ export default {
     ]),
     ...mapActions([
       'loginWithToken', 'getProfileByUid'
-    ])
+    ]),
+    updateProfile() {
+      console.log(this.bio)
+      axios({
+        method: "PUT",
+        url: "https://us-central1-itfreshy2019.cloudfunctions.net/api/user/edit",
+        headers: {
+          "authorization" : "Bearer " + Cookies.get('token')
+        },
+        data: {
+          bio: this.bio
+        }
+      })
+      .then(res => {
+        console.log(res)
+        if (res.data.statusCode == 200) {
+          this.showModal("ได้ทำการบันทึกข้อมูลเรียบร้อยแล้ว")
+        } else {
+          this.showModal("มีบางสิ่งผิดพลาด กรุณาลองใหม่ในภายหลัง")
+        }
+      })
+      .catch(err => {
+        console.log(err)
+        this.showModal("มีบางสิ่งผิดพลาด กรุณาลองใหม่ในภายหลัง")
+      })
+    },
+    showModal(log) {
+      this.log = log
+      this.showLog = true
+    },
+    hideModal() {
+      this.log = log
+      this.showLog = false
+    }
   },
   mounted() {
     let token = Cookies.get('token')
@@ -63,21 +103,20 @@ export default {
       this.loginWithToken(token)
         .then((res) => {
           this.profile = res.data
+          this.bio = this.profile.bio
           this.loading = true
         })
         .catch((err) => {
-          // console.log(err)
           this.error = err
         })
     } else if (this.uid != null) {
       this.getProfileByUid(this.uid)
       .then((res) => {
-        // console.log(res)
         this.profile = res.user
+        this.bio = this.profile.bio
         this.loading = true
       })
       .catch((err) => {
-        // console.log(err)
         this.error = err
       })
     } else {
@@ -87,8 +126,30 @@ export default {
 };
 </script>
 
+<style lang="scss">
+.modal {
+  font-family: 'IBMPlexThai', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.modal-backdrop {
+  background: rgba(0, 0, 0, 0.3)
+}
+</style>
+
 <style lang="scss" scoped>
-.profile {
+.title {
+  background: #00b09b;  /* fallback for old browsers */
+  background-image: -webkit-linear-gradient(to right, #96c93d, #00b09b);  /* Chrome 10-25, Safari 5.1-6 */
+  background-image: linear-gradient(to right, #96c93d, #00b09b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0px 3px 1px #333300);
+}
+
+.edit-profile {
   min-height: calc(100vh - 160px);
 }
 
