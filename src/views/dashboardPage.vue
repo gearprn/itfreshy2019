@@ -27,7 +27,7 @@
               </div> -->
               <div class="friend-card">
                 <p>{{ this.getProfile().bio }}</p>
-                <b-link @click="toEdit">แก้ Bio</b-link>
+                <b-link to="/profile/edit">แก้ Bio</b-link>
               </div>
               <hr style="background: rgba(0, 0, 0, 0.363);">
               <p class="m-0">ล่ารายชื่อได้ทั้งหมด {{ this.getProfile().amountOf.sum }} คน</p>
@@ -130,10 +130,7 @@ export default {
     ]),
     ...mapActions([
       'loginWithToken'
-    ]),
-    toEdit() {
-      this.$router.push('/profile/edit')
-    }
+    ])
   },
   mounted() {
     let profile = this.getProfile()
