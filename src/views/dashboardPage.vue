@@ -7,7 +7,7 @@
       <b-container v-if="loading" class="mt-3">
         <b-container class="mt-3 mb-3">
           <b-row class="textMid">
-            <b-img-lazy :src="`${this.getProfile().photoURL}?type=large`" class="rounded-top"></b-img-lazy>
+            <b-img :src="`${this.getProfile().photoURL}?type=large`" class="rounded-top profile-image" blank-color="#FFF"></b-img>
           </b-row>
           <b-row class="textMid">
             <div class="rounded-bottom nickname-box" style="background: #000000c9; color: #fff;">
@@ -218,6 +218,11 @@ export default {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   filter: drop-shadow(0px 3px 1px #333300);
+}
+
+.profile-image {
+  width: inherit;
+  height: auto;
 }
 
 .bio {

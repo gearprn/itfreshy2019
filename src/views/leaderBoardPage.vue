@@ -19,7 +19,7 @@
             <!-- <div class="m-3" style="background: white" v-for="(person, index) in leaderboard.board" :key="index">
               <p style="color:black;">ลำดับที่ {{index+1}}  {{person.userData.id}} | {{person.userData.name}} | {{person.userData.amountOf.sum}} คน</p>
             </div> -->
-          <b-table striped hover :items="this.board.items" selectable select-mode="single" @row-selected="toProfile" v-else></b-table>
+          <b-table striped hover :items="this.board.items" selectable select-mode="single" @row-selected="toProfile" responsive v-else></b-table>
         </b-col>
         <b-col md="4" sm="12" v-if="yourPosition">
           <div class="m-3" style="background: white">
