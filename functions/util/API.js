@@ -11,5 +11,6 @@ module.exports = {
     LEADERBOARD: '/leaderboard',
     EDIT_BY_SID: '/user/edit/:Sid',
     GET_BY_SID: '/user/get/:Sid',
-    MY_POSITION: '/leaderboard/position'
+    MY_POSITION: '/leaderboard/position',
+    REGENERATE_QR: '/qr/regenerate',
 }

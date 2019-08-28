@@ -328,5 +328,34 @@ module.exports = {
             console.log(e);
             res.send('ERROR')
         }
+    },
+    regenerateQr:async (req, res) => {
+        try {
+            let {userId, status, error} = await auth.validateToken(req);
+
+            if (!status) {
+                res.send({
+                    statusCode: 401,
+                    status: false,
+                    message: 'Unauthorized',
+                    error: error
+                });
+            }
+
+            let hash = randomstring.generate(7);
+            let encoded = await QrText.generate(userId, hash);
+            let newQrCode = new QRCode(userId, hash, encoded);
+            await firestore.collection("users").doc(userId).update({
+                qrCode: JSON.parse(JSON.stringify(newQrCode))
+            });
+            res.send({
+                statusCode: 206,
+                status: true,
+                message: "Success"
+            });
+        } catch (e) {
+            console.log(e);
+            res.send('ERROR')
+        }
     }
 };
